@@ -19,8 +19,8 @@ const Stack = createStackNavigator();
 
 const App = () => {
   const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("./assets/fonts/Poppins/Poppins-ExtraBold.ttf"),
-    "Montserrat-Bold": require("./assets/fonts/Montserrat/static/Montserrat-Bold.ttf"),
+    Poppins: require("./assets/fonts/Poppins/Poppins-SemiBold.ttf"),
+    "Montserrat-Bold": require("./assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -41,10 +41,11 @@ const App = () => {
             name="Login"
             component={LoginScreen}
             options={{
-              title: "Flexwell",
+              title: "FLEXWELL",
               headerTitleStyle: {
                 fontFamily: "Montserrat-Bold",
                 fontSize: appBarFontSize,
+                letterSpacing: 4,
               },
               headerStyle: {
                 backgroundColor: primaryColor,
