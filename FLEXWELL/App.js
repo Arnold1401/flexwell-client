@@ -1,6 +1,9 @@
 import React, { useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from "@react-navigation/stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -36,7 +39,13 @@ const App = () => {
   return (
     <SafeAreaProvider onLayout={onLayoutRootView}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            animationEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            detachPreviousScreen: false,
+          }}
+        >
           <Stack.Screen
             name="Login"
             component={LoginScreen}
@@ -57,7 +66,26 @@ const App = () => {
               },
             }}
           />
-          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{
+              title: "FLEXWELL",
+              headerTitleStyle: {
+                fontFamily: "Montserrat-Bold",
+                fontSize: appBarFontSize,
+                letterSpacing: 4,
+              },
+              headerStyle: {
+                backgroundColor: primaryColor,
+              },
+              headerTintColor: textWhite,
+              headerTitleAlign: "center",
+              cardStyle: {
+                backgroundColor: secondaryColor,
+              },
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

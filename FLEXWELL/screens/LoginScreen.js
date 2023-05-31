@@ -24,7 +24,7 @@ const LoginScreen = ({ navigation }) => {
     >
       <View
         style={{
-          marginTop: 48,
+          marginTop: 32,
           width: "100%",
           alignItems: "center",
           justifyContent: "center",
@@ -39,7 +39,7 @@ const LoginScreen = ({ navigation }) => {
           }}
           contentFit="contain"
           source={logo}
-          transition={1000}
+          transition={2500}
         />
       </View>
       <View
