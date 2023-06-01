@@ -17,8 +17,8 @@ import {
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [username, onChangeText] = React.useState("");
-  const [password, onChangeNumber] = React.useState("");
+  const [username, onChangeUsername] = React.useState("");
+  const [password, onChangePassword] = React.useState("");
   const test = async () => {
     console.log("ada data isinya", await getData());
     dispatch(loginHandler(username, password));
@@ -67,6 +67,7 @@ const LoginScreen = ({ navigation }) => {
       >
         <Fumi
           label={"Username"}
+          onChangeText={onChangeUsername}
           iconClass={FontAwesome}
           iconName={"user"}
           iconColor={primaryColor}
@@ -84,6 +85,7 @@ const LoginScreen = ({ navigation }) => {
         />
         <Fumi
           label={"Password"}
+          onChangeText={onChangePassword}
           iconClass={FontAwesome}
           iconName={"key"}
           iconColor={primaryColor}

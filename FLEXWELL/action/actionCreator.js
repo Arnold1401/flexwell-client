@@ -41,3 +41,17 @@ export const doLogin = () => async (dispatch, getState) => {
     console.log("Finally", getState());
   }
 };
+
+export const doRegisterMiddleware =
+  (email, username, password, passwordCheck) => (dispatch, getState) => {
+    // dispatch(registerPending())
+    try {
+      console.log(
+        email,
+        username,
+        password,
+        passwordCheck,
+        "dari Action Creator"
+      );
+    } catch (error) {}
+  };

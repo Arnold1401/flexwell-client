@@ -19,8 +19,23 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
+import { useDispatch } from "react-redux";
+import { doRegisterMiddleware } from "../action/actionCreator";
 
 const RegisterScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const [email, onChangeEmail] = React.useState();
+  const [username, onChangeUsername] = React.useState();
+  const [password, onChangePassword] = React.useState();
+  const [passwordCheck, onChangePasswordCheck] = React.useState();
+
+  const doRegister = () => {
+    console.log("testing");
+    console.log(email, username, password, passwordCheck);
+    dispatch(doRegisterMiddleware(email, username, password, passwordCheck));
+  };
+
   return (
     <ScrollView>
       <View
@@ -60,6 +75,7 @@ const RegisterScreen = ({ navigation }) => {
         >
           <Fumi
             label={"Email"}
+            onChangeText={onChangeEmail}
             iconClass={FontAwesome}
             iconName={"envelope"}
             iconColor={primaryColor}
@@ -77,6 +93,7 @@ const RegisterScreen = ({ navigation }) => {
           />
           <Fumi
             label={"Username"}
+            onChangeText={onChangeUsername}
             iconClass={FontAwesome}
             iconName={"user"}
             iconColor={primaryColor}
@@ -93,6 +110,7 @@ const RegisterScreen = ({ navigation }) => {
           />
           <Fumi
             label={"Password"}
+            onChangeText={onChangePassword}
             iconClass={FontAwesome}
             iconName={"key"}
             iconColor={primaryColor}
@@ -110,6 +128,7 @@ const RegisterScreen = ({ navigation }) => {
           />
           <Fumi
             label={"Confirm Password"}
+            onChangeText={onChangePasswordCheck}
             iconClass={FontAwesome}
             iconName={"key"}
             iconColor={primaryColor}
@@ -144,6 +163,7 @@ const RegisterScreen = ({ navigation }) => {
               alignItems: "center",
               justifyContent: "center",
             }}
+            onPress={() => doRegister()}
           >
             <Text
               style={{
@@ -159,7 +179,7 @@ const RegisterScreen = ({ navigation }) => {
             <Text style={{ color: textSecondary }}>
               Already have an account?
             </Text>
-            <Pressable onPress={() => navigation.navigate("Login")}>
+            <Pressable onPress={() => {}}>
               <Text style={{ color: textSecondary, fontWeight: "bold" }}>
                 Sign In
               </Text>
