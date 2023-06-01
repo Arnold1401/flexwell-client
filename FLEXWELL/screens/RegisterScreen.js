@@ -8,9 +8,9 @@ import {
   ScrollView,
 } from "react-native";
 import { Image } from "expo-image";
-import logo from "../assets/logo.png";
-import { Sae, Fumi } from "react-native-textinput-effects";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import logo from "../assets/logo.png";
 import {
   accentColor,
   buttonTextSize,
@@ -40,9 +40,8 @@ const RegisterScreen = ({ navigation }) => {
         >
           <Image
             style={{
-              width: 200,
-              height: 200,
-              backgroundColor: "black",
+              width: 150,
+              height: 150,
               borderRadius: 32,
             }}
             contentFit="contain"
@@ -63,7 +62,7 @@ const RegisterScreen = ({ navigation }) => {
             label={"Email"}
             iconClass={FontAwesome}
             iconName={"envelope"}
-            iconColor={secondaryColor}
+            iconColor={primaryColor}
             iconSize={24}
             iconWidth={40}
             inputPadding={16}
@@ -77,7 +76,7 @@ const RegisterScreen = ({ navigation }) => {
             label={"Username"}
             iconClass={FontAwesome}
             iconName={"user"}
-            iconColor={secondaryColor}
+            iconColor={primaryColor}
             iconSize={24}
             iconWidth={40}
             inputPadding={16}
@@ -90,7 +89,7 @@ const RegisterScreen = ({ navigation }) => {
             label={"Password"}
             iconClass={FontAwesome}
             iconName={"key"}
-            iconColor={secondaryColor}
+            iconColor={primaryColor}
             iconSize={24}
             iconWidth={40}
             inputPadding={16}
@@ -104,7 +103,7 @@ const RegisterScreen = ({ navigation }) => {
             label={"Confirm Password"}
             iconClass={FontAwesome}
             iconName={"key"}
-            iconColor={secondaryColor}
+            iconColor={primaryColor}
             iconSize={24}
             iconWidth={40}
             inputPadding={16}
@@ -145,9 +144,11 @@ const RegisterScreen = ({ navigation }) => {
             </Text>
           </Pressable>
           <View style={{ flexDirection: "row", gap: 8 }}>
-            <Text style={{ color: textPrimary }}>Already have an account?</Text>
+            <Text style={{ color: textSecondary }}>
+              Already have an account?
+            </Text>
             <Pressable onPress={() => navigation.navigate("Login")}>
-              <Text style={{ color: textPrimary, fontWeight: "bold" }}>
+              <Text style={{ color: textSecondary, fontWeight: "bold" }}>
                 Sign In
               </Text>
             </Pressable>

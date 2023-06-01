@@ -1,14 +1,12 @@
 import React from "react";
 import { View, Text, Button, StyleSheet, Pressable } from "react-native";
 import { Image } from "expo-image";
-import logo from "../assets/logo.png";
-import { Sae, Fumi } from "react-native-textinput-effects";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import logo from "../assets/logo.png";
 import {
-  accentColor,
   buttonTextSize,
   primaryColor,
-  secondaryColor,
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
@@ -32,9 +30,8 @@ const LoginScreen = ({ navigation }) => {
       >
         <Image
           style={{
-            width: 200,
-            height: 200,
-            backgroundColor: "black",
+            width: 150,
+            height: 150,
             borderRadius: 32,
           }}
           contentFit="contain"
@@ -48,40 +45,42 @@ const LoginScreen = ({ navigation }) => {
           width: "100%",
           justifyContent: "center",
           alignItems: "center",
-          gap: 10,
+          gap: 16,
         }}
       >
         <Fumi
           label={"Username"}
           iconClass={FontAwesome}
           iconName={"user"}
-          iconColor={secondaryColor}
+          iconColor={primaryColor}
           iconSize={24}
           iconWidth={40}
           inputPadding={16}
           style={{
             width: "90%",
             borderRadius: 16,
+            borderWidth: 0.1,
           }}
         />
         <Fumi
           label={"Password"}
           iconClass={FontAwesome}
           iconName={"key"}
-          iconColor={secondaryColor}
+          iconColor={primaryColor}
           iconSize={24}
           iconWidth={40}
           inputPadding={16}
           style={{
             width: "90%",
             borderRadius: 16,
+            borderWidth: 0.1,
           }}
           secureTextEntry={true}
         />
       </View>
       <View
         style={{
-          marginTop: 32,
+          marginTop: 40,
           width: "100%",
           alignItems: "center",
           gap: 8,
@@ -93,7 +92,7 @@ const LoginScreen = ({ navigation }) => {
             height: 48,
             backgroundColor: primaryColor,
             width: "90%",
-            borderRadius: 16,
+            borderRadius: 32,
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -109,9 +108,9 @@ const LoginScreen = ({ navigation }) => {
           </Text>
         </Pressable>
         <View style={{ flexDirection: "row", gap: 8 }}>
-          <Text style={{ color: textPrimary }}>Don't have an account?</Text>
+          <Text style={{ color: textSecondary }}>Don't have an account?</Text>
           <Pressable onPress={() => navigation.navigate("Register")}>
-            <Text style={{ color: textPrimary, fontWeight: "bold" }}>
+            <Text style={{ color: textSecondary, fontWeight: "bold" }}>
               Sign Up
             </Text>
           </Pressable>

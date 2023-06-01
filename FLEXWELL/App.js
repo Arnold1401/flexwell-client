@@ -12,8 +12,9 @@ import { LoginScreen, RegisterScreen } from "./screens";
 import {
   appBarFontSize,
   primaryColor,
-  secondaryColor,
-  textWhite,
+  textAccent,
+  textPrimary,
+  textSecondary,
 } from "./color-and-size.config";
 
 SplashScreen.preventAutoHideAsync();
@@ -59,10 +60,10 @@ const App = () => {
               headerStyle: {
                 backgroundColor: primaryColor,
               },
-              headerTintColor: textWhite,
+              headerTintColor: textPrimary,
               headerTitleAlign: "center",
               cardStyle: {
-                backgroundColor: secondaryColor,
+                backgroundColor: textPrimary,
               },
             }}
           />
@@ -79,10 +80,10 @@ const App = () => {
               headerStyle: {
                 backgroundColor: primaryColor,
               },
-              headerTintColor: textWhite,
+              headerTintColor: textPrimary,
               headerTitleAlign: "center",
               cardStyle: {
-                backgroundColor: secondaryColor,
+                backgroundColor: textPrimary,
               },
             }}
           />
