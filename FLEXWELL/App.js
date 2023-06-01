@@ -9,14 +9,16 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import store from "./store/index";
+import { LoginScreen, RegisterScreen } from "./screens";
+
 import {
-  LoginScreen,
-  RegisterScreen,
-  ThirtyDayChallenge,
-  DetailDayChallenge,
-  DayChallengeExcercise,
-  BodyPartScreen,
-} from "./screens";
+  ChallengeStack,
+  LibraryStack,
+  DashboardStack,
+  CustomizationStack,
+  ProfileStack,
+} from "./stacks";
+
 import {
   appBarFontSize,
   primaryColor,
@@ -31,88 +33,30 @@ SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const ThirtyDayChallengeStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="30DayChallenge"
-        component={ThirtyDayChallenge}
-        options={{
-          title: "Challenge",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-          headerLeft: () => null, // Remove the back button
-          gestureEnabled: false, // Disable swipe gesture to go back
-          headerTintColor: textPrimary,
-          headerTitleAlign: "center",
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-        }}
-      />
-      <Stack.Screen
-        name="ChallengeDetail"
-        component={DetailDayChallenge}
-        options={{
-          title: "Detail",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-
-          headerTintColor: textPrimary,
-          headerTitleAlign: "center",
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const LibraryStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="BodyPart"
-        component={BodyPartScreen}
-        options={{
-          title: "Body Part",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-          headerLeft: () => null, // Remove the back button
-          gestureEnabled: false, // Disable swipe gesture to go back
-          headerTintColor: textPrimary,
-          headerTitleAlign: "center",
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const bottomStack = () => {
   return (
     <Tab.Navigator>
+      <Tab.Screen
+        name="Dashboard"
+        options={{
+          title: "Dashboard",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+        component={DashboardStack}
+      />
       <Tab.Screen
         name="Challenge"
         options={{
@@ -133,7 +77,7 @@ const bottomStack = () => {
             backgroundColor: textPrimary,
           },
         }}
-        component={ThirtyDayChallengeStack}
+        component={ChallengeStack}
       />
       <Tab.Screen
         name="Library"
@@ -156,6 +100,50 @@ const bottomStack = () => {
           },
         }}
         component={LibraryStack}
+      />
+      <Tab.Screen
+        name="Custom"
+        options={{
+          title: "Custom",
+          headerShown: false,
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+        component={CustomizationStack}
+      />
+      <Tab.Screen
+        name="Profile"
+        options={{
+          title: "Profile",
+          headerShown: false,
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+        component={ProfileStack}
       />
     </Tab.Navigator>
   );

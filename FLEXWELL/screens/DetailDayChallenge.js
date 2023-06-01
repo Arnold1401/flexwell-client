@@ -34,6 +34,7 @@ const DetailDayChallenge = ({ route, navigation }) => {
 
   const toOneExercise = (id) => {
     console.log(id);
+    navigation.navigate("DayExercise");
   };
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
