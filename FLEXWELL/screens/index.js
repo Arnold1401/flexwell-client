@@ -1,3 +1,4 @@
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
-export { LoginScreen, RegisterScreen };
+import Personalize from "./Personalize";
+export { LoginScreen, RegisterScreen, Personalize };

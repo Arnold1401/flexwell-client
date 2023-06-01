@@ -8,7 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import { LoginScreen, RegisterScreen } from "./screens";
+import { LoginScreen, Personalize, RegisterScreen } from "./screens";
 import {
   appBarFontSize,
   primaryColor,
@@ -48,7 +48,7 @@ const App = () => {
             detachPreviousScreen: false,
           }}
         >
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Login"
             component={LoginScreen}
             options={{
@@ -77,6 +77,25 @@ const App = () => {
                 fontFamily: "Montserrat-Bold",
                 fontSize: appBarFontSize,
                 letterSpacing: 4,
+              },
+              headerStyle: {
+                backgroundColor: primaryColor,
+              },
+              headerTintColor: textPrimary,
+              headerTitleAlign: "center",
+              cardStyle: {
+                backgroundColor: textPrimary,
+              },
+            }}
+          /> */}
+          <Stack.Screen
+            name="Personalize"
+            component={Personalize}
+            options={{
+              title: "Personalization",
+              headerTitleStyle: {
+                fontFamily: "Montserrat-Bold",
+                fontSize: appBarFontSize,
               },
               headerStyle: {
                 backgroundColor: primaryColor,
