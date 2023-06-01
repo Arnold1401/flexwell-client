@@ -7,6 +7,8 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { Provider } from "react-redux";
+import store from "./store/index";
 
 import { LoginScreen, RegisterScreen } from "./screens";
 import {
@@ -39,58 +41,12 @@ const App = () => {
   }
 
   return (
-    <SafeAreaProvider onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            animationEnabled: true,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            detachPreviousScreen: false,
-          }}
-        >
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{
-              title: "FLEXWELL",
-              headerTitleStyle: {
-                fontFamily: "Montserrat-Bold",
-                fontSize: appBarFontSize,
-                letterSpacing: 4,
-              },
-              headerStyle: {
-                backgroundColor: primaryColor,
-              },
-              headerTintColor: textPrimary,
-              headerTitleAlign: "center",
-              cardStyle: {
-                backgroundColor: textPrimary,
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{
-              title: "FLEXWELL",
-              headerTitleStyle: {
-                fontFamily: "Montserrat-Bold",
-                fontSize: appBarFontSize,
-                letterSpacing: 4,
-              },
-              headerStyle: {
-                backgroundColor: primaryColor,
-              },
-              headerTintColor: textPrimary,
-              headerTitleAlign: "center",
-              cardStyle: {
-                backgroundColor: textPrimary,
-              },
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
