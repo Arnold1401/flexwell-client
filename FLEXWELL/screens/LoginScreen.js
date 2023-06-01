@@ -61,6 +61,9 @@ const LoginScreen = ({ navigation }) => {
             borderRadius: 16,
             borderWidth: 0.1,
           }}
+          inputStyle={{
+            color: textSecondary,
+          }}
         />
         <Fumi
           label={"Password"}
@@ -74,6 +77,9 @@ const LoginScreen = ({ navigation }) => {
             width: "90%",
             borderRadius: 16,
             borderWidth: 0.1,
+          }}
+          inputStyle={{
+            color: textSecondary,
           }}
           secureTextEntry={true}
         />
