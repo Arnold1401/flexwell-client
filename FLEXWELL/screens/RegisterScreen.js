@@ -71,6 +71,9 @@ const RegisterScreen = ({ navigation }) => {
               borderRadius: 16,
             }}
             keyboardType="email-address"
+            inputStyle={{
+              color: textSecondary,
+            }}
           />
           <Fumi
             label={"Username"}
@@ -83,6 +86,9 @@ const RegisterScreen = ({ navigation }) => {
             style={{
               width: "90%",
               borderRadius: 16,
+            }}
+            inputStyle={{
+              color: textSecondary,
             }}
           />
           <Fumi
@@ -98,6 +104,9 @@ const RegisterScreen = ({ navigation }) => {
               borderRadius: 16,
             }}
             secureTextEntry={true}
+            inputStyle={{
+              color: textSecondary,
+            }}
           />
           <Fumi
             label={"Confirm Password"}
@@ -112,6 +121,9 @@ const RegisterScreen = ({ navigation }) => {
               borderRadius: 16,
             }}
             secureTextEntry={true}
+            inputStyle={{
+              color: textSecondary,
+            }}
           />
         </View>
         <View
