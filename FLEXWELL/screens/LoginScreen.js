@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Button, StyleSheet, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { Fumi } from "react-native-textinput-effects";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import logo from "../assets/logo.png";
+import { useDispatch } from "react-redux";
+import { loginHandler } from "../action/actionCreator";
+import { storeData, getData } from "../async";
 import {
   buttonTextSize,
   primaryColor,
@@ -12,6 +15,20 @@ import {
 } from "../color-and-size.config";
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const [username, onChangeText] = React.useState("");
+  const [password, onChangeNumber] = React.useState("");
+  const test = async () => {
+    console.log("ada data isinya", await getData());
+    dispatch(loginHandler(username, password));
+  };
+
+  const doLogin = () => {
+    storeData("access_token");
+    test();
+  };
+
   return (
     <View
       style={{
@@ -61,6 +78,9 @@ const LoginScreen = ({ navigation }) => {
             borderRadius: 16,
             borderWidth: 0.1,
           }}
+          inputStyle={{
+            color: textSecondary,
+          }}
         />
         <Fumi
           label={"Password"}
@@ -75,6 +95,9 @@ const LoginScreen = ({ navigation }) => {
             borderRadius: 16,
             borderWidth: 0.1,
           }}
+          inputStyle={{
+            color: textSecondary,
+          }}
           secureTextEntry={true}
         />
       </View>
@@ -88,6 +111,7 @@ const LoginScreen = ({ navigation }) => {
         }}
       >
         <Pressable
+          onPress={() => doLogin()}
           style={{
             height: 48,
             backgroundColor: primaryColor,
