@@ -26,6 +26,7 @@ const App = () => {
     Poppins: require("./assets/fonts/Poppins/Poppins-SemiBold.ttf"),
     "Montserrat-Bold": require("./assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf"),
   });
+  //
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
