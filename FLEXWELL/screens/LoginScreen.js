@@ -7,6 +7,8 @@ import logo from "../assets/logo.png";
 import { useDispatch } from "react-redux";
 import { loginHandler } from "../action/actionCreator";
 import { storeData, getData } from "../async";
+import { useNavigation } from "@react-navigation/native";
+
 import {
   buttonTextSize,
   primaryColor,
@@ -14,7 +16,8 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [username, onChangeUsername] = React.useState("");
@@ -27,6 +30,7 @@ const LoginScreen = ({ navigation }) => {
   const doLogin = () => {
     storeData("access_token");
     test();
+    navigation.navigate("Main");
   };
 
   return (

@@ -21,8 +21,9 @@ import {
 } from "../color-and-size.config";
 import { useDispatch } from "react-redux";
 import { doRegisterMiddleware } from "../action/actionCreator";
-
-const RegisterScreen = ({ navigation }) => {
+import { useNavigation } from "@react-navigation/native";
+const RegisterScreen = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [email, onChangeEmail] = React.useState();
@@ -179,7 +180,11 @@ const RegisterScreen = ({ navigation }) => {
             <Text style={{ color: textSecondary }}>
               Already have an account?
             </Text>
-            <Pressable onPress={() => {}}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+            >
               <Text style={{ color: textSecondary, fontWeight: "bold" }}>
                 Sign In
               </Text>

@@ -9,7 +9,14 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import store from "./store/index";
-import { LoginScreen, RegisterScreen } from "./screens";
+import {
+  LoginScreen,
+  RegisterScreen,
+  ThirtyDayChallenge,
+  DetailDayChallenge,
+  DayChallengeExcercise,
+  BodyPartScreen,
+} from "./screens";
 import {
   appBarFontSize,
   primaryColor,
@@ -17,10 +24,142 @@ import {
   textPrimary,
   textSecondary,
 } from "./color-and-size.config";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const ThirtyDayChallengeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="30DayChallenge"
+        component={ThirtyDayChallenge}
+        options={{
+          title: "Challenge",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+          headerLeft: () => null, // Remove the back button
+          gestureEnabled: false, // Disable swipe gesture to go back
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ChallengeDetail"
+        component={DetailDayChallenge}
+        options={{
+          title: "Detail",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const LibraryStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="BodyPart"
+        component={BodyPartScreen}
+        options={{
+          title: "Body Part",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+          headerLeft: () => null, // Remove the back button
+          gestureEnabled: false, // Disable swipe gesture to go back
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const bottomStack = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Challenge"
+        options={{
+          headerShown: false,
+          title: "Challenge",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+        component={ThirtyDayChallengeStack}
+      />
+      <Tab.Screen
+        name="Library"
+        options={{
+          headerShown: false,
+          title: "Library",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+        component={LibraryStack}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -63,6 +202,8 @@ const App = () => {
                 headerStyle: {
                   backgroundColor: primaryColor,
                 },
+                headerLeft: () => null, // Remove the back button
+                gestureEnabled: false, // Disable swipe gesture to go back
                 headerTintColor: textPrimary,
                 headerTitleAlign: "center",
                 cardStyle: {
@@ -80,6 +221,8 @@ const App = () => {
                   fontSize: appBarFontSize,
                   letterSpacing: 4,
                 },
+                headerLeft: () => null, // Remove the back button
+                gestureEnabled: false, // Disable swipe gesture to go back
                 headerStyle: {
                   backgroundColor: primaryColor,
                 },
@@ -89,6 +232,13 @@ const App = () => {
                   backgroundColor: textPrimary,
                 },
               }}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="Main"
+              component={bottomStack}
             />
           </Stack.Navigator>
         </NavigationContainer>
