@@ -9,7 +9,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import store from "./store/index";
-import { LoginScreen, RegisterScreen } from "./screens";
+import { LoginScreen, Personalize, RegisterScreen } from "./screens";
 
 import {
   ChallengeStack,
@@ -33,7 +33,7 @@ SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const bottomStack = () => {
+const Bottomstack = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -222,11 +222,30 @@ const App = () => {
               }}
             />
             <Stack.Screen
+              name="Personalize"
+              component={Personalize}
+              options={{
+                title: "Personalization",
+                headerTitleStyle: {
+                  fontFamily: "Montserrat-Bold",
+                  fontSize: appBarFontSize,
+                },
+                headerStyle: {
+                  backgroundColor: primaryColor,
+                },
+                headerTintColor: textPrimary,
+                headerTitleAlign: "center",
+                cardStyle: {
+                  backgroundColor: textPrimary,
+                },
+              }}
+            />
+            <Stack.Screen
               options={{
                 headerShown: false,
               }}
               name="Main"
-              component={bottomStack}
+              component={Bottomstack}
             />
           </Stack.Navigator>
         </NavigationContainer>
