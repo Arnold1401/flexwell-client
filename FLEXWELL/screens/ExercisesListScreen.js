@@ -19,7 +19,7 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
-const DetailDayChallenge = ({ route, navigation }) => {
+const ExercisesScreen = ({ route, navigation }) => {
   const { id } = route.params;
   // Data untuk flatlist
   const data = [
@@ -34,7 +34,7 @@ const DetailDayChallenge = ({ route, navigation }) => {
 
   const toOneExercise = (id) => {
     console.log(id);
-    navigation.navigate("DayExercise");
+    navigation.navigate("ExerciseDetailScreen", { id });
   };
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
@@ -116,7 +116,7 @@ const DetailDayChallenge = ({ route, navigation }) => {
             flex: 1,
           }}
         >
-          <Text>Day {id}</Text>
+          <Text>Exercise Body part {id}</Text>
         </View>
 
         <View
@@ -134,4 +134,4 @@ const DetailDayChallenge = ({ route, navigation }) => {
   );
 };
 
-export default DetailDayChallenge;
+export default ExercisesScreen;

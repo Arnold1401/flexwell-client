@@ -37,7 +37,7 @@ const BodyPartScreen = ({ route, navigation }) => {
           <View style={{ flex: 1 }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("ExercisesScreen");
+                navigation.navigate("ExerciseListScreen", { id: 1 });
               }}
             >
               <Text>Biceps</Text>

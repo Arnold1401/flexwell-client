@@ -19,7 +19,7 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
-const DetailDayChallenge = ({ route, navigation }) => {
+const ExerciseDetailScreen = ({ route, navigation }) => {
   const { id } = route.params;
   // Data untuk flatlist
   const data = [
@@ -36,31 +36,6 @@ const DetailDayChallenge = ({ route, navigation }) => {
     console.log(id);
     navigation.navigate("DayExercise");
   };
-
-  //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
-  const ListItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => {
-        toOneExercise(item.id);
-      }}
-    >
-      <View style={styles.listItem}>
-        <Text style={styles.name}>Test</Text>
-        <FontAwesome name="chevron-right" size={32} color="black" />
-      </View>
-    </TouchableOpacity>
-  );
-
-  //flat list with avatar
-  const FlatListWithAvatar = () => (
-    <View style={{ flex: 1 }}>
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ListItem item={item} />}
-      />
-    </View>
-  );
 
   // Styles
   const styles = {
@@ -116,22 +91,48 @@ const DetailDayChallenge = ({ route, navigation }) => {
             flex: 1,
           }}
         >
-          <Text>Day {id}</Text>
+          <Text>Form {id}</Text>
         </View>
 
         <View
           style={{
-            flex: 20,
+            flex: 1,
             flexDirection: "row",
-            backgroundColor: "green",
-            margin: 20,
+            borderWidth: 2,
+            margin: 10,
           }}
         >
-          <FlatListWithAvatar />
+          <View
+            style={{
+              flex: 1,
+            }}
+          >
+            <Text>Image</Text>
+          </View>
+          <View
+            style={{
+              flex: 2,
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
+              <Text>Lateral Raises</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
+              <Text>Shoulder</Text>
+            </View>
+          </View>
         </View>
       </View>
     </View>
   );
 };
 
-export default DetailDayChallenge;
+export default ExerciseDetailScreen;

@@ -1,6 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
-import { BodyPartScreen, ExercisesScreen } from "../screens";
+import {
+  BodyPartScreen,
+  ExercisesListScreen,
+  ExerciseDetailScreen,
+} from "../screens";
 import {
   appBarFontSize,
   primaryColor,
@@ -34,8 +38,28 @@ const LibraryStack = () => {
         }}
       />
       <Stack.Screen
-        name="ExercisesScreen"
-        component={ExercisesScreen}
+        name="ExerciseListScreen"
+        component={ExercisesListScreen}
+        options={{
+          title: "Exercises",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ExerciseDetailScreen"
+        component={ExerciseDetailScreen}
         options={{
           title: "Exercises",
           headerTitleStyle: {

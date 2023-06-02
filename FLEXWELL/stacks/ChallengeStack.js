@@ -11,7 +11,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 const Stack = createStackNavigator();
 import {
   ThirtyDayChallenge,
-  DetailDayChallenge,
+  ThirtyDayChallengeDetail,
   DayChallengeExcercise,
 } from "../screens";
 import { Button, Pressable } from "react-native";
@@ -48,7 +48,7 @@ const ChallengeStack = () => {
       />
       <Stack.Screen
         name="ChallengeDetail"
-        component={DetailDayChallenge}
+        component={ThirtyDayChallengeDetail}
         options={{
           title: "Detail",
           headerTitleStyle: {
