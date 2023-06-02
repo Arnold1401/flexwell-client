@@ -27,6 +27,9 @@ import {
   textSecondary,
 } from "./color-and-size.config";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Pressable } from "react-native";
+import WelcomingTextHeader from "./components/WelcomingTextHeader";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,6 +42,16 @@ const Bottomstack = () => {
       <Tab.Screen
         name="Dashboard"
         options={{
+          headerTitle: () => <WelcomingTextHeader />,
+          headerRight: () => (
+            <Pressable>
+              <FontAwesome
+                name="gear"
+                size={32}
+                style={{ marginRight: 16, color: textAccent }}
+              />
+            </Pressable>
+          ),
           title: "Dashboard",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
@@ -48,9 +61,8 @@ const Bottomstack = () => {
           headerStyle: {
             backgroundColor: primaryColor,
           },
-
           headerTintColor: textPrimary,
-          headerTitleAlign: "center",
+          headerTitleAlign: "left",
           cardStyle: {
             backgroundColor: textPrimary,
           },

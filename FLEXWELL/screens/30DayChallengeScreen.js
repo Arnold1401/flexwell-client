@@ -10,6 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import {
+  primaryColor,
+  secondaryColor,
+  textAccent,
+  textSecondary,
+} from "../color-and-size.config";
 
 const ThirtyDayChallenge = ({ route, navigation }) => {
   // Data untuk flatlist
@@ -33,9 +39,55 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
         toDetailDay(item.id);
       }}
     >
-      <View style={styles.listItem}>
-        <Text style={styles.name}>Test</Text>
-        <FontAwesome name="chevron-right" size={32} color="black" />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+        }}
+      >
+        <View style={{ flexDirection: "row", flex: 1, paddingVertical: 8 }}>
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <FontAwesome name="dot-circle-o" size={16} color={primaryColor} />
+          </View>
+          <View
+            style={{
+              borderWidth: 0.5,
+              borderRadius: 16,
+              height: 60,
+              flex: 11,
+              justifyContent: "center",
+              backgroundColor: secondaryColor,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingHorizontal: 8,
+                gap: 4,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  fontSize: 24,
+                  color: textSecondary,
+                  flex: 1,
+                }}
+              >
+                Day 1:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  flex: 3,
+                }}
+              >
+                Introduction to Weighlifthing hehe haha
+              </Text>
+            </View>
+          </View>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -53,14 +105,6 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
 
   // Styles
   const styles = {
-    listItem: {
-      flexDirection: "row",
-      alignItems: "center",
-      padding: 16,
-      borderBottomWidth: 1,
-      borderBottomColor: "#ccc",
-      flex: 1,
-    },
     avatar: {
       width: 48,
       height: 48,
@@ -83,33 +127,35 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
   return (
     <View
       style={{
-        alignItems: "center",
-        justifyContent: "space-between",
         flex: 1,
-        // backgroundColor: "blue",
-        flexDirection: "row",
+        flexDirection: "column",
+        marginHorizontal: 16,
       }}
     >
       <View
         style={{
           marginTop: 32,
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1,
-          //   backgroundColor: "red",
-          flexDirection: "row",
+          marginBottom: 8,
+          gap: 8,
         }}
       >
-        <View
+        <Text
           style={{
-            flex: 1,
-            backgroundColor: "green",
-            margin: 20,
+            fontFamily: "Montserrat-Bold",
+            fontSize: 24,
           }}
         >
-          <FlatListWithAvatar />
-        </View>
+          30 Days Challenge
+        </Text>
+        <View
+          style={{
+            width: "70%",
+            borderWidth: 0.2,
+            opacity: 0.2,
+          }}
+        />
       </View>
+      <FlatListWithAvatar />
     </View>
   );
 };
