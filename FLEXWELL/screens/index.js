@@ -1,6 +1,5 @@
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
-import Personalize from "./Personalize";
 import ThirtyDayChallenge from "./30DayChallengeScreen";
 import DetailDayChallenge from "./DetailDayChallenge";
 import DayChallengeExcercise from "./DayChallengeExercise";
@@ -12,7 +11,7 @@ import PersonalizeScreen from "./PersonalizeScreen";
 export {
   LoginScreen,
   RegisterScreen,
-  Personalize,
+  PersonalizeScreen,
   ThirtyDayChallenge,
   DetailDayChallenge,
   DayChallengeExcercise,
@@ -20,5 +19,4 @@ export {
   DashboardScreen,
   CustomExcScreen,
   ProfileScreen,
-  PersonalizeScreen,
 };

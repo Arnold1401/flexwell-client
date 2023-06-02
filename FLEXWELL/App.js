@@ -9,7 +9,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import store from "./store/index";
-import { LoginScreen, Personalize, RegisterScreen } from "./screens";
+import { LoginScreen, PersonalizeScreen, RegisterScreen } from "./screens";
 
 import {
   ChallengeStack,
@@ -235,7 +235,7 @@ const App = () => {
             />
             <Stack.Screen
               name="Personalize"
-              component={Personalize}
+              component={PersonalizeScreen}
               options={{
                 title: "Personalization",
                 headerTitleStyle: {
