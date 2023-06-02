@@ -50,7 +50,7 @@ const ChallengeStack = () => {
         name="ChallengeDetail"
         component={ThirtyDayChallengeDetail}
         options={{
-          title: "Detail",
+          title: "Challenge",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,

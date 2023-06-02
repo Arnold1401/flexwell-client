@@ -112,7 +112,7 @@ const LoginScreen = ({}) => {
           marginTop: 40,
           width: "100%",
           alignItems: "center",
-          gap: 8,
+          gap: 16,
           marginBottom: 32,
         }}
       >
