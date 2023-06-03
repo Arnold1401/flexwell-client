@@ -14,7 +14,7 @@ import {
   ThirtyDayChallengeDetail,
   DayChallengeExcercise,
 } from "../screens";
-import { Button, Pressable } from "react-native";
+import { Button, Pressable, Text, TouchableOpacity } from "react-native";
 import WelcomingTextHeader from "../components/WelcomingTextHeader";
 
 const ChallengeStack = () => {
@@ -36,13 +36,13 @@ const ChallengeStack = () => {
             backgroundColor: textPrimary,
           },
           headerRight: () => (
-            <Pressable>
+            <TouchableOpacity>
               <FontAwesome
                 name="gear"
                 size={32}
                 style={{ marginRight: 16, color: textAccent }}
               />
-            </Pressable>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -50,7 +50,7 @@ const ChallengeStack = () => {
         name="ChallengeDetail"
         component={ThirtyDayChallengeDetail}
         options={{
-          title: "Detail",
+          title: "Challenge",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
@@ -71,15 +71,32 @@ const ChallengeStack = () => {
         name="DayExercise"
         component={DayChallengeExcercise}
         options={{
-          title: "Exercise",
+          title: "",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
-            letterSpacing: 2,
           },
           headerStyle: {
             backgroundColor: primaryColor,
           },
+          headerRight: () => (
+            <Pressable
+              style={{
+                marginTop: 10,
+                marginRight: 16,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  color: textPrimary,
+                  fontSize: 16,
+                }}
+              >
+                Exercise List
+              </Text>
+            </Pressable>
+          ),
 
           headerTintColor: textPrimary,
           headerTitleAlign: "center",

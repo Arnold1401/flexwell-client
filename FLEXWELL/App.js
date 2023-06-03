@@ -28,7 +28,7 @@ import {
 } from "./color-and-size.config";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Pressable } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
 import WelcomingTextHeader from "./components/WelcomingTextHeader";
 
 SplashScreen.preventAutoHideAsync();
@@ -44,13 +44,13 @@ const Bottomstack = () => {
         options={{
           headerTitle: () => <WelcomingTextHeader />,
           headerRight: () => (
-            <Pressable>
+            <TouchableOpacity>
               <FontAwesome
                 name="gear"
                 size={32}
                 style={{ marginRight: 16, color: textAccent }}
               />
-            </Pressable>
+            </TouchableOpacity>
           ),
           title: "Dashboard",
           headerTitleStyle: {

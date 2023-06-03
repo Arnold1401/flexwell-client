@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, Button, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import { Image } from "expo-image";
 import { Fumi } from "react-native-textinput-effects";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -112,11 +119,11 @@ const LoginScreen = ({}) => {
           marginTop: 40,
           width: "100%",
           alignItems: "center",
-          gap: 8,
+          gap: 16,
           marginBottom: 32,
         }}
       >
-        <Pressable
+        <TouchableOpacity
           onPress={() => doLogin()}
           style={{
             height: 48,
@@ -136,14 +143,14 @@ const LoginScreen = ({}) => {
           >
             Sign In
           </Text>
-        </Pressable>
+        </TouchableOpacity>
         <View style={{ flexDirection: "row", gap: 8 }}>
           <Text style={{ color: textSecondary }}>Don't have an account?</Text>
-          <Pressable onPress={() => navigation.navigate("Register")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <Text style={{ color: textSecondary, fontWeight: "bold" }}>
               Sign Up
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
