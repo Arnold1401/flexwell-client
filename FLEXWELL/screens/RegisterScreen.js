@@ -21,7 +21,7 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 import { useDispatch } from "react-redux";
-import { doRegisterMiddleware } from "../action/actionCreator";
+import { doRegister } from "../action/userCreator";
 import { useNavigation } from "@react-navigation/native";
 const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -32,10 +32,10 @@ const RegisterScreen = () => {
   const [password, onChangePassword] = React.useState();
   const [passwordCheck, onChangePasswordCheck] = React.useState();
 
-  const doRegister = () => {
+  const register = () => {
     console.log("testing");
     console.log(email, username, password, passwordCheck);
-    dispatch(doRegisterMiddleware(email, username, password, passwordCheck));
+    dispatch(doRegister(email, username, password, passwordCheck));
   };
 
   return (
@@ -164,7 +164,7 @@ const RegisterScreen = () => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => doRegister()}
+          onPress={() => register()}
         >
           <Text
             style={{

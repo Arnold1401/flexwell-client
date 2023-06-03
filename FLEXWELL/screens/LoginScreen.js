@@ -12,7 +12,7 @@ import { Fumi } from "react-native-textinput-effects";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import logo from "../assets/logo.png";
 import { useDispatch } from "react-redux";
-import { loginHandler } from "../action/actionCreator";
+import { doLogin } from "../action/userCreator";
 import { storeData, getData } from "../async";
 import { useNavigation } from "@react-navigation/native";
 
@@ -31,10 +31,10 @@ const LoginScreen = ({}) => {
   const [password, onChangePassword] = React.useState("");
   const test = async () => {
     console.log("ada data isinya", await getData());
-    dispatch(loginHandler(username, password));
+    dispatch(doLogin(username, password));
   };
 
-  const doLogin = () => {
+  const login = () => {
     storeData("access_token");
     test();
     navigation.navigate("Main");
@@ -124,7 +124,7 @@ const LoginScreen = ({}) => {
         }}
       >
         <TouchableOpacity
-          onPress={() => doLogin()}
+          onPress={() => login()}
           style={{
             height: 48,
             backgroundColor: primaryColor,

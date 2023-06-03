@@ -22,6 +22,8 @@ import {
 const Personalize = () => {
   const [gender, setGender] = useState("");
   const [fullname, setFullname] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [textDate, setTextDate] = useState("");
   const [biceps, setBiceps] = useState(false);
@@ -32,73 +34,48 @@ const Personalize = () => {
   const [thigh, setTigh] = useState(false);
   const [calf, setCalf] = useState(false);
 
-  const handleBiceps = () => {
-    setBiceps(true);
+  const resetstate = () => {
+    setBiceps(false);
     setAbs(false);
     setWaist(false);
     setChest(false);
     setShoulders(false);
     setTigh(false);
     setCalf(false);
+  };
+
+  const handleBiceps = () => {
+    resetstate();
+    setBiceps(true);
   };
 
   const handleAbs = () => {
-    setBiceps(false);
+    resetstate();
     setAbs(true);
-    setWaist(false);
-    setChest(false);
-    setShoulders(false);
-    setTigh(false);
-    setCalf(false);
   };
 
   const handleWaist = () => {
-    setBiceps(false);
-    setAbs(false);
+    resetstate();
     setWaist(true);
-    setChest(false);
-    setShoulders(false);
-    setTigh(false);
-    setCalf(false);
   };
 
   const handleChest = () => {
-    setBiceps(false);
-    setAbs(false);
-    setWaist(false);
+    resetstate();
     setChest(true);
-    setShoulders(false);
-    setTigh(false);
-    setCalf(false);
   };
 
   const handlShoulders = () => {
-    setBiceps(false);
-    setAbs(false);
-    setWaist(false);
-    setChest(false);
+    resetstate();
     setShoulders(true);
-    setTigh(false);
-    setCalf(false);
   };
 
   const handleThigh = () => {
-    setBiceps(false);
-    setAbs(false);
-    setWaist(false);
-    setChest(false);
-    setShoulders(false);
+    resetstate();
     setTigh(true);
-    setCalf(false);
   };
 
   const handleCalf = () => {
-    setBiceps(false);
-    setAbs(false);
-    setWaist(false);
-    setChest(false);
-    setShoulders(false);
-    setTigh(false);
+    resetstate();
     setCalf(true);
   };
 
@@ -120,6 +97,20 @@ const Personalize = () => {
     { key: 1, value: "Male" },
     { key: 2, value: "Female" },
   ];
+
+  const doSave = () => {
+    console.log(`
+      ${fullname},
+      ${gender}
+      ${textDate}
+      ${height}
+      ${weight}
+      ${gender}
+      ${gender}
+      ${gender}
+      ${gender}
+    `);
+  };
 
   return (
     <ScrollView>
@@ -295,6 +286,9 @@ const Personalize = () => {
               Height
             </Text>
             <TextInput
+              onChangeText={(height) => {
+                setHeight(height);
+              }}
               style={{
                 borderWidth: 0.8,
                 borderRadius: 12,
@@ -310,6 +304,7 @@ const Personalize = () => {
               Weight
             </Text>
             <TextInput
+              onChangeText={(weight) => setWeight(weight)}
               style={{
                 borderWidth: 0.8,
                 borderRadius: 12,
@@ -494,6 +489,7 @@ const Personalize = () => {
             </View>
           </View>
           <Pressable
+            onPress={doSave()}
             style={{
               backgroundColor: primaryColor,
               alignItems: "center",
