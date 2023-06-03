@@ -17,6 +17,11 @@ import {
   textPrimary,
   textSecondary,
 } from "./color-and-size.config";
+import Sandbox from "./screens/SandBox";
+import Sandbox2 from "./screens/SandBox2";
+import Sandbox3 from "./screens/SandBox3";
+import LineChartScreen from "./screens/Chart";
+import ExpandableCalendarScreen from "./screens/TextCalendar";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,6 +55,12 @@ const App = () => {
               detachPreviousScreen: false,
             }}
           >
+            {/* <Stack.Screen
+              name="testCalendar"
+              component={ExpandableCalendarScreen}
+            ></Stack.Screen> */}
+            <Stack.Screen name="Sandbox3" component={Sandbox3}></Stack.Screen>
+            <Stack.Screen name="Sandbox" component={Sandbox2}></Stack.Screen>
             <Stack.Screen
               name="Login"
               component={LoginScreen}
