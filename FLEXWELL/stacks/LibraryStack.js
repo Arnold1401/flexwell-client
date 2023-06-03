@@ -54,12 +54,21 @@ const LibraryStack = () => {
         name="ExerciseListScreen"
         component={ExercisesListScreen}
         options={{
-          title: "Exercises",
+          title: "",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
-            letterSpacing: 2,
+            letterSpacing: 1,
           },
+          headerRight: () => (
+            <TouchableOpacity>
+              <FontAwesome
+                name="gear"
+                size={32}
+                style={{ marginRight: 16, color: textAccent }}
+              />
+            </TouchableOpacity>
+          ),
           headerStyle: {
             backgroundColor: primaryColor,
           },
