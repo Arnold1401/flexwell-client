@@ -83,7 +83,7 @@ const LibraryStack = () => {
         name="ExerciseDetailScreen"
         component={ExerciseDetailScreen}
         options={{
-          title: "Exercises",
+          title: "",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
@@ -97,6 +97,15 @@ const LibraryStack = () => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
+          headerRight: () => (
+            <TouchableOpacity>
+              <FontAwesome
+                name="gear"
+                size={32}
+                style={{ marginRight: 16, color: textAccent }}
+              />
+            </TouchableOpacity>
+          ),
         }}
       />
     </Stack.Navigator>
