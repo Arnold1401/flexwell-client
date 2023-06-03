@@ -14,7 +14,7 @@ import {
   ThirtyDayChallengeDetail,
   DayChallengeExcercise,
 } from "../screens";
-import { Button, Pressable, Text } from "react-native";
+import { Button, Pressable, Text, TouchableOpacity } from "react-native";
 import WelcomingTextHeader from "../components/WelcomingTextHeader";
 
 const ChallengeStack = () => {
@@ -36,13 +36,13 @@ const ChallengeStack = () => {
             backgroundColor: textPrimary,
           },
           headerRight: () => (
-            <Pressable>
+            <TouchableOpacity>
               <FontAwesome
                 name="gear"
                 size={32}
                 style={{ marginRight: 16, color: textAccent }}
               />
-            </Pressable>
+            </TouchableOpacity>
           ),
         }}
       />

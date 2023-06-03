@@ -12,6 +12,10 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config.js";
+import WelcomingTextHeader from "../components/WelcomingTextHeader";
+import { Pressable, TouchableOpacity } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
 const LibraryStack = () => {
   return (
     <Stack.Navigator>
@@ -19,7 +23,16 @@ const LibraryStack = () => {
         name="30DayChallenge"
         component={BodyPartScreen}
         options={{
-          title: "Library",
+          headerTitle: () => <WelcomingTextHeader />,
+          headerRight: () => (
+            <TouchableOpacity>
+              <FontAwesome
+                name="gear"
+                size={32}
+                style={{ marginRight: 16, color: textAccent }}
+              />
+            </TouchableOpacity>
+          ),
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
@@ -31,7 +44,7 @@ const LibraryStack = () => {
           headerLeft: () => null, // Remove the back button
           gestureEnabled: false, // Disable swipe gesture to go back
           headerTintColor: textPrimary,
-          headerTitleAlign: "center",
+          headerTitleAlign: "left",
           cardStyle: {
             backgroundColor: textPrimary,
           },

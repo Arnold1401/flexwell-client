@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Pressable,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { Image } from "expo-image";
 import { Fumi } from "react-native-textinput-effects";
@@ -154,7 +155,7 @@ const RegisterScreen = () => {
           marginBottom: 32,
         }}
       >
-        <Pressable
+        <TouchableOpacity
           style={{
             height: 48,
             backgroundColor: primaryColor,
@@ -174,10 +175,10 @@ const RegisterScreen = () => {
           >
             Sign Up
           </Text>
-        </Pressable>
+        </TouchableOpacity>
         <View style={{ flexDirection: "row", gap: 8 }}>
           <Text style={{ color: textSecondary }}>Already have an account?</Text>
-          <Pressable
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("Login");
             }}
@@ -185,7 +186,7 @@ const RegisterScreen = () => {
             <Text style={{ color: textSecondary, fontWeight: "bold" }}>
               Sign In
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

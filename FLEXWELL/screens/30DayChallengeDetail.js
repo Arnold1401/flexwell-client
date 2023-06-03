@@ -289,7 +289,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                 </View>
               </View>
             </View>
-            <Pressable
+            <TouchableOpacity
               style={{
                 flex: 1,
                 marginTop: 24,
@@ -313,7 +313,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
               >
                 Start Day {id}
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

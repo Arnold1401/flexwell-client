@@ -7,80 +7,441 @@ import {
   Pressable,
   Image,
   TouchableOpacity,
+  ImageBackground,
+  ScrollView,
 } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import {
+  primaryColor,
+  secondaryColor,
+  textAccent,
+  textAccentSecondary,
+  textSecondary,
+} from "../color-and-size.config";
+import bicep from "../assets/body-libraries/biceps.png";
+import triceps from "../assets/body-libraries/triceps.png";
+import shoulders from "../assets/body-libraries/shoulders.png";
+import chest from "../assets/body-libraries/chest.png";
+import back from "../assets/body-libraries/back.png";
+import abs from "../assets/body-libraries/abs.png";
+import legs from "../assets/body-libraries/legs.png";
 
 const BodyPartScreen = ({ route, navigation }) => {
   return (
-    <View
-      style={{
-        flexDirection: "column",
-        paddingHorizontal: 20,
-        alignItems: "center",
-        gap: 8,
-        flex: 1,
-      }}
-    >
+    <ScrollView>
       <View
         style={{
+          flexDirection: "column",
           flex: 1,
+          alignItems: "center",
+          paddingVertical: 16,
+          gap: 16,
         }}
       >
-        <Text>BodyPartScreen</Text>
-      </View>
-      <View
-        style={{
-          flex: 10,
-          flexDirection: "row",
-        }}
-      >
-        <View style={{ flex: 1, flexDirection: "column" }}>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("ExerciseListScreen", { id: 1 });
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+          onPress={() => {
+            navigation.navigate("ExerciseListScreen", { id: 1 });
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={bicep}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              Biceps
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
               }}
             >
-              <Text>Biceps</Text>
-            </TouchableOpacity>
+              12 exerices
+            </Text>
           </View>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity>
-              <Text>Triceps</Text>
-            </TouchableOpacity>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
-
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity>
-              <Text>Shoulder</Text>
-            </TouchableOpacity>
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={triceps}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              Triceps
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
+              }}
+            >
+              12 exerices
+            </Text>
+          </View>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
         </View>
-        <View style={{ flex: 3 }}>
-          <Image
-            source={{ uri: "https://picsum.photos/id/237/200/300" }}
-            style={{ flex: 1 }}
-          />
+        <View
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={shoulders}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              Shoulders
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
+              }}
+            >
+              12 exerices
+            </Text>
+          </View>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
+          </View>
         </View>
-        <View style={{ flex: 1, flexDirection: "column" }}>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity>
-              <Text>Biceps</Text>
-            </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={chest}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
           </View>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity>
-              <Text>Triceps</Text>
-            </TouchableOpacity>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              Chest
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
+              }}
+            >
+              12 exerices
+            </Text>
           </View>
-
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity>
-              <Text>Shoulder</Text>
-            </TouchableOpacity>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={back}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              Back
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
+              }}
+            >
+              12 exerices
+            </Text>
+          </View>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={abs}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              ABS
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
+              }}
+            >
+              12 exerices
+            </Text>
+          </View>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={legs}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              Legs
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
+              }}
+            >
+              12 exerices
+            </Text>
+          </View>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
