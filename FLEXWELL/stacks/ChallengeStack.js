@@ -14,7 +14,7 @@ import {
   ThirtyDayChallengeDetail,
   DayChallengeExcercise,
 } from "../screens";
-import { Button, Pressable } from "react-native";
+import { Button, Pressable, Text } from "react-native";
 import WelcomingTextHeader from "../components/WelcomingTextHeader";
 
 const ChallengeStack = () => {
@@ -71,15 +71,32 @@ const ChallengeStack = () => {
         name="DayExercise"
         component={DayChallengeExcercise}
         options={{
-          title: "Exercise",
+          title: "",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
-            letterSpacing: 2,
           },
           headerStyle: {
             backgroundColor: primaryColor,
           },
+          headerRight: () => (
+            <Pressable
+              style={{
+                marginTop: 10,
+                marginRight: 16,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  color: textPrimary,
+                  fontSize: 16,
+                }}
+              >
+                Exercise List
+              </Text>
+            </Pressable>
+          ),
 
           headerTintColor: textPrimary,
           headerTitleAlign: "center",
