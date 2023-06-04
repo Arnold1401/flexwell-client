@@ -6,7 +6,7 @@ import {
 
 const initalState = {
   isLoading: true,
-  challenge: {},
+  challenge: [],
   errorMsg: "",
 };
 

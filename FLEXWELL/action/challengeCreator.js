@@ -20,6 +20,7 @@ const challengeError = (errorMessage) => ({
 
 const datanya = [
   {
+    id: 1,
     name: "Day 1:Introduction to Weightlifting",
     exercises: [
       {
@@ -50,11 +51,13 @@ const datanya = [
     activity: null,
   },
   {
+    id: 2,
     name: "Day 2:Rest and Recovery",
     exercises: null,
     activity: null,
   },
   {
+    id: 3,
     name: "Day 3:Lower Body Focus",
     exercises: [
       {

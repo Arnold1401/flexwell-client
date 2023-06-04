@@ -22,15 +22,17 @@ import {
 const ThirtyDayChallenge = ({ route, navigation }) => {
   // Data untuk flatlist
 
-  const challenge = useSelector((state) => {
-    state.challenge.challenge;
-  });
+  const { isLoading, challenge, errorMsg } = useSelector(
+    (state) => state.fetchChallange
+  );
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchChallenge());
-    console.log(challenge, "ini  data challenge reduc ---screen");
   }, []);
 
+  console.log(challenge, "ini  data challenge reduc ---screen");
   const toDetailDay = (id) => {
     console.log(id, "go to detail");
     navigation.navigate("ChallengeDetail", { id });
@@ -78,7 +80,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
                   flex: 1,
                 }}
               >
-                Day 1:
+                {item.name.split(":")[0]} :
               </Text>
               <Text
                 style={{
@@ -86,7 +88,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
                   flex: 3,
                 }}
               >
-                Introduction to Weighlifthing hehe haha
+                {item.name.split(":")[1]}
               </Text>
             </View>
           </View>
@@ -98,11 +100,11 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
   //flat list with avatar
   const FlatListWithAvatar = () => (
     <View style={{ flex: 1 }}>
-      {/* <FlatList
+      <FlatList
         data={challenge}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ListItem item={item} />}
-      /> */}
+      />
     </View>
   );
 
