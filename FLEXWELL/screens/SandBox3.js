@@ -76,6 +76,29 @@ const Sandbox2 = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
+        <Agenda
+          showOnlySelectedDayItems={true}
+          selected={new Date()}
+          showClosingKnob={true}
+          pastScrollRange={1}
+          futureScrollRange={1}
+          items={items}
+          renderItem={renderItem}
+          style={{
+            height: agendaHeight,
+            backgroundColor: "#ffffff",
+            width: windowWidth,
+          }}
+          theme={{
+            calendarBackground: "#ffffff",
+            agendaKnobColor: "#F77C61",
+            todayTextColor: "#F77C61", // Change today's date text color to red
+            selectedDayBackgroundColor: "#F77C61", // Change selected day background color to red
+            dotColor: "#F77C61", // Change the dot color in the agenda to red
+            selectedDotColor: "#F77C61", // Change the selected dot color in the agenda to red
+          }}
+        />
+
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >

@@ -1,43 +1,129 @@
-import React, { useRef } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { ExpandableCalendar, CalendarProvider } from "react-native-calendars";
+import { LineChart } from "react-native-chart-kit";
 
 const ExpandableCalendarScreen = () => {
-  const marked = useRef({});
-  const theme = useRef({
-    backgroundColor: "#ffffff",
-    calendarBackground: "#ffffff",
-    textSectionTitleColor: "#b6c1cd",
-    selectedDayBackgroundColor: "#00adf5",
-    selectedDayTextColor: "#ffffff",
-    todayTextColor: "#00adf5",
-    dayTextColor: "#2d4150",
-    textDisabledColor: "#d9e1e8",
-    dotColor: "#00adf5",
-    selectedDotColor: "#ffffff",
-    arrowColor: "#00adf5",
-    disabledArrowColor: "#d9e1e8",
-    monthTextColor: "#00adf5",
-    indicatorColor: "#00adf5",
-    textDayFontFamily: "monospace",
-    textMonthFontFamily: "monospace",
-    textDayHeaderFontFamily: "monospace",
-    textDayFontSize: 16,
-    textMonthFontSize: 16,
-    textDayHeaderFontSize: 16,
-  });
-  const todayBtnTheme = useRef({
-    todayButtonTextColor: "",
-  });
+  const marked = {
+    "2023-06-22": { marked: true },
+    "2023-06-23": { marked: true },
+  };
+
+  const minDate = new Date().toISOString().split("T")[0];
+  const maxDate = new Date().toISOString().split("T")[0];
+
+  console.log(minDate);
+  console.log(maxDate);
 
   return (
-    <CalendarProvider showTodayButton theme={todayBtnTheme.current}>
-      <ExpandableCalendar
-        theme={theme.current}
-        firstDay={1}
-        markedDates={marked.current}
-      />
-    </CalendarProvider>
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "white",
+        flex: 1,
+        paddingTop: 30,
+        // paddingHorizontal: 12,
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "white",
+          borderColor: "black",
+          borderWidth: 1,
+          paddingTop: 15,
+        }}
+      >
+        <Text style={{ fontSize: 24, marginBottom: 15 }}>Your Workouts</Text>
+        <CalendarProvider date={new Date().toISOString().split("T")[0]}>
+          <ExpandableCalendar
+            //   onCalendarToggled={}
+
+            onDayPress={(day) => console.log("onDayPress", day)}
+            style={{
+              borderRadius: 15,
+            }}
+            theme={{
+              calendarBackground: "white",
+              textDayFontSize: 12,
+              textMonthFontSize: 16,
+              textDayHeaderFontSize: 12,
+              arrowColor: "red",
+              dotColor: "red",
+              selectedDotColor: "white",
+              selectedDayBackgroundColor: "rgb(255, 124, 97)",
+            }}
+            markedDates={marked}
+            closeOnDayPress={false}
+            disableMonthChange={true}
+            minDate={"2023-01-01"}
+            maxDate={"2024-12-31"}
+            monthFormat={"MMM/yyyy"}
+            allowShadow={false}
+            pastScrollRange={2}
+            futureScrollRange={2}
+          />
+        </CalendarProvider>
+      </View>
+      {/* <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View
+          style={{
+            padding: 12,
+            borderColor: "black",
+            borderWidth: 1,
+          }}
+        >
+          <LineChart
+            data={{
+              labels: ["January", "February", "March", "April", "May", "June"],
+              datasets: [
+                {
+                  data: [55, 51, 54, 55, 56, 55],
+                },
+              ],
+            }}
+            bezier
+            width={Dimensions.get("window").width * 0.9} // from react-native
+            height={220}
+            withInnerLines={true}
+            withOuterLines={false}
+            withVerticalLines={false}
+            withHorizontalLines={true}
+            yLabelsOffset="15"
+            yAxisInterval={1} // optional, defaults to 1
+            chartConfig={{
+              backgroundColor: "#FFFFFF",
+              backgroundGradientFrom: "#FFFFFF",
+              backgroundGradientTo: "#FFFFFF",
+              decimalPlaces: 0, // optional, defaults to 2dp
+              strokeWidth: "3",
+              fillShadowGradientFrom: "rgb(247, 124, 97)",
+              fillShadowGradientFromOpacity: "0.8",
+              fillShadowGradientToOpacity: "0.3",
+              color: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
+              propsForDots: {
+                r: "4",
+                strokeWidth: "2",
+                stroke: "rgb(247, 124, 97)",
+              },
+            }}
+            style={{
+              marginVertical: 8,
+              backgroundColor: "red",
+            }}
+          />
+        </View>
+      </View> */}
+    </View>
   );
 };
 

@@ -55,10 +55,10 @@ const App = () => {
               detachPreviousScreen: false,
             }}
           >
-            {/* <Stack.Screen
+            <Stack.Screen
               name="testCalendar"
               component={ExpandableCalendarScreen}
-            ></Stack.Screen> */}
+            ></Stack.Screen>
             <Stack.Screen name="Sandbox3" component={Sandbox3}></Stack.Screen>
             <Stack.Screen name="Sandbox" component={Sandbox2}></Stack.Screen>
             <Stack.Screen
