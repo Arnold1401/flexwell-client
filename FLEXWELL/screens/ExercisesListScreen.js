@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -23,45 +23,24 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLibrary } from "../action/libraryCreator";
 
 const ExercisesScreen = ({ route, navigation }) => {
-  const { id } = route.params;
+  const { muscle } = route.params;
 
   const [favorite, setFavorite] = useState(false);
 
   // Data untuk flatlist
-  const data = [
-    {
-      id: "1",
-      name: "Lever Shoulder Press ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
-    },
-    {
-      id: "2",
-      name: "Dumbbell Shoulder Press ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
-    },
-    {
-      id: "3",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-    {
-      id: "4",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-    {
-      id: "5",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-  ];
+  const { isLoading, library, errorMsg } = useSelector(
+    (state) => state.fetchLibrary
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLibrary());
+  }, []);
 
   const toOneExercise = (id) => {
     console.log(id);
@@ -141,7 +120,7 @@ const ExercisesScreen = ({ route, navigation }) => {
   const FlatListWithAvatar = () => (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={data}
+        data={library}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ListItem item={item} />}
         numColumns={2}
@@ -170,7 +149,7 @@ const ExercisesScreen = ({ route, navigation }) => {
             fontWeight: "bold",
           }}
         >
-          SHOULDERS
+          {muscle.name}
         </Text>
         <View
           style={{

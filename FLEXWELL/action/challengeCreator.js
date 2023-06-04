@@ -104,4 +104,5 @@ const fetchChallenge = () => (dispatch, getState) => {
     dispatch(challengeError(error));
   }
 };
+
 export { challengePending, challengeError, challengeSuccess, fetchChallenge };

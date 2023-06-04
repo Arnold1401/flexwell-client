@@ -29,15 +29,16 @@ const LoginScreen = ({}) => {
 
   const [username, onChangeUsername] = React.useState("");
   const [password, onChangePassword] = React.useState("");
-  const test = async () => {
-    console.log("ada data isinya", await getData());
-    dispatch(doLogin(username, password));
-  };
+
+  // const test = async () => {
+  //   console.log("ada data isinya", await getData());
+  //   dispatch(doLogin(username, password));
+  // };
 
   const login = () => {
     storeData("access_token");
-    test();
-    navigation.navigate("Main");
+    // test();
+    // navigation.navigate("Main");
   };
 
   return (
