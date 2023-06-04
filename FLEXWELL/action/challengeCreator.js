@@ -30,6 +30,7 @@ const datanya = [
         reps: 10,
         set: 3,
         challengeId: 1,
+        bodyPart: "legs",
       },
       {
         id: "0009",
@@ -38,6 +39,7 @@ const datanya = [
         set: 3,
         gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0009.gif",
         challengeId: 1,
+        bodyPart: "chest",
       },
       {
         id: "0968",
@@ -46,6 +48,7 @@ const datanya = [
         reps: 10,
         set: 3,
         challengeId: 1,
+        bodyPart: "biceps",
       },
     ],
     activity: null,
@@ -66,6 +69,7 @@ const datanya = [
         name: "band two legs calf raise - (band under both legs) v. 2",
         reps: 10,
         set: 3,
+        bodyPart: "legs",
         challengeId: 2,
       },
       {
@@ -74,6 +78,7 @@ const datanya = [
         reps: 10,
         set: 3,
         gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0009.gif",
+        bodyPart: "chest",
         challengeId: 2,
       },
       {
@@ -82,6 +87,7 @@ const datanya = [
         name: "band alternating biceps curl",
         reps: 10,
         set: 3,
+        bodyPart: "biceps",
         challengeId: 2,
       },
     ],

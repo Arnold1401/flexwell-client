@@ -6,9 +6,9 @@ import {
   StyleSheet,
   Pressable,
   FlatList,
+  Image,
   TouchableOpacity,
 } from "react-native";
-import { Image } from "expo-image";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { Fumi } from "react-native-textinput-effects";
@@ -23,31 +23,8 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 const ThirtyDayChallengeDetail = ({ route, navigation }) => {
-  const { id } = route.params;
+  const { challenge } = route.params;
   // Data untuk flatlist
-  const data = [
-    {
-      id: "1",
-      name: "John Doe",
-      avatar: "https://unsplash.com/photos/y83Je1OC6Wc",
-    },
-    { id: "2", name: "Jane Smith", avatar: "https://picsum.photos/id/2/info" },
-    {
-      id: "3",
-      name: "Mike Johnson",
-      avatar: "https://picsum.photos/id/3/info",
-    },
-    {
-      id: "4",
-      name: "Mike Johnson",
-      avatar: "https://picsum.photos/id/4/info",
-    },
-    {
-      id: "5",
-      name: "Mike Johnson",
-      avatar: "https://picsum.photos/id/5/info",
-    },
-  ];
 
   const toOneExercise = (id) => {
     console.log(id);
@@ -72,19 +49,23 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
           flex: 2,
         }}
       >
-        <Text>{item.avatar}</Text>
+        <Image
+          source={{ uri: item.gifUrl }}
+          style={{ height: "100%", width: "100%" }}
+        />
       </View>
-      <View style={{ height: 64, width: 20, flex: 5 }}>
+      <View style={{ height: 64, width: 20, flex: 5, padding: 12 }}>
         <View style={{ flexDirection: "column" }}>
-          <Text style={{ fontFamily: "Montserrat-Bold" }}>
-            Standing Cable Front Rise
+          <Text style={{ fontFamily: "Montserrat-Bold" }} numberOfLines={2}>
+            {item.name}
           </Text>
           <Text
             style={{
               fontSize: 12,
             }}
           >
-            3sets x 12reps x 10kg
+            {item.set}sets x {item.reps}reps x{" "}
+            {item.weight === null ? "--" : item.weight}kg
           </Text>
         </View>
       </View>
@@ -96,18 +77,26 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
           alignItems: "center",
         }}
       >
-        <Text
+        <View
           style={{
-            fontFamily: "Montserrat-Bold",
-            fontSize: 8,
             paddingVertical: 8,
             paddingHorizontal: 12,
             backgroundColor: primaryColor,
-            borderRadius: 16,
+            width: 70,
+            borderRadius: 20,
           }}
         >
-          SHOULDERS
-        </Text>
+          <Text
+            style={{
+              fontFamily: "Montserrat-Bold",
+              fontSize: 10,
+              textAlign: "center",
+              color: "white",
+            }}
+          >
+            {item.bodyPart}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -116,9 +105,11 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
   const FlatListWithAvatar = () => (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={data}
+        data={challenge.exercises}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ListItem item={item} />}
+        renderItem={({ item }) => (
+          <ListItem item={item} columnWrapperStyle={{ gap: 8 }} />
+        )}
       />
     </View>
   );
@@ -151,7 +142,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
           }}
           numberOfLines={1}
         >
-          Day {id} - Introduction to Weightlifting
+          {challenge.name.split(":")[0]}
         </Text>
       </View>
       <View
@@ -188,7 +179,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                 }}
                 numberOfLines={1}
               >
-                Day {id}/{id} - Push Day ala Arnold
+                {challenge.name.split(":")[1]}
               </Text>
             </View>
             <View
@@ -301,7 +292,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
               onPress={() => {
-                toOneExercise(id);
+                toOneExercise(challenge.id);
               }}
             >
               <Text
@@ -311,7 +302,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                   color: textSecondary,
                 }}
               >
-                Start Day {id}
+                Start Day
               </Text>
             </TouchableOpacity>
           </View>

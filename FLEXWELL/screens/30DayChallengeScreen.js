@@ -32,16 +32,16 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
     dispatch(fetchChallenge());
   }, []);
 
-  console.log(challenge, "ini  data challenge reduc ---screen");
-  const toDetailDay = (id) => {
-    console.log(id, "go to detail");
-    navigation.navigate("ChallengeDetail", { id });
+  console.log(challenge, "--30daychallengescreen--");
+  const toDetailDay = (challenge) => {
+    console.log(challenge, "--go to detail--");
+    navigation.navigate("ChallengeDetail", { challenge });
   };
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        toDetailDay(item.id);
+        toDetailDay(item);
       }}
     >
       <View
