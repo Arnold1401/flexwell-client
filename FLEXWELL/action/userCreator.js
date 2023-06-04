@@ -53,9 +53,10 @@ const doRegister =
         passwordCheck,
         "dari Action Creator"
       );
-      dispatch(userSucess());
+      const test = "";
+      dispatch(userSucess(test));
     } catch (error) {
-      dispatch(userError());
+      dispatch(userError(error));
     }
   };
 

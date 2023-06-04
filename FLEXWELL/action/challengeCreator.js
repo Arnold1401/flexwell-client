@@ -13,7 +13,7 @@ const challengeSuccess = (responseJson) => ({
   payload: responseJson,
 });
 
-const challengeEror = (errorMessage) => ({
+const challengeError = (errorMessage) => ({
   type: CHALLENGE_ERROR,
   payload: errorMessage,
 });
@@ -22,9 +22,9 @@ const fetchChallenge = () => (dispatch, getState) => {
   dispatch(challengePending());
   try {
     console.log("dari Action Creator");
-    dispatch(challengeSucess());
+    dispatch(challengeSuccess());
   } catch (error) {
-    dispatch(ChallengeError());
+    dispatch(challengeError());
   }
 };
 export { challengePending, challengeEror, challengeSuccess, fetchChallenge };
