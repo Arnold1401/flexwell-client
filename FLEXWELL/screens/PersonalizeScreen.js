@@ -18,8 +18,11 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
-
+import { useDispatch } from "react-redux";
+import { saveRecord } from "../action/userCreator";
 const Personalize = () => {
+  const dispatch = useDispatch();
+
   const [gender, setGender] = useState("");
   const [fullname, setFullname] = useState("");
   const [height, setHeight] = useState("");
@@ -27,12 +30,19 @@ const Personalize = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [textDate, setTextDate] = useState("");
   const [biceps, setBiceps] = useState(false);
+  const [vbiceps, setvBiceps] = useState("");
   const [abs, setAbs] = useState(false);
+  const [vabs, setvAbs] = useState("");
   const [waist, setWaist] = useState(false);
+  const [vwaist, setvWaist] = useState("");
   const [chest, setChest] = useState(false);
+  const [vchest, setvChest] = useState("");
   const [shoulders, setShoulders] = useState(false);
-  const [thigh, setTigh] = useState(false);
+  const [vshoulders, setvShoulders] = useState("");
+  const [thigh, setThigh] = useState(false);
+  const [vthigh, setvThigh] = useState("");
   const [calf, setCalf] = useState(false);
+  const [vcalf, setvCalf] = useState("");
 
   const resetstate = () => {
     setBiceps(false);
@@ -40,7 +50,7 @@ const Personalize = () => {
     setWaist(false);
     setChest(false);
     setShoulders(false);
-    setTigh(false);
+    setThigh(false);
     setCalf(false);
   };
 
@@ -71,7 +81,7 @@ const Personalize = () => {
 
   const handleThigh = () => {
     resetstate();
-    setTigh(true);
+    setThigh(true);
   };
 
   const handleCalf = () => {
@@ -88,7 +98,7 @@ const Personalize = () => {
   };
 
   const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
+    // console.warn("A date has been picked: ", date);
     setTextDate(date.dateString);
     hideDatePicker();
   };
@@ -99,17 +109,36 @@ const Personalize = () => {
   ];
 
   const doSave = () => {
-    console.log(`
-      ${fullname},
-      ${gender}
-      ${textDate}
-      ${height}
-      ${weight}
-      ${gender}
-      ${gender}
-      ${gender}
-      ${gender}
-    `);
+    // console.log(`
+    //   ${fullname},
+    //   ${gender}
+    //   ${textDate}
+    //   ${height}
+    //   ${weight}
+    //   ${vbiceps}
+    //   ${vabs}
+    //   ${vwaist}
+    //   ${vchest}
+    //   ${vshoulders}
+    //   ${vthigh}
+    //   ${vcalf}
+    // `);
+    dispatch(
+      saveRecord(
+        fullname,
+        gender,
+        textDate,
+        height,
+        weight,
+        vbiceps,
+        vabs,
+        vwaist,
+        vchest,
+        vshoulders,
+        vthigh,
+        vcalf
+      )
+    );
   };
 
   return (
@@ -304,6 +333,8 @@ const Personalize = () => {
               Weight
             </Text>
             <TextInput
+              numeric
+              keyboardType={"numeric"}
               onChangeText={(weight) => setWeight(weight)}
               style={{
                 borderWidth: 0.8,
@@ -387,6 +418,9 @@ const Personalize = () => {
                     fontSize: 20,
                     paddingVertical: 4,
                   }}
+                  numeric
+                  keyboardType={"numeric"}
+                  onChangeText={(value) => setvBiceps(value)}
                   onPressIn={handleBiceps}
                 />
               </View>
@@ -403,6 +437,9 @@ const Personalize = () => {
                     fontSize: 20,
                     paddingVertical: 4,
                   }}
+                  numeric
+                  keyboardType={"numeric"}
+                  onChangeText={(value) => setvAbs(value)}
                   onPressIn={handleAbs}
                 />
               </View>
@@ -419,6 +456,9 @@ const Personalize = () => {
                     fontSize: 20,
                     paddingVertical: 4,
                   }}
+                  numeric
+                  keyboardType={"numeric"}
+                  onChangeText={(value) => setvWaist(value)}
                   onPressIn={handleWaist}
                 />
               </View>
@@ -435,6 +475,9 @@ const Personalize = () => {
                     fontSize: 20,
                     paddingVertical: 4,
                   }}
+                  numeric
+                  keyboardType={"numeric"}
+                  onChangeText={(value) => setvChest(value)}
                   onPressIn={handleChest}
                 />
               </View>
@@ -451,7 +494,10 @@ const Personalize = () => {
                     fontSize: 20,
                     paddingVertical: 4,
                   }}
+                  numeric
+                  keyboardType={"numeric"}
                   onPressIn={handlShoulders}
+                  onChangeText={(value) => setvShoulders(value)}
                 />
               </View>
               <View style={{ gap: 2 }}>
@@ -467,7 +513,10 @@ const Personalize = () => {
                     fontSize: 20,
                     paddingVertical: 4,
                   }}
+                  numeric
+                  keyboardType={"numeric"}
                   onPressIn={handleThigh}
+                  onChangeText={(value) => setvThigh(value)}
                 />
               </View>
               <View style={{ gap: 2 }}>
@@ -484,12 +533,15 @@ const Personalize = () => {
                     paddingVertical: 4,
                   }}
                   onPressIn={handleCalf}
+                  onChangeText={(value) => setvCalf(value)}
                 />
               </View>
             </View>
           </View>
           <Pressable
-            onPress={doSave()}
+            onPress={() => {
+              doSave();
+            }}
             style={{
               backgroundColor: primaryColor,
               alignItems: "center",

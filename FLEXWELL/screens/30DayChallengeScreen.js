@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChallenge } from "../action/challengeCreator";
 import {
   View,
   Text,
@@ -19,15 +21,16 @@ import {
 
 const ThirtyDayChallenge = ({ route, navigation }) => {
   // Data untuk flatlist
-  const data = [
-    { id: "1", name: "John Doe", avatar: "https://picsum.photos/id/1/info" },
-    { id: "2", name: "Jane Smith", avatar: "https://picsum.photos/id/2/info" },
-    {
-      id: "3",
-      name: "Mike Johnson",
-      avatar: "https://picsum.photos/id/3/info",
-    },
-  ];
+
+  const challenge = useSelector((state) => {
+    state.challenge.challenge;
+  });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchChallenge());
+    console.log(challenge, "ini  data challenge reduc ---screen");
+  }, []);
+
   const toDetailDay = (id) => {
     console.log(id, "go to detail");
     navigation.navigate("ChallengeDetail", { id });
@@ -95,11 +98,11 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
   //flat list with avatar
   const FlatListWithAvatar = () => (
     <View style={{ flex: 1 }}>
-      <FlatList
-        data={data}
+      {/* <FlatList
+        data={challenge}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ListItem item={item} />}
-      />
+      /> */}
     </View>
   );
 

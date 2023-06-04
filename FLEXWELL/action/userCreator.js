@@ -72,26 +72,29 @@ const saveRecord =
     waist,
     chest,
     shoulders,
-    thight,
+    thigh,
     calf
   ) =>
   (dispatch, getState) => {
     dispatch(userPending());
     try {
-      console.log({
-        fullname,
-        gender,
-        dob,
-        height,
-        weight,
-        biceps,
-        abs,
-        waist,
-        chest,
-        shoulders,
-        thight,
-        calf,
-      });
+      console.log(
+        {
+          fullname,
+          gender,
+          dob,
+          height,
+          weight,
+          biceps,
+          abs,
+          waist,
+          chest,
+          shoulders,
+          thigh,
+          calf,
+        },
+        "masuk creator"
+      );
       dispatch(userSucess());
     } catch (error) {
       userError(error);
