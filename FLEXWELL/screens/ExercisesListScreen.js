@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
@@ -16,19 +17,49 @@ import { useNavigation } from "@react-navigation/native";
 import {
   buttonTextSize,
   primaryColor,
+  secondaryColor,
+  textAccent,
+  textAccentSecondary,
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
+
 const ExercisesScreen = ({ route, navigation }) => {
   const { id } = route.params;
+
+  const [favorite, setFavorite] = useState(false);
+
   // Data untuk flatlist
   const data = [
-    { id: "1", name: "John Doe", avatar: "https://picsum.photos/id/1/info" },
-    { id: "2", name: "Jane Smith", avatar: "https://picsum.photos/id/2/info" },
+    {
+      id: "1",
+      name: "Lever Shoulder Press ",
+      avatar:
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
+    },
+    {
+      id: "2",
+      name: "Dumbbell Shoulder Press ",
+      avatar:
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
+    },
     {
       id: "3",
-      name: "Mike Johnson",
-      avatar: "https://picsum.photos/id/3/info",
+      name: "Rear Delt Fly Machine ",
+      avatar:
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+    },
+    {
+      id: "4",
+      name: "Rear Delt Fly Machine ",
+      avatar:
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+    },
+    {
+      id: "5",
+      name: "Rear Delt Fly Machine ",
+      avatar:
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
     },
   ];
 
@@ -39,14 +70,69 @@ const ExercisesScreen = ({ route, navigation }) => {
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => {
-        toOneExercise(item.id);
-      }}
-    >
-      <View style={styles.listItem}>
-        <Text style={styles.name}>Test</Text>
-        <FontAwesome name="chevron-right" size={32} color="black" />
+    <TouchableOpacity style={{ flex: 1, alignItems: "flex-start" }}>
+      <View
+        style={{
+          width: 160,
+          height: 200,
+          borderWidth: 0.5,
+          borderColor: textAccent,
+          alignItems: "center",
+          justifyContent: "space-between",
+          borderRadius: 16,
+          overflow: "hidden",
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            padding: 8,
+            flex: 5,
+          }}
+          onPress={() => toOneExercise(item.id)}
+        >
+          <Image
+            source={{ uri: item.avatar }}
+            style={{ height: "100%", width: "100%" }}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            right: 0,
+            marginRight: 8,
+            marginTop: 12,
+          }}
+          onPress={() => (!favorite ? setFavorite(true) : setFavorite(false))}
+        >
+          <FontAwesome
+            name={!favorite ? "star-o" : "star"}
+            size={24}
+            color={!favorite ? textAccentSecondary : primaryColor}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            flex: 2,
+            backgroundColor: primaryColor,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingHorizontal: 2,
+          }}
+          onPress={() => toOneExercise(item.id)}
+        >
+          <Text
+            style={{
+              fontFamily: "Poppins",
+              color: textPrimary,
+            }}
+            numberOfLines={2}
+          >
+            {item.name}
+          </Text>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -58,77 +144,49 @@ const ExercisesScreen = ({ route, navigation }) => {
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ListItem item={item} />}
+        numColumns={2}
+        contentContainerStyle={{
+          gap: 16,
+        }}
+        columnWrapperStyle={{ gap: 8 }}
       />
     </View>
   );
 
-  // Styles
-  const styles = {
-    listItem: {
-      flexDirection: "row",
-      alignItems: "center",
-      padding: 16,
-      borderBottomWidth: 1,
-      borderBottomColor: "#ccc",
-      flex: 1,
-    },
-    avatar: {
-      width: 48,
-      height: 48,
-      borderRadius: 24,
-      marginRight: 16,
-    },
-    name: {
-      flex: 1,
-      fontSize: 16,
-    },
-    button: {
-      padding: 8,
-    },
-    icon: {
-      width: 24,
-      height: 24,
-    },
-  };
-
   return (
     <View
       style={{
-        alignItems: "center",
-        justifyContent: "space-between",
         flex: 1,
-        // backgroundColor: "blue",
-        flexDirection: "row",
+        paddingHorizontal: 8,
+        marginVertical: 24,
+        alignItems: "center",
       }}
     >
+      <View style={{ flex: 1, gap: 4 }}>
+        <Text
+          style={{
+            fontSize: 32,
+            color: textSecondary,
+            fontWeight: "bold",
+          }}
+        >
+          SHOULDERS
+        </Text>
+        <View
+          style={{
+            borderBottomWidth: 2,
+            opacity: 0.2,
+            borderColor: textAccentSecondary,
+          }}
+        />
+      </View>
       <View
         style={{
-          marginTop: 32,
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1,
-          //   backgroundColor: "red",
-          flexDirection: "column",
+          flex: 7,
+          flexDirection: "row",
         }}
       >
-        <View
-          style={{
-            flex: 1,
-          }}
-        >
-          <Text>Exercise Body part {id}</Text>
-        </View>
-
-        <View
-          style={{
-            flex: 20,
-            flexDirection: "row",
-            backgroundColor: "green",
-            margin: 20,
-          }}
-        >
-          <FlatListWithAvatar />
-        </View>
+        <FlatListWithAvatar />
       </View>
     </View>
   );
