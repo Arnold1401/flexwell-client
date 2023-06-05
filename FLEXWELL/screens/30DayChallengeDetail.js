@@ -175,9 +175,10 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
             style={{
               height: 200,
               alignItems: "center",
-              borderWidth: 0.8,
+              borderWidth: 2,
               borderRadius: 16,
               paddingVertical: 8,
+              backgroundColor: secondaryColor,
             }}
           >
             <View style={{ flex: 1 }}>
@@ -300,6 +301,8 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 16,
+                borderWidth: 1,
+                backgroundColor: "white",
               }}
               onPress={() => {
                 toOneExercise(challenge.id);

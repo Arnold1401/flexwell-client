@@ -85,17 +85,6 @@ const DayChallengeExcercise = ({ route, navigation }) => {
             </View>
           </View>
         </View>
-        {/* Untuk Chart */}
-        <View
-          style={{
-            borderWidth: 0.8,
-            borderRadius: 16,
-            paddingHorizontal: 16,
-            paddingVertical: 8,
-          }}
-        >
-          <Text>Ini untuk chart</Text>
-        </View>
         <View
           style={{
             flexDirection: "column",

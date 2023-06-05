@@ -46,7 +46,10 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
             gap: 8,
           }}
           onPress={() => {
-            navigation.navigate("SummaryScreen", { id: 1 });
+            // console.log("jalan Biceps");
+            navigation.navigate("CustomExerciseListScreen", {
+              muscle: { bodyPart: "biceps", name: "Biceps" },
+            });
           }}
         >
           <View
@@ -89,7 +92,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exerices
+              12 exercise
             </Text>
           </View>
           <View
@@ -98,12 +101,18 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
             <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
         </TouchableOpacity>
-        <View
+
+        <TouchableOpacity
           style={{
             flexDirection: "row",
             height: 94,
             marginHorizontal: 16,
             gap: 8,
+          }}
+          onPress={() => {
+            navigation.navigate("CustomExerciseListScreen", {
+              muscle: { bodyPart: "triceps", name: "Triceps" },
+            });
           }}
         >
           <View
@@ -146,7 +155,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exerices
+              12 exercises
             </Text>
           </View>
           <View
@@ -154,8 +163,14 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
           >
             <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
-        </View>
-        <View
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CustomExerciseListScreen", {
+              muscle: { bodyPart: "delts", name: "Shoulders" },
+            });
+          }}
           style={{
             flexDirection: "row",
             height: 94,
@@ -203,7 +218,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exerices
+              12 exercises
             </Text>
           </View>
           <View
@@ -211,8 +226,14 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
           >
             <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
-        </View>
-        <View
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CustomExerciseListScreen", {
+              muscle: { bodyPart: "pectorals", name: "Chest" },
+            });
+          }}
           style={{
             flexDirection: "row",
             height: 94,
@@ -260,7 +281,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exerices
+              12 exercises
             </Text>
           </View>
           <View
@@ -268,8 +289,14 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
           >
             <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
-        </View>
-        <View
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CustomExerciseListScreen", {
+              muscle: { bodyPart: "lats", name: "Back" },
+            });
+          }}
           style={{
             flexDirection: "row",
             height: 94,
@@ -317,7 +344,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exerices
+              12 exercises
             </Text>
           </View>
           <View
@@ -325,8 +352,14 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
           >
             <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
-        </View>
-        <View
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CustomExerciseListScreen", {
+              muscle: { bodyPart: "abs", name: "Abs" },
+            });
+          }}
           style={{
             flexDirection: "row",
             height: 94,
@@ -374,7 +407,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exerices
+              12 exercises
             </Text>
           </View>
           <View
@@ -382,8 +415,14 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
           >
             <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
-        </View>
-        <View
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CustomExerciseListScreen", {
+              muscle: { bodyPart: "quads", name: "Legs" },
+            });
+          }}
           style={{
             flexDirection: "row",
             height: 94,
@@ -431,7 +470,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exerices
+              12 exercises
             </Text>
           </View>
           <View
@@ -439,7 +478,7 @@ const CustomBodyPartScreen = ({ route, navigation }) => {
           >
             <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
