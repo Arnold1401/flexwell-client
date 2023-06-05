@@ -24,15 +24,7 @@ const LibraryStack = () => {
         component={BodyPartScreen}
         options={{
           headerTitle: () => <WelcomingTextHeader />,
-          headerRight: () => (
-            <TouchableOpacity>
-              <FontAwesome
-                name="gear"
-                size={32}
-                style={{ marginRight: 16, color: textAccent }}
-              />
-            </TouchableOpacity>
-          ),
+
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
@@ -60,15 +52,7 @@ const LibraryStack = () => {
             fontSize: appBarFontSize,
             letterSpacing: 1,
           },
-          headerRight: () => (
-            <TouchableOpacity>
-              <FontAwesome
-                name="gear"
-                size={32}
-                style={{ marginRight: 16, color: textAccent }}
-              />
-            </TouchableOpacity>
-          ),
+
           headerStyle: {
             backgroundColor: primaryColor,
           },

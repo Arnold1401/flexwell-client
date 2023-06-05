@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const storeData = async (value) => {
+const storeData = async (key, value) => {
   try {
-    await AsyncStorage.setItem("@storage_Key", value);
+    await AsyncStorage.setItem(key, value);
     console.log("masuk async storage");
   } catch (e) {
     // saving error
@@ -10,9 +10,9 @@ const storeData = async (value) => {
   }
 };
 
-const getData = async () => {
+const getData = async (key) => {
   try {
-    const value = await AsyncStorage.getItem("@storage_Key");
+    const value = await AsyncStorage.getItem(key);
     if (value !== null) {
       return value;
     } else {
