@@ -35,15 +35,6 @@ const ChallengeStack = () => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
-          headerRight: () => (
-            <TouchableOpacity>
-              <FontAwesome
-                name="gear"
-                size={32}
-                style={{ marginRight: 16, color: textAccent }}
-              />
-            </TouchableOpacity>
-          ),
         }}
       />
       <Stack.Screen

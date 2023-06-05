@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -20,23 +20,45 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doRegister } from "../action/userCreator";
 import { useNavigation } from "@react-navigation/native";
+
+import { storeData, getData } from "../async";
 const RegisterScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [email, onChangeEmail] = React.useState();
-  const [username, onChangeUsername] = React.useState();
-  const [password, onChangePassword] = React.useState();
-  const [passwordCheck, onChangePasswordCheck] = React.useState();
-
+  const [email, onChangeEmail] = React.useState("");
+  const [username, onChangeUsername] = React.useState("");
+  const [password, onChangePassword] = React.useState("");
+  const [passwordCheck, onChangePasswordCheck] = React.useState("");
+  const { isLoading, user, errorMsg } = useSelector(
+    (state) => state.userReducer
+  );
   const register = () => {
-    console.log("testing");
-    console.log(email, username, password, passwordCheck);
-    dispatch(doRegister(email, username, password, passwordCheck));
+    // console.log("testing");
+    // console.log(email, username, password, passwordCheck);
+    if (password === passwordCheck) {
+      dispatch(doRegister(email, username, password));
+    } else {
+      console.warn("Password with confirm password must be same !");
+    }
   };
+
+  const reset = () => {
+    onChangeEmail("");
+    onChangeUsername("");
+    onChangePassword("");
+    onChangePasswordCheck("");
+  };
+
+  useEffect(() => {
+    if (user.status === 201) {
+      console.warn("Registered");
+      reset();
+    }
+  }, [user]);
 
   return (
     <View
@@ -76,6 +98,8 @@ const RegisterScreen = () => {
       >
         <Fumi
           label={"Email"}
+          value={email}
+          autoCapitalize={"none"}
           onChangeText={onChangeEmail}
           iconClass={FontAwesome}
           iconName={"envelope"}
@@ -94,6 +118,8 @@ const RegisterScreen = () => {
         />
         <Fumi
           label={"Username"}
+          autoCapitalize={"none"}
+          value={username}
           onChangeText={onChangeUsername}
           iconClass={FontAwesome}
           iconName={"user"}
@@ -111,9 +137,11 @@ const RegisterScreen = () => {
         />
         <Fumi
           label={"Password"}
+          autoCapitalize={"none"}
           onChangeText={onChangePassword}
           iconClass={FontAwesome}
           iconName={"key"}
+          value={password}
           iconColor={primaryColor}
           iconSize={24}
           iconWidth={40}
@@ -129,6 +157,8 @@ const RegisterScreen = () => {
         />
         <Fumi
           label={"Confirm Password"}
+          autoCapitalize={"none"}
+          value={passwordCheck}
           onChangeText={onChangePasswordCheck}
           iconClass={FontAwesome}
           iconName={"key"}

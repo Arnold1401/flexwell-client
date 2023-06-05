@@ -11,10 +11,11 @@ import { Image } from "expo-image";
 import { Fumi } from "react-native-textinput-effects";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import logo from "../assets/logo.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doLogin } from "../action/userCreator";
-import { storeData, getData } from "../async";
+
 import { useNavigation } from "@react-navigation/native";
+import { storeData, getData } from "../async";
 
 import {
   buttonTextSize,
@@ -23,6 +24,8 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 
+import Modal from "react-native-modal";
+
 const LoginScreen = ({}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -30,15 +33,26 @@ const LoginScreen = ({}) => {
   const [username, onChangeUsername] = React.useState("");
   const [password, onChangePassword] = React.useState("");
 
-  // const test = async () => {
-  //   console.log("ada data isinya", await getData());
-  //   dispatch(doLogin(username, password));
-  // };
+  const { isLoading, user, errorMsg } = useSelector(
+    (state) => state.userReducer
+  );
+  const test = async () => {
+    const { access_token } = await JSON.parse(getData("userData"));
+    console.log(access_token);
+    if (access_token) {
+      navigation.navigate("Main");
+    }
+  };
+  useEffect(() => {
+    console.log(user, "test--logged");
+    if (user === "Logged") {
+      navigation.navigate("Main");
+      test();
+    }
+  }, [user]);
 
   const login = () => {
-    storeData("access_token");
-    // test();
-    // navigation.navigate("Main");
+    dispatch(doLogin(username, password));
   };
 
   return (
@@ -79,6 +93,7 @@ const LoginScreen = ({}) => {
       >
         <Fumi
           label={"Username"}
+          autoCapitalize={"none"}
           onChangeText={onChangeUsername}
           iconClass={FontAwesome}
           iconName={"user"}
@@ -96,6 +111,7 @@ const LoginScreen = ({}) => {
           }}
         />
         <Fumi
+          autoCapitalize={"none"}
           label={"Password"}
           onChangeText={onChangePassword}
           iconClass={FontAwesome}

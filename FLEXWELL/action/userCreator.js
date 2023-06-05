@@ -1,13 +1,7 @@
 import axios from "axios";
 import { baseUrl } from ".././config";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  USER_ERROR,
-  USER_SUCCESS,
-  USER_PENDING,
-  USER_REGISTER,
-  USER_LOGIN,
-} from "./actionType.js";
+import { USER_ERROR, USER_SUCCESS, USER_PENDING } from "./actionType.js";
+import { storeData, getData } from "../async";
 
 const userPending = () => ({
   type: USER_PENDING,
@@ -23,26 +17,31 @@ const userError = (errorMessage) => ({
   payload: errorMessage,
 });
 
-// const loginHandler = (username, password) => (dispatch, getState) => {
-//   console.log(username, password, "dari action");
-// };
-
-const doLogin = () => async (dispatch, getState) => {
+const doLogin = (username, password) => async (dispatch, getState) => {
   //PENDING
   dispatch(userPending());
   try {
-    const response = await axios.post(`${baseUrl}/login`);
+    const response = await axios.post(`${baseUrl}/pub/login`, {
+      username,
+      password,
+    });
+    const { data } = response;
+    const accessToken = data.access_token;
+    dispatch(userSucess("Logged"));
 
-    console.log(response, "-- doLoginCreator --");
-    // const value={
-    //   access_token:response
-    // }
-    // const jsonValue = JSON.stringify(value)
-    // await AsyncStorage.setItem('@storage_Key', jsonValue)
+    const value = {
+      access_token: accessToken,
+    };
+    await storeData("userData", JSON.stringify(value));
+    console.log(await getData("userData"), "ini di dalam asyncstorage");
     //SUCCESS
   } catch (err) {
     //ERROR
-    dispatch(userError(err));
+    const { data } = err.response;
+
+    const message = data.message;
+    console.log(message, "-- error Login --");
+    dispatch(userError(message));
   } finally {
     // Bisa menggunakan getState
     console.log("Finally", getState());
@@ -50,18 +49,19 @@ const doLogin = () => async (dispatch, getState) => {
 };
 
 const doRegister =
-  (email, username, password, passwordCheck) => (dispatch, getState) => {
+  (email, username, password) => async (dispatch, getState) => {
     dispatch(userPending());
     try {
-      console.log(
-        email,
+      const response = await axios.post(`${baseUrl}/pub/register`, {
         username,
+        email,
         password,
-        passwordCheck,
-        "dari Action Creator"
-      );
-      const test = "";
-      dispatch(userSucess(test));
+      });
+      console.log(response, "test--");
+      const { data, status } = response;
+
+      console.log(data);
+      dispatch(userSucess({ msg: data.message, status }));
     } catch (error) {
       dispatch(userError(error));
     }
