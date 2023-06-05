@@ -37,7 +37,7 @@ const LoginScreen = ({}) => {
     (state) => state.userReducer
   );
   const test = async () => {
-    const { access_token } = await JSON.parse(getData("userData"));
+    const { access_token } = JSON.parse(await getData("userData"));
     console.log(access_token);
     if (access_token) {
       navigation.navigate("Main");

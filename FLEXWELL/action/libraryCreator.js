@@ -8,6 +8,7 @@ import {
   EXERCISEDETAIL_ERROR,
 } from "./actionType.js";
 import { baseUrl } from "../config.js";
+import { storeData, getData } from "../async/index.js";
 
 const datanya = [
   {
@@ -60,15 +61,14 @@ const fetchLibrary = (bodyPart) => async (dispatch, getState) => {
   console.log("---Library bodypart", bodyPart);
   dispatch(libraryPending());
   try {
-    // console.log("---dari Action Creator---");
-    // console.log(`${baseUrl}/pub/bodyparts?target=${bodyPart}`);
+    const { access_token } = JSON.parse(await getData("userData"));
+    console.log(access_token, "ini akses Token");
 
     const { data } = await axios.get(
       `${baseUrl}/pub/bodyparts?target=${bodyPart}`,
       {
         headers: {
-          access_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjbGllbnQxQGNjYy5jb20iLCJ1c2VybmFtZSI6ImNsaWVudDEiLCJpYXQiOjE2ODU5MzQ5NDl9.X6Q2fHDrmlkOxKY0sWcASIA8a5IVpLQ8Erjxhegwp8Y",
+          access_token: access_token,
         },
       }
     );
@@ -99,10 +99,11 @@ export const fetchExerciseDetailMiddleware =
     console.log(id, "ini ID dari creator");
     dispatch(detailExercisePendingCreator());
     try {
+      const { access_token } = JSON.parse(await getData("userData"));
+
       const { data } = await axios.get(`${baseUrl}/pub/bodyparts/${id}`, {
         headers: {
-          access_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjbGllbnQxQGNjYy5jb20iLCJ1c2VybmFtZSI6ImNsaWVudDEiLCJpYXQiOjE2ODU5MzQ5NDl9.X6Q2fHDrmlkOxKY0sWcASIA8a5IVpLQ8Erjxhegwp8Y",
+          access_token: access_token,
         },
       });
       console.log(data, "ini response dari backend");

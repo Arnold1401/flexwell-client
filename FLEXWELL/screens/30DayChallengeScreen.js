@@ -77,18 +77,18 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
                   fontFamily: "Poppins",
                   fontSize: 24,
                   color: textSecondary,
-                  flex: 1,
+                  flex: 2,
                 }}
               >
-                {item.name.split(":")[0]} :
+                Day {item.id} :
               </Text>
               <Text
                 style={{
                   fontSize: 16,
-                  flex: 3,
+                  flex: 5,
                 }}
               >
-                {item.name.split(":")[1]}
+                {item.name}
               </Text>
             </View>
           </View>
