@@ -1,5 +1,5 @@
-export const primaryColor = "#F77C61";
-export const secondaryColor = "#F3E665";
+export const primaryColor = "#F44336";
+export const secondaryColor = "#FFEB3B";
 export const accentColor = "#ff5b74";
 export const textPrimary = "#FFFFFF";
 export const textSecondary = "#2c2c2c";
