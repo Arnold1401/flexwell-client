@@ -6,13 +6,14 @@ import {
 
 const initalState = {
   isLoading: true,
-  library: {},
+  library: [],
   errorMsg: "",
 };
 
 const libraryReducer = (state = initalState, action) => {
   switch (action.type) {
     case LIBRARY_SUCCESS:
+      // console.log(action.payload, "reducer");
       return {
         ...state,
         isLoading: false,

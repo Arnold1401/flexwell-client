@@ -46,6 +46,7 @@ const BodyPartScreen = ({ route, navigation }) => {
             gap: 8,
           }}
           onPress={() => {
+            // console.log("jalan Biceps");
             navigation.navigate("ExerciseListScreen", {
               muscle: { bodyPart: "biceps", name: "Biceps" },
             });
@@ -81,6 +82,69 @@ const BodyPartScreen = ({ route, navigation }) => {
               style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
             >
               Biceps
+            </Text>
+            <Text
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 16,
+              }}
+            >
+              12 exerices
+            </Text>
+          </View>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <FontAwesome name={"info-circle"} size={32} color={textSecondary} />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            height: 94,
+            marginHorizontal: 16,
+            gap: 8,
+          }}
+          onPress={() => {
+            navigation.navigate("ExerciseListScreen", {
+              muscle: { bodyPart: "triceps", name: "Triceps" },
+            });
+          }}
+        >
+          <View
+            style={{
+              flex: 2,
+              height: 94,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              borderWidth: 0.8,
+              borderRadius: 16,
+              borderColor: textAccent,
+            }}
+          >
+            <Image
+              source={triceps}
+              style={{ height: 90, width: 90 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 3,
+              flexDirection: "column",
+              justifyContent: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{ fontSize: 32, fontWeight: "bold", color: textSecondary }}
+            >
+              Triceps
             </Text>
             <Text
               style={{
