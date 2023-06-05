@@ -56,7 +56,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
           </View>
           <View
             style={{
-              borderWidth: 0.5,
+              borderWidth: 2,
               borderRadius: 16,
               height: 60,
               flex: 11,

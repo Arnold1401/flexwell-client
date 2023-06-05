@@ -1,29 +1,29 @@
 import {
-  LIBRARY_PENDING,
-  LIBRARY_ERROR,
-  LIBRARY_SUCCESS,
+  EXERCISEDETAIL_ERROR,
+  EXERCISEDETAIL_SUCCESS,
+  EXERCISEDETAIL_PENDING,
 } from "../action/actionType";
 
 const initalState = {
   isLoading: true,
-  library: [],
+  exercise: {},
   errorMsg: "",
 };
 
-const libraryReducer = (state = initalState, action) => {
+const exerciseDetailReducer = (state = initalState, action) => {
   switch (action.type) {
-    case LIBRARY_SUCCESS:
+    case EXERCISEDETAIL_SUCCESS:
       // console.log(action.payload, "reducer");
       return {
         ...state,
         isLoading: false,
-        library: action.payload,
+        exercise: action.payload,
       };
-    case LIBRARY_PENDING:
+    case EXERCISEDETAIL_PENDING:
       return {
         ...state,
       };
-    case LIBRARY_ERROR:
+    case EXERCISEDETAIL_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -34,4 +34,4 @@ const libraryReducer = (state = initalState, action) => {
   }
 };
 
-export default libraryReducer;
+export default exerciseDetailReducer;

@@ -12,6 +12,7 @@ import {
   primaryColor,
   secondaryColor,
   textAccent,
+  textAccentSecondary,
   textPrimary,
 } from "../color-and-size.config";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -56,6 +57,8 @@ const CustomExcScreen = ({ route, navigation }) => {
           backgroundColor: secondaryColor,
           borderRadius: 16,
           display: isEmpty ? "none" : "flex",
+          borderWidth: 1.5,
+          borderColor: textAccentSecondary,
         }}
         onPress={() => toDetailCustom()}
       >

@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import loadingAnimation from "../assets/lottie/loading.json";
 
 import { Fumi } from "react-native-textinput-effects";
 import { useNavigation } from "@react-navigation/native";
@@ -25,6 +26,7 @@ import {
 } from "../color-and-size.config";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLibrary } from "../action/libraryCreator";
+import LottieView from "lottie-react-native";
 
 const ExercisesScreen = ({ route, navigation }) => {
   const { muscle } = route.params;
@@ -39,7 +41,7 @@ const ExercisesScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchLibrary());
+    dispatch(fetchLibrary(muscle.bodyPart));
   }, []);
 
   const toOneExercise = (id) => {
@@ -49,7 +51,7 @@ const ExercisesScreen = ({ route, navigation }) => {
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (
-    <TouchableOpacity style={{ flex: 1, alignItems: "flex-start" }}>
+    <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
       <View
         style={{
           width: 160,
@@ -71,7 +73,7 @@ const ExercisesScreen = ({ route, navigation }) => {
           onPress={() => toOneExercise(item.id)}
         >
           <Image
-            source={{ uri: item.avatar }}
+            source={{ uri: item.gifUrl }}
             style={{ height: "100%", width: "100%" }}
             resizeMode="cover"
           />
@@ -118,7 +120,14 @@ const ExercisesScreen = ({ route, navigation }) => {
 
   //flat list with avatar
   const FlatListWithAvatar = () => (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        flex: 1,
+        // backgroundColor: "blue",
+        // alignItems: "center",
+        // width: "100%",
+      }}
+    >
       <FlatList
         data={library}
         keyExtractor={(item) => item.id}
@@ -165,7 +174,23 @@ const ExercisesScreen = ({ route, navigation }) => {
           flexDirection: "row",
         }}
       >
-        <FlatListWithAvatar />
+        {isLoading ? (
+          <LottieView
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: 150,
+              height: 150,
+              alignSelf: "center",
+              // backgroundColor: "blue",
+            }}
+            source={loadingAnimation}
+            autoPlay
+            loop
+          />
+        ) : (
+          <FlatListWithAvatar />
+        )}
       </View>
     </View>
   );
