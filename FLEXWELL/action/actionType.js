@@ -20,3 +20,8 @@ export const CHALLENGE_SUCCESS = "challenge/success";
 export const CUSTOMIZATION_PENDING = "customization/pending";
 export const CUSTOMIZATION_ERROR = "customization/error";
 export const CUSTOMIZATION_SUCCESS = "customization/success";
+
+//------ ExerciseDetail
+export const EXERCISEDETAIL_PENDING = "exerciseDetail/pending";
+export const EXERCISEDETAIL_ERROR = "exerciseDetail/error";
+export const EXERCISEDETAIL_SUCCESS = "exerciseDetail/success";

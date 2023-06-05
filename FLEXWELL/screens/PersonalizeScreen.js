@@ -20,6 +20,7 @@ import {
 } from "../color-and-size.config";
 import { useDispatch } from "react-redux";
 import { saveRecord } from "../action/userCreator";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 const Personalize = () => {
   const dispatch = useDispatch();
 
@@ -90,7 +91,7 @@ const Personalize = () => {
   };
 
   const showDatePicker = () => {
-    setDatePickerVisibility("true");
+    setDatePickerVisibility(true);
   };
 
   const hideDatePicker = () => {
@@ -99,7 +100,8 @@ const Personalize = () => {
 
   const handleConfirm = (date) => {
     // console.warn("A date has been picked: ", date);
-    setTextDate(date.dateString);
+    console.log(date);
+    setTextDate(date.toDateString().split(" ").slice(1).join(" "));
     hideDatePicker();
   };
 
@@ -295,9 +297,15 @@ const Personalize = () => {
                 />
               </Pressable>
             </View>
-            <Calendar
+            {/* <Calendar
               style={{ display: !isDatePickerVisible ? "none" : "flex" }}
               onDayPress={handleConfirm}
+            /> */}
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
             />
           </View>
         </View>

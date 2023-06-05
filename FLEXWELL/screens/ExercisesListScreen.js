@@ -38,8 +38,6 @@ const ExercisesScreen = ({ route, navigation }) => {
     (state) => state.fetchLibrary
   );
 
-  console.log(library);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,7 +51,7 @@ const ExercisesScreen = ({ route, navigation }) => {
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (
-    <TouchableOpacity style={{ flex: 1, alignItems: "flex-start" }}>
+    <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
       <View
         style={{
           width: 160,
@@ -122,7 +120,14 @@ const ExercisesScreen = ({ route, navigation }) => {
 
   //flat list with avatar
   const FlatListWithAvatar = () => (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        flex: 1,
+        // backgroundColor: "blue",
+        // alignItems: "center",
+        // width: "100%",
+      }}
+    >
       <FlatList
         data={library}
         keyExtractor={(item) => item.id}

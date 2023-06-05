@@ -9,13 +9,13 @@ import {
   textSecondary,
 } from "../color-and-size.config.js";
 
-const DashboardStack = () => {
+const DashboardStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Library"
+      name="Dashboard"
       component={DashboardScreen}
       options={{
-        title: "Library",
+        headerShown: false,
         headerTitleStyle: {
           fontFamily: "Montserrat-Bold",
           fontSize: appBarFontSize,
@@ -33,7 +33,6 @@ const DashboardStack = () => {
         },
       }}
     />
-  </Stack.Navigator>;
-};
-
+  </Stack.Navigator>
+);
 export default DashboardStack;
