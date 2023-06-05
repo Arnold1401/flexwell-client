@@ -36,54 +36,61 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
     <View
       style={{
         flexDirection: "row",
-        gap: 4,
+        gap: 0,
         width: "100%",
         flex: 1,
-        marginVertical: 4,
+        marginVertical: 10,
+        justifyContent: "flex-start",
+        // backgroundColor: "yellow",
       }}
     >
       <View
         style={{
-          height: 64,
+          height: 100,
           width: 64,
           flex: 2,
         }}
       >
         <Image
-          source={{ uri: item.gifUrl }}
+          source={{
+            uri: "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
+          }}
           style={{ height: "100%", width: "100%" }}
         />
       </View>
-      <View style={{ height: 64, width: 20, flex: 5, padding: 12 }}>
-        <View style={{ flexDirection: "column" }}>
+      <View
+        style={{
+          height: 100,
+          width: 20,
+          flex: 5,
+          padding: 12,
+          alignItems: "flex-start",
+        }}
+      >
+        <View style={{ display: "flex", flexDirection: "column" }}>
           <Text style={{ fontFamily: "Montserrat-Bold" }} numberOfLines={2}>
-            {item.name}
+            {item?.name?.split(" ").map((word) => {
+              word = word.charAt(0).toUpperCase() + word.slice(1);
+              return `${word} `;
+            })}
           </Text>
           <Text
             style={{
               fontSize: 12,
             }}
           >
-            {item.set}sets x {item.reps}reps x{" "}
-            {item.weight === null ? "--" : item.weight}kg
+            {item.totalSet}sets x {item.repetition}reps{" "}
+            {/* {item.weight === null ? "--" : item.weight}kg */}
           </Text>
         </View>
-      </View>
-      <View
-        style={{
-          height: 64,
-          flex: 3,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
         <View
           style={{
-            paddingVertical: 8,
+            paddingVertical: 4,
             paddingHorizontal: 12,
             backgroundColor: primaryColor,
-            width: 70,
+            alignSelf: "baseline",
             borderRadius: 20,
+            marginTop: 5,
           }}
         >
           <Text
@@ -94,7 +101,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
               color: "white",
             }}
           >
-            {item.bodyPart}
+            {item.bodyPart.toUpperCase()}
           </Text>
         </View>
       </View>
@@ -142,7 +149,10 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
           }}
           numberOfLines={1}
         >
-          {challenge.name.split(":")[0]}
+          {challenge?.name?.split(" ").map((word) => {
+            word = word.charAt(0).toUpperCase() + word.slice(1);
+            return `${word} `;
+          })}
         </Text>
       </View>
       <View
@@ -212,7 +222,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                     fontWeight: "700",
                   }}
                 >
-                  13
+                  {challenge.exercises.length}
                 </Text>
               </View>
               <View
@@ -236,7 +246,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                     fontWeight: "700",
                   }}
                 >
-                  29
+                  {challenge.totalSet}
                 </Text>
               </View>
               <View
@@ -267,7 +277,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                       fontFamily: "Montserrat-Bold",
                     }}
                   >
-                    80
+                    {challenge.totalDuration}
                   </Text>
                   <Text
                     style={{

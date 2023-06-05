@@ -40,28 +40,6 @@ const Bottomstack = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="DashboardStack"
-        options={{
-          headerTitle: () => <WelcomingTextHeader />,
-
-          title: "Dashboard",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-          headerTintColor: textPrimary,
-          headerTitleAlign: "left",
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-        }}
-        component={DashboardStack}
-      />
-      <Tab.Screen
         name="Challenge"
         options={{
           headerShown: false,
@@ -148,6 +126,28 @@ const Bottomstack = () => {
           },
         }}
         component={ProfileStack}
+      />
+      <Tab.Screen
+        name="DashboardStack"
+        options={{
+          headerTitle: () => <WelcomingTextHeader />,
+
+          title: "Dashboard",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+          headerTintColor: textPrimary,
+          headerTitleAlign: "left",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+        component={DashboardStack}
       />
     </Tab.Navigator>
   );

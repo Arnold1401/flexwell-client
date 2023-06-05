@@ -19,6 +19,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const CustomExcScreen = ({ route, navigation }) => {
+  // LOTTIE ada true
   const [isEmpty, setIsEmpty] = useState(false);
   const animation = require("../assets/lottie/custom-empty-1.json");
 
@@ -80,7 +81,7 @@ const CustomExcScreen = ({ route, navigation }) => {
           }}
         >
           <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
-            Push Day ala Arnold
+            Push Day ala Flexwell
           </Text>
         </View>
         <View

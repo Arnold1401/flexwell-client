@@ -18,8 +18,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
 
 const CustomWorkouts = ({ navigation }) => {
+  //LOTTIE true data ada
   const [status, setStatus] = useState(true);
-  const [title, setTitle] = useState("Workout ala Arnold");
+  const [title, setTitle] = useState("Workout ala Flexwell");
 
   const animation = require("../assets/lottie/custom-empty.json");
 

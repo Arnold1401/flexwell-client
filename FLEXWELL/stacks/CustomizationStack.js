@@ -25,6 +25,8 @@ import CustomChallengeExercise from "../screens/CustomChallengeExercise";
 import { Pressable } from "react-native";
 
 const CustomizationStack = ({ navigation }) => {
+  //SUPAAYA lottie tamoil      - TRUE
+  // lottie hilang data tampil - FALSE
   const [isEmpty, setIsEmpty] = useState(true);
 
   return (

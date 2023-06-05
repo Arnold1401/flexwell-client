@@ -168,7 +168,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
           }}
           numberOfLines={1}
         >
-          PUSH DAY ALA ARNOLD
+          PUSH DAY ALA Flexwell
         </Text>
       </View>
       <View
