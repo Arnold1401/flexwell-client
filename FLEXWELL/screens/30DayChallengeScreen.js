@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChallenge } from "../action/challengeCreator";
 import {
   View,
   Text,
@@ -19,24 +21,27 @@ import {
 
 const ThirtyDayChallenge = ({ route, navigation }) => {
   // Data untuk flatlist
-  const data = [
-    { id: "1", name: "John Doe", avatar: "https://picsum.photos/id/1/info" },
-    { id: "2", name: "Jane Smith", avatar: "https://picsum.photos/id/2/info" },
-    {
-      id: "3",
-      name: "Mike Johnson",
-      avatar: "https://picsum.photos/id/3/info",
-    },
-  ];
-  const toDetailDay = (id) => {
-    console.log(id, "go to detail");
-    navigation.navigate("ChallengeDetail", { id });
+
+  const { isLoading, challenge, errorMsg } = useSelector(
+    (state) => state.fetchChallange
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchChallenge());
+  }, []);
+
+  console.log(challenge, "--30daychallengescreen--");
+  const toDetailDay = (challenge) => {
+    console.log(challenge, "--go to detail--");
+    navigation.navigate("ChallengeDetail", { challenge });
   };
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        toDetailDay(item.id);
+        toDetailDay(item);
       }}
     >
       <View
@@ -75,7 +80,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
                   flex: 1,
                 }}
               >
-                Day 1:
+                {item.name.split(":")[0]} :
               </Text>
               <Text
                 style={{
@@ -83,7 +88,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
                   flex: 3,
                 }}
               >
-                Introduction to Weighlifthing hehe haha
+                {item.name.split(":")[1]}
               </Text>
             </View>
           </View>
@@ -96,7 +101,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
   const FlatListWithAvatar = () => (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={data}
+        data={challenge}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ListItem item={item} />}
       />

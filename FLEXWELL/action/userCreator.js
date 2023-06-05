@@ -1,3 +1,6 @@
+import axios from "axios";
+import { baseUrl } from ".././config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   USER_ERROR,
   USER_SUCCESS,
@@ -28,11 +31,15 @@ const doLogin = () => async (dispatch, getState) => {
   //PENDING
   dispatch(userPending());
   try {
-    const response = await fetch("http://localhost:3000/Products");
-    const responseJson = await response.json();
-    console.log(responseJson);
+    const response = await axios.post(`${baseUrl}/login`);
+
+    console.log(response, "-- doLoginCreator --");
+    // const value={
+    //   access_token:response
+    // }
+    // const jsonValue = JSON.stringify(value)
+    // await AsyncStorage.setItem('@storage_Key', jsonValue)
     //SUCCESS
-    dispatch(userSucess(responseJson));
   } catch (err) {
     //ERROR
     dispatch(userError(err));
@@ -72,26 +79,29 @@ const saveRecord =
     waist,
     chest,
     shoulders,
-    thight,
+    thigh,
     calf
   ) =>
   (dispatch, getState) => {
     dispatch(userPending());
     try {
-      console.log({
-        fullname,
-        gender,
-        dob,
-        height,
-        weight,
-        biceps,
-        abs,
-        waist,
-        chest,
-        shoulders,
-        thight,
-        calf,
-      });
+      console.log(
+        {
+          fullname,
+          gender,
+          dob,
+          height,
+          weight,
+          biceps,
+          abs,
+          waist,
+          chest,
+          shoulders,
+          thigh,
+          calf,
+        },
+        "masuk creator"
+      );
       dispatch(userSucess());
     } catch (error) {
       userError(error);

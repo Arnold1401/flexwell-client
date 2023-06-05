@@ -18,13 +18,91 @@ const challengeError = (errorMessage) => ({
   payload: errorMessage,
 });
 
+const datanya = [
+  {
+    id: 1,
+    name: "Day 1:Introduction to Weightlifting",
+    exercises: [
+      {
+        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/1369.gif",
+        id: "1369",
+        name: "band two legs calf raise - (band under both legs) v. 2",
+        reps: 10,
+        set: 3,
+        challengeId: 1,
+        bodyPart: "legs",
+      },
+      {
+        id: "0009",
+        name: "leverage machine",
+        reps: 10,
+        set: 3,
+        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0009.gif",
+        challengeId: 1,
+        bodyPart: "chest",
+      },
+      {
+        id: "0968",
+        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0968.gif",
+        name: "band alternating biceps curl",
+        reps: 10,
+        set: 3,
+        challengeId: 1,
+        bodyPart: "biceps",
+      },
+    ],
+    activity: null,
+  },
+  {
+    id: 2,
+    name: "Day 2:Rest and Recovery",
+    exercises: null,
+    activity: null,
+  },
+  {
+    id: 3,
+    name: "Day 3:Lower Body Focus",
+    exercises: [
+      {
+        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/1369.gif",
+        id: "1369",
+        name: "band two legs calf raise - (band under both legs) v. 2",
+        reps: 10,
+        set: 3,
+        bodyPart: "legs",
+        challengeId: 2,
+      },
+      {
+        id: "0009",
+        name: "leverage machine",
+        reps: 10,
+        set: 3,
+        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0009.gif",
+        bodyPart: "chest",
+        challengeId: 2,
+      },
+      {
+        id: "0968",
+        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0968.gif",
+        name: "band alternating biceps curl",
+        reps: 10,
+        set: 3,
+        bodyPart: "biceps",
+        challengeId: 2,
+      },
+    ],
+    activity: null,
+  },
+];
+
 const fetchChallenge = () => (dispatch, getState) => {
   dispatch(challengePending());
   try {
-    console.log("dari Action Creator");
-    dispatch(challengeSuccess());
+    console.log("masuk fetch challenge");
+    dispatch(challengeSuccess(datanya));
   } catch (error) {
-    dispatch(challengeError());
+    dispatch(challengeError(error));
   }
 };
-export { challengePending, challengeEror, challengeSuccess, fetchChallenge };
+
+export { challengePending, challengeError, challengeSuccess, fetchChallenge };
