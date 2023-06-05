@@ -40,7 +40,7 @@ const Bottomstack = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Dashboard"
+        name="DashboardStack"
         options={{
           headerTitle: () => <WelcomingTextHeader />,
           headerRight: () => (

@@ -32,6 +32,8 @@ const ExercisesScreen = ({ route, navigation }) => {
   const { muscle } = route.params;
 
   const [favorite, setFavorite] = useState(false);
+  const [status, setStatus] = useState(false);
+  const [status1, setStatus1] = useState(false);
 
   // Data untuk flatlist
   const { isLoading, library, errorMsg } = useSelector(
@@ -43,6 +45,12 @@ const ExercisesScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setTimeout(() => {
+      setStatus(true);
+    }, 1000);
+    setTimeout(() => {
+      setStatus1(true);
+    }, 1500);
     dispatch(fetchLibrary(muscle.bodyPart));
   }, []);
 
@@ -71,14 +79,20 @@ const ExercisesScreen = ({ route, navigation }) => {
             width: "100%",
             padding: 8,
             flex: 5,
+            alignItems: "center",
+            justifyContent: "center",
           }}
           onPress={() => toOneExercise(item.id)}
         >
-          <Image
-            source={{ uri: item.gifUrl }}
-            style={{ height: "100%", width: "100%" }}
-            resizeMode="cover"
-          />
+          {!status1 ? (
+            <Text>loading..</Text>
+          ) : (
+            <Image
+              source={{ uri: item.gifUrl }}
+              style={{ height: "100%", width: "100%" }}
+              resizeMode="cover"
+            />
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -169,7 +183,7 @@ const ExercisesScreen = ({ route, navigation }) => {
           flexDirection: "row",
         }}
       >
-        {isLoading ? (
+        {!status || isLoading ? (
           <LottieView
             style={{
               justifyContent: "center",

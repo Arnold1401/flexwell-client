@@ -13,7 +13,7 @@ const initalState = {
 const libraryReducer = (state = initalState, action) => {
   switch (action.type) {
     case LIBRARY_SUCCESS:
-      // console.log(action.payload, "reducer");
+      console.log(action.payload, "reducer");
       return {
         ...state,
         isLoading: false,

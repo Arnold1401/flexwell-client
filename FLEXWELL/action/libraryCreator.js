@@ -60,17 +60,17 @@ const fetchLibrary = (bodyPart) => async (dispatch, getState) => {
     console.log("---dari Action Creator---");
     console.log(`${baseUrl}/pub/bodyparts?target=${bodyPart}`);
 
-    const { data } = await axios.get(
-      `${baseUrl}/pub/bodyparts?target=${bodyPart}`,
-      {
-        headers: {
-          access_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjbGllbnQxQGNjYy5jb20iLCJ1c2VybmFtZSI6ImNsaWVudDEiLCJpYXQiOjE2ODU5MzQ5NDl9.X6Q2fHDrmlkOxKY0sWcASIA8a5IVpLQ8Erjxhegwp8Y",
-        },
-      }
-    );
+    // const { data } = await axios.get(
+    //   `${baseUrl}/pub/bodyparts?target=${bodyPart}`,
+    //   {
+    //     headers: {
+    //       access_token:
+    //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjbGllbnQxQGNjYy5jb20iLCJ1c2VybmFtZSI6ImNsaWVudDEiLCJpYXQiOjE2ODU5MzQ5NDl9.X6Q2fHDrmlkOxKY0sWcASIA8a5IVpLQ8Erjxhegwp8Y",
+    //     },
+    //   }
+    // );
     // console.log(data, "ini response dari backend");
-    dispatch(librarySucess(data));
+    dispatch(librarySucess(datanya));
   } catch (error) {
     // console.log(error);
     dispatch(libraryError(error));
