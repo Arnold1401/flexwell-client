@@ -43,15 +43,7 @@ const Bottomstack = () => {
         name="DashboardStack"
         options={{
           headerTitle: () => <WelcomingTextHeader />,
-          headerRight: () => (
-            <TouchableOpacity>
-              <FontAwesome
-                name="gear"
-                size={32}
-                style={{ marginRight: 16, color: textAccent }}
-              />
-            </TouchableOpacity>
-          ),
+
           title: "Dashboard",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",

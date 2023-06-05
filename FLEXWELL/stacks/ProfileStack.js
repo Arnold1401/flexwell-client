@@ -7,10 +7,12 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 const Stack = createStackNavigator();
-
+import { Entypo } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 import { ProfileScreen, PersonalizeScreen } from "../screens";
-
-const ProfileStack = () => {
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { getData, storeData } from "../async";
+const ProfileStack = ({ navigation, route }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -30,6 +32,20 @@ const ProfileStack = () => {
           gestureEnabled: false, // Disable swipe gesture to go back
           headerTintColor: textPrimary,
           headerTitleAlign: "center",
+          headerRight: () => (
+            <TouchableOpacity>
+              <Entypo
+                name="log-out"
+                size={24}
+                color="white"
+                onPress={() => {
+                  storeData("userData", "");
+                  navigation.navigate("Login");
+                }}
+                style={{ marginRight: 16 }}
+              />
+            </TouchableOpacity>
+          ),
           cardStyle: {
             backgroundColor: textPrimary,
           },

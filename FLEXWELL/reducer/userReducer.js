@@ -12,7 +12,7 @@ const userReducer = (state = initalState, action) => {
       return {
         ...state,
         isLoading: false,
-        users: action.payload,
+        user: action.payload,
       };
     case USER_PENDING:
       return {
