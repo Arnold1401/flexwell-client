@@ -56,12 +56,21 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
           </View>
           <View
             style={{
-              borderWidth: 2,
+              // borderWidth: 2,
               borderRadius: 16,
-              height: 60,
+              height: 75,
               flex: 11,
               justifyContent: "center",
               backgroundColor: secondaryColor,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 5,
             }}
           >
             <View

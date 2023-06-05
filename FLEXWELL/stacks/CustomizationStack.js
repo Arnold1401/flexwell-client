@@ -23,6 +23,7 @@ import SummaryScreen from "../screens/SummaryScreen";
 import CustomWorkoutList from "../screens/CustomWorkoutList";
 import CustomChallengeExercise from "../screens/CustomChallengeExercise";
 import { Pressable } from "react-native";
+import CustomExerciseListScreen from "../screens/CustomExcListScreen";
 
 const CustomizationStack = ({ navigation }) => {
   //SUPAAYA lottie tamoil      - TRUE
@@ -163,6 +164,25 @@ const CustomizationStack = ({ navigation }) => {
         component={CustomWorkoutList}
         options={{
           title: "",
+          headerTitleStyle: {
+            fontFamily: "Poppins",
+            fontSize: 16,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+          headerTintColor: textPrimary,
+          headerTitleAlign: "left",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="CustomExerciseListScreen"
+        component={CustomExerciseListScreen}
+        options={{
+          title: "HiHi",
           headerTitleStyle: {
             fontFamily: "Poppins",
             fontSize: 16,

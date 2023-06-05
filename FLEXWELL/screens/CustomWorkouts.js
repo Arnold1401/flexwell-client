@@ -19,7 +19,7 @@ import LottieView from "lottie-react-native";
 
 const CustomWorkouts = ({ navigation }) => {
   //LOTTIE true data ada
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState(false);
   const [title, setTitle] = useState("Workout ala Flexwell");
 
   const animation = require("../assets/lottie/custom-empty.json");

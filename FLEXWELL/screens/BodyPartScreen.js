@@ -155,7 +155,7 @@ const BodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exercise
+              12 exercises
             </Text>
           </View>
           <View
@@ -218,7 +218,7 @@ const BodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exercise
+              12 exercises
             </Text>
           </View>
           <View
@@ -281,7 +281,7 @@ const BodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exercise
+              12 exercises
             </Text>
           </View>
           <View
@@ -344,7 +344,7 @@ const BodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exercise
+              12 exercises
             </Text>
           </View>
           <View
@@ -407,7 +407,7 @@ const BodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exercise
+              12 exercises
             </Text>
           </View>
           <View
@@ -470,7 +470,7 @@ const BodyPartScreen = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
             >
-              12 exercise
+              12 exercises
             </Text>
           </View>
           <View
