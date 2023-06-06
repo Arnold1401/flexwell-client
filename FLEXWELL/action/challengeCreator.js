@@ -42,7 +42,8 @@ const fetchChallenge = () => async (dispatch, getState) => {
 
     dispatch(challengeSuccess(data));
   } catch (error) {
-    dispatch(challengeError(error));
+    console.log(error);
+    // dispatch(challengeError(error));
   }
 };
 

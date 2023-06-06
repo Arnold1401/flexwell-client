@@ -24,11 +24,21 @@ import CustomWorkoutList from "../screens/CustomWorkoutList";
 import CustomChallengeExercise from "../screens/CustomChallengeExercise";
 import { Pressable } from "react-native";
 import CustomExerciseListScreen from "../screens/CustomExcListScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomExerciseMiddleware } from "../action/addCustomizeExerciseCreator";
 
 const CustomizationStack = ({ navigation }) => {
   //SUPAAYA lottie tamoil      - TRUE
   // lottie hilang data tampil - FALSE
   const [isEmpty, setIsEmpty] = useState(true);
+  const { exerciseDetail } = useSelector((state) => state.exerciseList);
+
+  const dispatch = useDispatch();
+
+  const saveCustomWorkout = () => {
+    console.log("masuk save Custom Workout");
+    dispatch(createCustomExerciseMiddleware());
+  };
 
   return (
     <Stack.Navigator>
@@ -54,7 +64,8 @@ const CustomizationStack = ({ navigation }) => {
           },
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("SelectedCustomExercise")}
+              onPress={() => createCustomizeExercise()}
+              // navigation.navigate("SelectedCustomExercise"
             >
               <FontAwesome
                 name="plus-square"
@@ -85,7 +96,8 @@ const CustomizationStack = ({ navigation }) => {
           headerRight: () => (
             <TouchableOpacity
               disabled={!isEmpty ? true : false}
-              onPress={() => navigation.navigate("CustomExcScreen")}
+              onPress={() => saveCustomWorkout()}
+              // navigation.navigate("CustomExcScreen")
             >
               <Text
                 style={{

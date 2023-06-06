@@ -24,11 +24,18 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
-import { addCustomizeExerciseMiddleware } from "../action/addCustomizeExercise";
+import { addCustomizeExerciseMiddleware } from "../action/addCustomizeExerciseCreator";
 const loadingAnimation = require("../assets/lottie/loading.json");
 
 const SummaryScreen = ({ route, navigation }) => {
   const { id } = route.params;
+
+  const { exerciseDetail } = useSelector((state) => state.exerciseList);
+  const [exerciseDetailLocal, setExerciseDetailLocal] =
+    useState(exerciseDetail);
+
+  console.log(exerciseDetail, "ini exercise Detail");
+  // console.log(exerciseDetailLocal, "ini exercise DetailLocal");
 
   const { isLoading, exercise, erroMsg } = useSelector(
     (state) => state.fetchExerciseDetail
@@ -71,13 +78,29 @@ const SummaryScreen = ({ route, navigation }) => {
       bodyPart: exercise.bodyPart,
       gifUrl: exercise.gifUrl,
       name: exercise.name,
-      repetition: sets,
-      totalSet: reps,
+      repetition: reps,
+      totalSet: sets,
     };
+    // console.log(choosenExercises, "testing");
+    // setExerciseDetailLocal(exerciseDetail.push(choosenExercises));
 
-    // dispatch(addCustomizeExerciseMiddleware(choosenExercises));
-    console.log(choosenExercises);
+    dispatch(addCustomizeExerciseMiddleware(choosenExercises));
+    navigation.navigate("SelectedCustomExercise");
+
+    // console.log(exerciseDetailLocal, "ini dari addExercise");
   };
+
+  useEffect(() => {
+    if (exercise) {
+      const findExercise = exerciseDetail?.find(
+        (val) => val?.bodyPartId === exercise?.id
+      );
+      if (findExercise) {
+        setReps(findExercise?.repetition || 0);
+        setSets(findExercise?.totalSet || 0);
+      }
+    }
+  }, [exerciseDetail, exercise]);
 
   useEffect(() => {
     console.log(sets, "sets dari useEffect");
@@ -85,6 +108,11 @@ const SummaryScreen = ({ route, navigation }) => {
     sets < 0 ? setSets(0) : sets;
     reps < 0 ? setReps(0) : reps;
   }, [sets, reps]);
+
+  useEffect(() => {
+    setReps(0);
+    setSets(0);
+  }, []);
 
   if (isLoading) {
     return (

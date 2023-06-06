@@ -16,46 +16,31 @@ import {
 } from "../color-and-size.config";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomExerciseNameMiddleware } from "../action/addCustomizeExerciseCreator";
+const animation = require("../assets/lottie/custom-empty.json");
 
 const CustomWorkouts = ({ navigation }) => {
   //LOTTIE true data ada
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
+
+  const { exerciseDetail } = useSelector((state) => state.exerciseList);
+  const state = useSelector((state) => state);
+
   const [title, setTitle] = useState("Workout ala Flexwell");
 
-  const animation = require("../assets/lottie/custom-empty.json");
+  const { errorMsg, isLoading, newCustomExercise } = useSelector(
+    (state) => state.newExerciseName
+  );
 
-  const data = [
-    {
-      id: "1",
-      name: "Lever Shoulder Press ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
-    },
-    {
-      id: "2",
-      name: "Dumbbell Shoulder Press ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
-    },
-    {
-      id: "3",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-    {
-      id: "4",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-    {
-      id: "5",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-  ];
+  console.log(newCustomExercise, "test");
+
+  const dispatch = useDispatch();
+
+  const createNewExercise = () => {
+    console.log(title);
+    dispatch(createCustomExerciseNameMiddleware(title));
+  };
 
   const filled = (
     <Text
@@ -66,7 +51,7 @@ const CustomWorkouts = ({ navigation }) => {
         paddingVertical: 6,
       }}
     >
-      {title}
+      {newCustomExercise.name}
     </Text>
   );
 
@@ -81,6 +66,7 @@ const CustomWorkouts = ({ navigation }) => {
         paddingHorizontal: 50,
         alignSelf: "center",
       }}
+      onChangeText={setTitle}
       placeholder="Enter Your Custom Workout Name"
     />
   );
@@ -119,7 +105,7 @@ const CustomWorkouts = ({ navigation }) => {
       </TouchableOpacity>
       <View style={{ flex: 4 }}>
         <Image
-          source={{ uri: item.avatar }}
+          source={{ uri: item.gifUrl }}
           style={{ height: 80, width: 80 }}
         />
       </View>
@@ -131,7 +117,7 @@ const CustomWorkouts = ({ navigation }) => {
           {item.name}
         </Text>
         <Text style={{ fontFamily: "Montserrat-Bold", fontSize: 10 }}>
-          3 sets x 12 reps x 10 kg
+          {item.totalSet} sets x {item.repetition} reps
         </Text>
       </View>
       <View
@@ -152,7 +138,7 @@ const CustomWorkouts = ({ navigation }) => {
             borderRadius: 100,
           }}
         >
-          SHOULDERS
+          {item.bodyPart.toUpperCase()}
         </Text>
       </View>
     </View>
@@ -160,8 +146,8 @@ const CustomWorkouts = ({ navigation }) => {
 
   const FlatListWithAvatar = () => (
     <FlatList
-      data={data}
-      keyExtractor={(item) => item.id}
+      data={exerciseDetail}
+      keyExtractor={(item) => item.bodyPartId}
       renderItem={({ item }) => <ListItem item={item} />}
     />
   );
@@ -192,7 +178,7 @@ const CustomWorkouts = ({ navigation }) => {
             width: "100%",
           }}
         />
-        {status ? filled : empty}
+        {Object.keys(newCustomExercise).length == 0 ? empty : filled}
 
         <View
           style={{
@@ -203,12 +189,20 @@ const CustomWorkouts = ({ navigation }) => {
         />
       </View>
       <View
-        style={{ flex: 12, width: "100%", display: !status ? "flex" : "none" }}
+        style={{
+          flex: 12,
+          width: "100%",
+          display: exerciseDetail.length == 0 ? "flex" : "none",
+        }}
       >
         <LottieView source={animation} autoPlay loop />
       </View>
       <View
-        style={{ flex: 6, width: "100%", display: status ? "flex" : "none" }}
+        style={{
+          flex: 6,
+          width: "100%",
+          display: exerciseDetail.length !== 0 ? "flex" : "none",
+        }}
       >
         <FlatListWithAvatar />
       </View>
@@ -224,6 +218,7 @@ const CustomWorkouts = ({ navigation }) => {
           gap: 8,
         }}
         onPress={() => {
+          createNewExercise();
           navigation.navigate("CustomLibrary");
         }}
       >

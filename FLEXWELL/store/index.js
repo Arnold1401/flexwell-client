@@ -11,13 +11,16 @@ import exerciseDetailReducer from "../reducer/detailExcerciseReducer";
 import userReducer from "../reducer/userReducer";
 import customizationReducer from "../reducer/customizationReducer";
 import addExerciseReducer from "../reducer/addCustomExerciseReducer";
+import newExerciseNameReducer from "../reducer/customeExerciseNameReducer";
+
 const rootReducers = combineReducers({
   fetchChallange: challengeReducer,
   fetchLibrary: libraryReducer,
   fetchExerciseDetail: exerciseDetailReducer,
   userReducer: userReducer,
   fetchCustomization: customizationReducer,
-  // exerciseList: addExerciseReducer,
+  exerciseList: addExerciseReducer,
+  newExerciseName: newExerciseNameReducer,
 });
 
 const store = createStore(rootReducers, applyMiddleware(thunk));
