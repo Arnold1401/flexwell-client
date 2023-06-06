@@ -10,6 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import store from "./store/index";
 import { LoginScreen, PersonalizeScreen, RegisterScreen } from "./screens";
+import { LogBox } from "react-native";
 
 import {
   ChallengeStack,
@@ -32,6 +33,8 @@ import { Pressable, TouchableOpacity } from "react-native";
 import WelcomingTextHeader from "./components/WelcomingTextHeader";
 
 SplashScreen.preventAutoHideAsync();
+
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
