@@ -38,7 +38,7 @@ const LoginScreen = ({}) => {
   const login = () => {
     storeData("access_token");
     // test();
-    // navigation.navigate("Main");
+    navigation.navigate("Main");
   };
 
   return (
