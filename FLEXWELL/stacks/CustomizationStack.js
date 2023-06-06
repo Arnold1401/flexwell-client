@@ -182,7 +182,7 @@ const CustomizationStack = ({ navigation }) => {
         name="CustomExerciseListScreen"
         component={CustomExerciseListScreen}
         options={{
-          title: "HiHi",
+          title: "",
           headerTitleStyle: {
             fontFamily: "Poppins",
             fontSize: 16,
