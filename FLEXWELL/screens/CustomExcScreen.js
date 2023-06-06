@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
+  FlatList,
   Button,
   StyleSheet,
   Pressable,
@@ -17,11 +18,97 @@ import {
 } from "../color-and-size.config";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCustomization } from "../action/customizationCreator";
 
 const CustomExcScreen = ({ route, navigation }) => {
   // LOTTIE ada true
   const [isEmpty, setIsEmpty] = useState(false);
   const animation = require("../assets/lottie/custom-empty-1.json");
+
+  const { isLoading, customization, errorMsg } = useSelector(
+    (state) => state.fetchCustomization
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCustomization());
+
+    console.log(customization, "-- Customization screen --");
+    // async () => (isEmpty = (await customization.length) ? true : false);
+  }, []);
+
+  const ListItem = ({ item }) => (
+    <TouchableOpacity
+      style={{
+        marginTop: 24,
+        flexDirection: "row",
+        width: "95%",
+        alignItems: "center",
+        justifyContent: "space-between",
+        height: 80,
+        backgroundColor: secondaryColor,
+        borderRadius: 16,
+        display: isEmpty ? "none" : "flex",
+        borderWidth: 1.5,
+        borderColor: textAccentSecondary,
+      }}
+      onPress={() => toDetailCustom()}
+    >
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
+        }}
+      >
+        <FontAwesome5 name="dumbbell" size={24} color="black" />
+      </View>
+      <View
+        style={{
+          flex: 4,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>{item.name}</Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
+        }}
+      >
+        <FontAwesome name={"chevron-circle-right"} size={24} />
+      </View>
+    </TouchableOpacity>
+  );
+
+  const FlatListCustomWorkout = () => (
+    <View
+      style={{
+        flex: 1,
+        // backgroundColor: "blue",
+        // alignItems: "center",
+        // width: "100%",
+      }}
+    >
+      <FlatList
+        data={customization}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ListItem item={item} />}
+        numColumns={2}
+        contentContainerStyle={{
+          gap: 16,
+        }}
+        columnWrapperStyle={{ gap: 8 }}
+      />
+    </View>
+  );
 
   const toDetailCustom = (id) => {
     console.log(id, "go to detail");
@@ -47,54 +134,9 @@ const CustomExcScreen = ({ route, navigation }) => {
       >
         <LottieView source={animation} autoPlay loop />
       </View>
-      <TouchableOpacity
-        style={{
-          marginTop: 24,
-          flexDirection: "row",
-          width: "95%",
-          alignItems: "center",
-          justifyContent: "space-between",
-          height: 80,
-          backgroundColor: secondaryColor,
-          borderRadius: 16,
-          display: isEmpty ? "none" : "flex",
-          borderWidth: 1.5,
-          borderColor: textAccentSecondary,
-        }}
-        onPress={() => toDetailCustom()}
-      >
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-          }}
-        >
-          <FontAwesome5 name="dumbbell" size={24} color="black" />
-        </View>
-        <View
-          style={{
-            flex: 4,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
-            Push Day ala Flexwell
-          </Text>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-          }}
-        >
-          <FontAwesome name={"chevron-circle-right"} size={24} />
-        </View>
-      </TouchableOpacity>
+
+      <FlatListCustomWorkout />
+
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("SelectedCustomExercise");
