@@ -30,7 +30,7 @@ const DayChallengeExcercise = ({ route, navigation }) => {
     setReps(false);
   };
 
-  return (
+  const ListItem = ({ item }) => (
     <ScrollView>
       <View
         style={{
@@ -206,6 +206,8 @@ const DayChallengeExcercise = ({ route, navigation }) => {
       </View>
     </ScrollView>
   );
+
+  return <ListItem />;
 };
 
 export default DayChallengeExcercise;

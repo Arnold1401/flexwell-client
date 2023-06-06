@@ -39,7 +39,9 @@ const RegisterScreen = () => {
   const register = () => {
     // console.log("testing");
     // console.log(email, username, password, passwordCheck);
-    if (password === passwordCheck) {
+    if (password.length < 6) {
+      console.warn("Password length must be 6 or longger !");
+    } else if (password === passwordCheck) {
       dispatch(doRegister(email, username, password));
     } else {
       console.warn("Password with confirm password must be same !");
