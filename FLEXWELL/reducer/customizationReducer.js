@@ -13,16 +13,19 @@ const initalState = {
 const customizationReducer = (state = initalState, action) => {
   switch (action.type) {
     case CUSTOMIZATION_SUCCESS:
+      console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
         isLoading: false,
         customization: action.payload,
       };
     case CUSTOMIZATION_PENDING:
+      console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
       };
     case CUSTOMIZATION_ERROR:
+      console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
         isLoading: false,

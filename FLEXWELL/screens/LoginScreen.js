@@ -48,8 +48,10 @@ const LoginScreen = ({}) => {
     if (user === "Logged") {
       navigation.navigate("Main");
       test();
+    } else if (errorMsg !== undefined) {
+      console.warn(errorMsg);
     }
-  }, [user]);
+  }, [user, errorMsg]);
 
   const login = () => {
     dispatch(doLogin(username, password));
