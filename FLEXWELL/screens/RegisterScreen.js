@@ -37,8 +37,6 @@ const RegisterScreen = () => {
     (state) => state.userReducer
   );
   const register = () => {
-    // console.log("testing");
-    // console.log(email, username, password, passwordCheck);
     if (password.length < 6) {
       console.warn("Password length must be 6 or longger !");
     } else if (password === passwordCheck) {
