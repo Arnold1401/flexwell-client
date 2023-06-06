@@ -22,7 +22,7 @@ const profileError = (errorMessage) => ({
 });
 
 const saveMeasurement =
-  (weight, biceps, abs, waist, chest, shoulders, thigh, calf) =>
+  (weight, biceps, waist, chest, shoulders, thigh, calf) =>
   (dispatch, getState) => {
     dispatch(profilePending());
     try {
@@ -30,7 +30,6 @@ const saveMeasurement =
         {
           weight,
           biceps,
-          abs,
           waist,
           chest,
           shoulders,

@@ -5,6 +5,9 @@ import {
   Button,
   Pressable,
   ScrollView,
+  StyleSheet,
+  Alert,
+  Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -21,9 +24,55 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { saveProfile } from "../action/profileCreator";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-const SettingScreen = () => {
-  const dispatch = useDispatch();
 
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+});
+
+const SettingScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [messageModal, setModalMessage] = useState("");
+  const dispatch = useDispatch();
   const [gender, setGender] = useState("");
   const [fullname, setFullname] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -63,8 +112,43 @@ const SettingScreen = () => {
   ];
 
   const doSave = () => {
-    dispatch(saveProfile(fullname, gender, textDate));
+    if (fullname === "") {
+      setModalVisible(true);
+      setModalMessage("Fullname must be filled !");
+    } else if (gender === "") {
+      setModalVisible(true);
+      setModalMessage("Gender must be filled !");
+    } else if (textDate === "") {
+      setModalVisible(true);
+      setModalMessage("Date of Birth must be filled !");
+    } else {
+      dispatch(saveProfile(fullname, gender, textDate));
+    }
   };
+
+  const TheModal = ({ data }) => (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        // Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
+      }}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>{messageModal}</Text>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setModalVisible(!modalVisible)}
+          >
+            <Text style={styles.textStyle}>Ok</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
 
   return (
     <ScrollView>
@@ -117,6 +201,7 @@ const SettingScreen = () => {
             placeholderTextColor={textAccent}
           />
         </View>
+        <TheModal />
         <View
           style={{
             width: "100%",

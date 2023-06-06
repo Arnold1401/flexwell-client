@@ -5,6 +5,9 @@ import {
   Button,
   Pressable,
   ScrollView,
+  Alert,
+  Modal,
+  StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -22,7 +25,53 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveMeasurement } from "../action/profileCreator";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+});
+
 const ProfileScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [messageModal, setModalMessage] = useState("");
   const dispatch = useDispatch();
 
   const [gender, setGender] = useState("");
@@ -118,33 +167,65 @@ const ProfileScreen = () => {
   ];
 
   const doSave = () => {
-    // console.log(`
-    //   ${fullname},
-    //   ${gender}
-    //   ${textDate}
-    //   ${height}
-    //   ${weight}
-    //   ${vbiceps}
-    //   ${vabs}
-    //   ${vwaist}
-    //   ${vchest}
-    //   ${vshoulders}
-    //   ${vthigh}
-    //   ${vcalf}
-    // `);
-    dispatch(
-      saveMeasurement(
-        weight,
-        vbiceps,
-        vabs,
-        vwaist,
-        vchest,
-        vshoulders,
-        vthigh,
-        vcalf
-      )
-    );
+    if (vbiceps === "") {
+      setModalVisible(true);
+      setModalMessage("Biceps measurement must be filled !");
+    } else if (vwaist === "") {
+      setModalVisible(true);
+      setModalMessage("Waist measurement must be filled !");
+    } else if (vchest === "") {
+      setModalVisible(true);
+      setModalMessage("Chest measurement must be filled !");
+    } else if (vshoulders === "") {
+      setModalVisible(true);
+      setModalMessage("Shoulders measurement must be filled !");
+    } else if (vthigh === "") {
+      setModalVisible(true);
+      setModalMessage("Thigh measurement must be filled !");
+    } else if (vcalf === "") {
+      setModalVisible(true);
+      setModalMessage("Calf measurement must be filled !");
+    } else if (weight === "") {
+      setModalVisible(true);
+      setModalMessage("Weight measurement must be filled !");
+    } else {
+      dispatch(
+        saveMeasurement(
+          weight,
+          vbiceps,
+          vwaist,
+          vchest,
+          vshoulders,
+          vthigh,
+          vcalf
+        )
+      );
+    }
   };
+
+  const TheModal = ({ data }) => (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        // Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
+      }}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>{messageModal}</Text>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setModalVisible(!modalVisible)}
+          >
+            <Text style={styles.textStyle}>Ok</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
 
   return (
     <ScrollView>
@@ -181,6 +262,7 @@ const ProfileScreen = () => {
           >
             Muscle Measurement
           </Text>
+          <TheModal data={"test 12"} />
           <View
             style={{
               width: "100%",
@@ -194,8 +276,6 @@ const ProfileScreen = () => {
               style={{
                 backgroundColor: biceps
                   ? "red"
-                  : abs
-                  ? "yellow"
                   : waist
                   ? "green"
                   : chest
@@ -241,25 +321,7 @@ const ProfileScreen = () => {
                   onPressIn={handleBiceps}
                 />
               </View>
-              <View style={{ gap: 2 }}>
-                <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
-                  ABS
-                </Text>
-                <TextInput
-                  style={{
-                    borderWidth: 0.8,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    height: 32,
-                    fontSize: 20,
-                    paddingVertical: 4,
-                  }}
-                  numeric
-                  keyboardType={"numeric"}
-                  onChangeText={(value) => setvAbs(value)}
-                  onPressIn={handleAbs}
-                />
-              </View>
+
               <View style={{ gap: 2 }}>
                 <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
                   Waist
