@@ -10,6 +10,8 @@ import ProfileScreen from "./ProfileScreen";
 import PersonalizeScreen from "./PersonalizeScreen";
 import ExercisesListScreen from "./ExercisesListScreen";
 import ExerciseDetailScreen from "./ExerciseDetailScreen";
+import SettingScreen from "./SettingScreen";
+
 export {
   LoginScreen,
   RegisterScreen,
@@ -23,4 +25,5 @@ export {
   ProfileScreen,
   ExercisesListScreen,
   ExerciseDetailScreen,
+  SettingScreen,
 };

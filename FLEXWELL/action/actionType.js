@@ -25,3 +25,8 @@ export const CUSTOMIZATION_SUCCESS = "customization/success";
 export const EXERCISEDETAIL_PENDING = "exerciseDetail/pending";
 export const EXERCISEDETAIL_ERROR = "exerciseDetail/error";
 export const EXERCISEDETAIL_SUCCESS = "exerciseDetail/success";
+
+//------- PROFILE
+export const PROFILE_PENDING = "profile/pending";
+export const PROFILE_ERROR = "profile/error";
+export const PROFILE_SUCCESS = "profile/success";
