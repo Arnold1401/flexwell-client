@@ -16,10 +16,11 @@ import {
   primaryColor,
   secondaryColor,
   textAccent,
+  textAccentSecondary,
   textSecondary,
 } from "../color-and-size.config";
 import LottieView from "lottie-react-native";
-const sleepingAnimation = require("../assets/lottie/sleeping-head.json");
+const sleepingAnimation = require("../assets/lottie/rest-bell.json");
 
 const ThirtyDayChallenge = ({ route, navigation }) => {
   // Data untuk flatlist
@@ -53,16 +54,35 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
           flexDirection: "row",
         }}
       >
-        <View style={{ flexDirection: "row", flex: 1, paddingVertical: 8 }}>
-          <View style={{ flex: 1, justifyContent: "center" }}>
-            <FontAwesome name="dot-circle-o" size={16} color={primaryColor} />
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+            paddingVertical: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+            }}
+          >
+            {item?.activity?.status === "Finished" ? (
+              <FontAwesome name="check-circle" size={16} color={"green"} />
+            ) : (
+              <FontAwesome
+                name="circle-o"
+                size={16}
+                color={textAccentSecondary}
+              />
+            )}
           </View>
           <View
             style={{
               // borderWidth: 2,
               borderRadius: 16,
               height: 75,
-              flex: 11,
+              flex: 15,
               justifyContent: "center",
               backgroundColor:
                 item.name === "Rest and Recovery" ? textAccent : secondaryColor,
@@ -82,7 +102,8 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                paddingHorizontal: 8,
+                justifyContent: "flex-start",
+                paddingLeft: 0,
                 gap: 4,
               }}
             >
@@ -91,7 +112,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
                   fontFamily: "Poppins",
                   fontSize: 24,
                   color: textSecondary,
-                  flex: 2,
+                  marginLeft: 4,
                 }}
               >
                 Day {item.id} :
@@ -99,25 +120,10 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
               <Text
                 style={{
                   fontSize: 16,
-                  flex: 5,
                 }}
               >
                 {item.name}
               </Text>
-
-              {item.name === "Rest and Recovery" ? (
-                <LottieView
-                  style={{
-                    justifyContent: "flex-end",
-                    marginLeft: 45,
-                  }}
-                  source={sleepingAnimation}
-                  autoPlay
-                  loop
-                />
-              ) : (
-                ""
-              )}
             </View>
           </View>
         </View>

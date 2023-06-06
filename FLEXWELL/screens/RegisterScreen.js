@@ -38,7 +38,7 @@ const RegisterScreen = () => {
   );
   const register = () => {
     // console.log("testing");
-    // console.log(email, username, password, passwordCheck);
+    console.log(email, username, password, passwordCheck);
     if (password === passwordCheck) {
       dispatch(doRegister(email, username, password));
     } else {

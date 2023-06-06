@@ -63,6 +63,7 @@ const doRegister =
       console.log(data);
       dispatch(userSucess({ msg: data.message, status }));
     } catch (error) {
+      console.log(error);
       dispatch(userError(error));
     }
   };
