@@ -111,6 +111,7 @@ const CustomExcScreen = ({ route, navigation }) => {
         contentContainerStyle={{
           marginTop: 10,
           alignItems: "center",
+          marginBottom: 100,
         }}
         // columnWrapperStyle={{ gap: 8 }}
         // style={{
@@ -142,14 +143,17 @@ const CustomExcScreen = ({ route, navigation }) => {
 
       <FlatListCustomWorkout />
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           navigation.navigate("SelectedCustomExercise");
         }}
         style={{
           alignItems: "center",
           justifyContent: "flex-start",
-          marginBottom: 40,
+          // width: "50%",
+          // marginBottom: 40,
+          // opacity: 0,
+          backgroundColor: "transparent",
         }}
       >
         <Text
@@ -165,7 +169,7 @@ const CustomExcScreen = ({ route, navigation }) => {
         >
           Add Custom Workout
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

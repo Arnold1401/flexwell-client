@@ -27,7 +27,7 @@ const CustomWorkouts = ({ navigation }) => {
   const { exerciseDetail } = useSelector((state) => state.exerciseList);
   const state = useSelector((state) => state);
 
-  const [title, setTitle] = useState("Workout ala Flexwell");
+  const [title, setTitle] = useState("");
 
   const { errorMsg, isLoading, newCustomExercise } = useSelector(
     (state) => state.newExerciseName
@@ -39,7 +39,12 @@ const CustomWorkouts = ({ navigation }) => {
 
   const createNewExercise = () => {
     console.log(title);
-    dispatch(createCustomExerciseNameMiddleware(title));
+    if (!title) {
+      console.warn("Please fill your custom workout name");
+    } else {
+      dispatch(createCustomExerciseNameMiddleware(title));
+      navigation.navigate("CustomLibrary");
+    }
   };
 
   const filled = (
@@ -219,7 +224,6 @@ const CustomWorkouts = ({ navigation }) => {
         }}
         onPress={() => {
           createNewExercise();
-          navigation.navigate("CustomLibrary");
         }}
       >
         <FontAwesome name="plus-square-o" size={32} color={textPrimary} />
