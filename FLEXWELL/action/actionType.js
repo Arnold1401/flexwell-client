@@ -25,3 +25,9 @@ export const CUSTOMIZATION_SUCCESS = "customization/success";
 export const EXERCISEDETAIL_PENDING = "exerciseDetail/pending";
 export const EXERCISEDETAIL_ERROR = "exerciseDetail/error";
 export const EXERCISEDETAIL_SUCCESS = "exerciseDetail/success";
+
+//------ AddExerciseIntoCustomization
+
+export const ADDECUSTOMIZEEXERCISE_PENDING = "addExercise/pending";
+export const ADDECUSTOMIZEEXERCISE_ERROR = "addExercise/error";
+export const ADDECUSTOMIZEEXERCISE_SUCCESS = "addExercise/success";

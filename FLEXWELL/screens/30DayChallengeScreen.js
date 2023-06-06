@@ -28,6 +28,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
     (state) => state.fetchChallange
   );
 
+  console.log(challenge);
   const dispatch = useDispatch();
 
   useEffect(() => {
