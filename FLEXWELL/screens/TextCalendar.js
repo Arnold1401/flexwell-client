@@ -1,4 +1,11 @@
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
 import { ExpandableCalendar, CalendarProvider } from "react-native-calendars";
 import { LineChart } from "react-native-chart-kit";
 
@@ -14,60 +21,62 @@ const ExpandableCalendarScreen = () => {
   console.log(minDate);
   console.log(maxDate);
 
-  return (
-    <View
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-        flex: 1,
-        paddingTop: 30,
-        // paddingHorizontal: 12,
-      }}
-    >
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  } else {
+    return (
       <View
         style={{
-          flex: 1,
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "white",
-          borderColor: "black",
-          borderWidth: 1,
-          paddingTop: 15,
+          flex: 1,
+          paddingTop: 30,
+          // paddingHorizontal: 12,
         }}
       >
-        <Text style={{ fontSize: 24, marginBottom: 15 }}>Your Workouts</Text>
-        <CalendarProvider date={new Date().toISOString().split("T")[0]}>
-          <ExpandableCalendar
-            //   onCalendarToggled={}
-
-            onDayPress={(day) => console.log("onDayPress", day)}
-            style={{
-              borderRadius: 15,
-            }}
-            theme={{
-              calendarBackground: "white",
-              textDayFontSize: 12,
-              textMonthFontSize: 16,
-              textDayHeaderFontSize: 12,
-              arrowColor: "red",
-              dotColor: "red",
-              selectedDotColor: "white",
-              selectedDayBackgroundColor: "rgb(255, 124, 97)",
-            }}
-            markedDates={marked}
-            closeOnDayPress={false}
-            disableMonthChange={true}
-            minDate={"2023-01-01"}
-            maxDate={"2024-12-31"}
-            monthFormat={"MMM/yyyy"}
-            allowShadow={false}
-            pastScrollRange={2}
-            futureScrollRange={2}
-          />
-        </CalendarProvider>
-      </View>
-      {/* <View
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "white",
+            borderColor: "black",
+            borderWidth: 1,
+            paddingTop: 15,
+          }}
+        >
+          <Text style={{ fontSize: 24, marginBottom: 15 }}>Your Workouts</Text>
+          <CalendarProvider date={new Date().toISOString().split("T")[0]}>
+            <ExpandableCalendar
+              onDayPress={(day) => console.log("onDayPress", day)}
+              theme={{
+                calendarBackground: "white",
+                textDayFontSize: 12,
+                textMonthFontSize: 16,
+                textDayHeaderFontSize: 12,
+                arrowColor: "red",
+                dotColor: "red",
+                selectedDotColor: "white",
+                selectedDayBackgroundColor: "rgb(255, 124, 97)",
+              }}
+              markedDates={marked}
+              closeOnDayPress={false}
+              disableMonthChange={true}
+              minDate={"2023-01-01"}
+              maxDate={"2024-12-31"}
+              monthFormat={"MMM/yyyy"}
+              allowShadow={false}
+            />
+          </CalendarProvider>
+        </View>
+        {/* <View
         style={{
           flex: 1,
           justifyContent: "center",
@@ -123,8 +132,9 @@ const ExpandableCalendarScreen = () => {
           />
         </View>
       </View> */}
-    </View>
-  );
+      </View>
+    );
+  }
 };
 
 export default ExpandableCalendarScreen;

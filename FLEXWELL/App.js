@@ -22,6 +22,7 @@ import Sandbox2 from "./screens/SandBox2";
 import Sandbox3 from "./screens/SandBox3";
 import LineChartScreen from "./screens/Chart";
 import ExpandableCalendarScreen from "./screens/TextCalendar";
+import DashboardScreen from "./screens/Dashboard";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,10 +57,13 @@ const App = () => {
             }}
           >
             <Stack.Screen
-              name="testCalendar"
-              component={ExpandableCalendarScreen}
+              name="Dashboard"
+              component={DashboardScreen}
+              options={{
+                cardStyle: { backgroundColor: "white" },
+              }}
             ></Stack.Screen>
-            <Stack.Screen name="Sandbox3" component={Sandbox3}></Stack.Screen>
+            <Stack.Screen name="Sandbox3" component={Sandbox}></Stack.Screen>
             <Stack.Screen name="Sandbox" component={Sandbox2}></Stack.Screen>
             <Stack.Screen
               name="Login"
