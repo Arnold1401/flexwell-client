@@ -18,6 +18,8 @@ import {
   textAccent,
   textSecondary,
 } from "../color-and-size.config";
+import LottieView from "lottie-react-native";
+const sleepingAnimation = require("../assets/lottie/sleeping-head.json");
 
 const ThirtyDayChallenge = ({ route, navigation }) => {
   // Data untuk flatlist
@@ -40,6 +42,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (
     <TouchableOpacity
+      disabled={item.name === "Rest and Recovery" ? true : false}
       onPress={() => {
         toDetailDay(item);
       }}
@@ -61,7 +64,9 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
               height: 75,
               flex: 11,
               justifyContent: "center",
-              backgroundColor: secondaryColor,
+              backgroundColor:
+                item.name === "Rest and Recovery" ? textAccent : secondaryColor,
+              // opacity: ,
               shadowColor: "#000",
               shadowOffset: {
                 width: 0,
@@ -99,6 +104,20 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
               >
                 {item.name}
               </Text>
+
+              {item.name === "Rest and Recovery" ? (
+                <LottieView
+                  style={{
+                    justifyContent: "flex-end",
+                    marginLeft: 45,
+                  }}
+                  source={sleepingAnimation}
+                  autoPlay
+                  loop
+                />
+              ) : (
+                ""
+              )}
             </View>
           </View>
         </View>

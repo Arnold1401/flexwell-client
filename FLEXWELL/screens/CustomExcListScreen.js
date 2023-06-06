@@ -46,7 +46,7 @@ const CustomExerciseListScreen = ({ route, navigation }) => {
 
   const toOneExercise = (id) => {
     console.log(id);
-    navigation.navigate("ExerciseDetailScreen", { id });
+    navigation.navigate("SummaryScreen", { id });
   };
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
