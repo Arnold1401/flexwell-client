@@ -42,4 +42,4 @@ export const CREATECUSTOMIZEEXERCISE_SUCCESS = "createExercise/success";
 export const PROFILE_PENDING = "profile/pending";
 export const PROFILE_ERROR = "profile/error";
 export const PROFILE_SUCCESS = "profile/success";
-
+export const PROFILE_CLEAR = "profile/clear";

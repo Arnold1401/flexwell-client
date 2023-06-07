@@ -117,7 +117,7 @@ const Bottomstack = ({ navigation }) => {
         component={CustomizationStack}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileStack"
         options={{
           title: "Measurement",
           headerShown: false,
@@ -235,7 +235,7 @@ const App = () => {
                 },
               }}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
               name="Personalize"
               component={PersonalizeScreen}
               options={{
@@ -253,7 +253,7 @@ const App = () => {
                   backgroundColor: textPrimary,
                 },
               }}
-            /> */}
+            />
             <Stack.Screen
               options={{
                 headerShown: false,
