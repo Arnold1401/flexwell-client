@@ -8,12 +8,7 @@ const WelcomingTextHeader = () => {
   const test = async () => {
     const userData = JSON.parse(await getData("userData"));
     console.log(userData, "ini welcome ");
-
-    if (userData.fullName === undefined) {
-      setUsername(userData.username);
-    } else {
-      setUsername(userData.username);
-    }
+    setUsername(userData.username);
   };
   useEffect(() => {
     test();

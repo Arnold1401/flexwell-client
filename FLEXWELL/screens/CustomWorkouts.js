@@ -81,7 +81,7 @@ const CustomWorkouts = ({ navigation }) => {
       style={{
         flex: 1,
         flexDirection: "row",
-        height: 80,
+        height: 120,
         width: "100%",
         justifyContent: "center",
         paddingHorizontal: 4,

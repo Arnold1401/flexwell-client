@@ -75,9 +75,16 @@ const fetchCustomization = () => async (dispatch, getState) => {
     });
 
     console.log(data, "ini response");
-
+    const hasil = data.map((challenge) => {
+      const exercises = challenge.exercises.map((exercise) => {
+        exercise.duration = { status: "none", duration: "" };
+        return exercise;
+      });
+      challenge.exercises = exercises;
+      return challenge;
+    });
     // console.log(data, "ini data dari fetchCustomization");
-    dispatch(customizationSuccess(data));
+    dispatch(customizationSuccess(hasil));
   } catch (error) {
     console.log(error);
     dispatch(customizationError(error));

@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   Button,
   StyleSheet,
   Pressable,
-  FlatList,
+  ScrollView,
   TouchableOpacity,
   Image,
 } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import LottieView from "lottie-react-native";
+import Modal from "react-native-modal";
+import { Stopwatch } from "react-native-stopwatch-timer";
 
-import { Fumi } from "react-native-textinput-effects";
-import { useNavigation } from "@react-navigation/native";
 import {
-  buttonTextSize,
   primaryColor,
   secondaryColor,
   textAccent,
@@ -22,328 +22,448 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
+import { FlatList } from "react-native-web";
+import { useDispatch } from "react-redux";
+import { recordExerciseMiddleware } from "../action/recordExerciseCreator";
+
+const lockAnimation = require("../assets/lottie/lock.json");
+const successBadge = require("../assets/lottie/success-badge.json");
+
 const CustomWorkoutList = ({ route, navigation }) => {
-  // const { id, name, totalDuration, exercises, totalSet, activity } =
-  //   route.params;
-  // Data untuk flatlist
+  const [modalVisible, setModalVisible] = useState(false);
+  const [messageModal, setModalMessage] = useState("");
+  const [data, setData] = useState({});
+  const [status, setStatus] = useState(false);
 
-  const data = route.params;
-  console.log(data, "xxxxx");
-  console.log(data.item.exercises, "<<<<");
+  const [visibleModal, setVisibleModal] = useState(false);
 
-  // console.log(route.params, "ini Params");
-  // console.log(totalDuration);
-  // const data = [
-  //   {
-  //     id: "1",
-  //     name: "Lever Shoulder Press ",
-  //     avatar:
-  //       "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Dumbbell Shoulder Press ",
-  //     avatar:
-  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Rear Delt Fly Machine ",
-  //     avatar:
-  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-  //   },
-  //   {
-  //     id: "4",
-  //     name: "Lever Shoulder Press ",
-  //     avatar:
-  //       "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
-  //   },
-  //   {
-  //     id: "5",
-  //     name: "Rear Delt Fly Machine ",
-  //     avatar:
-  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-  //   },
-  //   {
-  //     id: "6",
-  //     name: "Rear Delt Fly Machine ",
-  //     avatar:
-  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-  //   },
-  // ];
+  const [myTime, setMyTime] = useState(null);
 
-  const toOneExercise = (id) => {
-    console.log(id);
-    navigation.navigate("CustomChallengeExercise", { id });
+  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
+  const [resetStopwatch, setResetStopwatch] = useState(false);
+  const [currid, setcurrid] = useState();
+
+  const dispatch = useDispatch();
+
+  let { custom } = route.params;
+  let timer = 0;
+  {
+    /* 
+    {
+
+    }
+*/
+  }
+
+  const recordExercise = () => {
+    console.log(JSON.stringify(custom), "hit recordExercise");
+    dispatch(recordExerciseMiddleware(custom));
   };
+  console.log(custom, "inicustomworkoutlist");
 
-  //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
-  const ListItem = ({ item }) => (
-    <View
-      style={{
-        flexDirection: "row",
-        gap: 4,
-        width: "100%",
-        flex: 1,
-        marginVertical: 4,
+  const TheModal = ({ data }) => (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        // Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
       }}
     >
-      <View
-        style={{
-          height: 64,
-          width: 64,
-          flex: 2,
-        }}
-      >
-        <Image
-          source={{ uri: item.gifUrl }}
-          style={{ height: 64, width: 64 }}
-        />
-      </View>
-      <View style={{ height: 64, width: 20, flex: 5 }}>
-        <View style={{ flexDirection: "column" }}>
-          <Text style={{ fontFamily: "Montserrat-Bold" }}>{item.name}</Text>
-          <Text
-            style={{
-              fontSize: 12,
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Stopwatch
+            laps
+            msecs
+            start={isStopwatchStart}
+            //To start
+            reset={resetStopwatch}
+            //To reset
+            options={options}
+            //options for the styling
+            getTime={(time) => {
+              console.log(time);
+              if (!isStopwatchStart) {
+                setMyTime(time);
+                console.log("masuk karena false");
+              }
+              timer = time;
+            }}
+          />
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              stopthetimer(data);
+              setModalVisible(false);
+              setMyTime(timer);
             }}
           >
-            {item.totalSet} sets x {item.repetition} reps
-          </Text>
+            <Text style={styles.textStyle}>Ok</Text>
+          </Pressable>
         </View>
       </View>
-      <View
-        style={{
-          height: 24,
-          flex: 2,
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 16,
-          backgroundColor: primaryColor,
-          // mar
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Montserrat-Bold",
-            fontSize: 8,
-            paddingVertical: 8,
-            paddingHorizontal: 0,
-            borderRadius: 16,
-            color: textPrimary,
-          }}
-          numberOfLines={1}
-        >
-          {item.bodyPart.toUpperCase()}
-        </Text>
-      </View>
-    </View>
+    </Modal>
   );
 
-  //flat list with avatar
-  const FlatListWithAvatar = () => (
-    <View style={{ flex: 1 }}>
-      <FlatList
-        data={data.item.exercises}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ListItem item={item} />}
-      />
-    </View>
-  );
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 2,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22,
+    },
+    modalView: {
+      width: "100%",
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 16,
+      paddingHorizontal: 45,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      marginTop: 8,
+      backgroundColor: textAccentSecondary,
+      color: textPrimary,
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center",
+    },
+  });
 
-  return (
-    <View
-      style={{
-        alignItems: "center",
-        flex: 1,
-        flexDirection: "column",
-        marginTop: 32,
-      }}
-    >
+  const startthetimer = (id) => {
+    setcurrid(id);
+    setIsStopwatchStart(true);
+  };
+
+  const indexNumber = [];
+
+  const stopthetimer = (id) => {
+    console.log(id, "id exercise");
+    setIsStopwatchStart(false);
+    setResetStopwatch(true);
+    setMyTime(timer);
+    let arr = data;
+    arr[id] = myTime;
+    setData(arr);
+    console.log("ini arr my time", data);
+
+    for (let i = 0; i < custom.exercises.length; i++) {
+      if (custom.exercises[i].id === currid) {
+        custom.exercises[i].duration.status = "recorded";
+        custom.exercises[i].duration.duration = changeTime(timer);
+      }
+    }
+  };
+
+  const options = {
+    container: {
+      backgroundColor: primaryColor,
+      padding: 5,
+      borderRadius: 5,
+      width: 250,
+      alignItems: "center",
+    },
+    text: {
+      fontSize: 30,
+      color: textPrimary,
+      marginLeft: 7,
+      fontWeight: "bold",
+    },
+  };
+
+  const changeTime = (timee) => {
+    const waktu = timee;
+    const bagianWaktu = waktu.split(":");
+
+    const jam = parseInt(bagianWaktu[0]) * 3600;
+    const menit = parseInt(bagianWaktu[1]) * 60;
+    const detik = parseInt(bagianWaktu[2]);
+    const milidetik = parseInt(bagianWaktu[3]) / 60000;
+    console.log(jam, menit, detik, milidetik);
+    let totalMenit = jam + menit + detik + milidetik;
+    totalMenit = Math.ceil(totalMenit / 60);
+    console.log("totalmenti", timee);
+    return totalMenit;
+  };
+
+  const ListItem = ({ item }) => {
+    const data = item.id;
+    console.log(item, "flatlist");
+    return (
       <View
+        key={item.id}
         style={{
-          height: 48,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          borderTopWidth: 0.8,
-          borderBottomWidth: 0.8,
-          borderColor: textAccent,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Poppins",
-            fontSize: 16,
-            paddingHorizontal: 16,
-          }}
-          numberOfLines={1}
-        >
-          {data.item.name}
-        </Text>
-      </View>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
           flexDirection: "column",
-          marginHorizontal: 16,
-          marginTop: 24,
+          flex: 1,
+          padding: 10,
+          gap: 10,
+          borderRadius: 10,
+          // borderWidth: 10,
+          marginBottom: 10,
         }}
       >
+        <TouchableOpacity
+          style={{
+            gap: 8,
+            height: 100,
+            flexDirection: "row",
+            overflow: "hidden",
+            borderRadius: 16,
+            borderWidth: 0.8,
+          }}
+          onPress={() => (status ? setStatus(false) : setStatus(true))}
+        >
+          <View style={{ height: 100, flex: 3 }}>
+            <Image
+              source={{
+                uri: "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Preacher-Curl.gif",
+              }}
+              style={{ width: 100, height: 100 }}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={{ flex: 6 }}>
+            <View
+              style={{
+                flexDirection: "column",
+                marginRight: 8,
+                gap: 4,
+                justifyContent: "flex-start",
+                height: "100%",
+                marginTop: 4,
+              }}
+            >
+              <View style={{ backgroundColor: "white" }}>
+                <Text
+                  style={{ fontFamily: "Poppins", fontSize: 16 }}
+                  numberOfLines={2}
+                >
+                  {item.name}
+                </Text>
+              </View>
+              <View
+                style={{
+                  borderRadius: 16,
+                  overflow: "hidden",
+                  backgroundColor: primaryColor,
+                  alignSelf: "baseline",
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  marginTop: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    alignSelf: "baseline",
+                    borderRadius: 16,
+                    fontFamily: "Montserrat-Bold",
+                    fontSize: 12,
+                    color: textPrimary,
+                  }}
+                >
+                  {item.bodyPart}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
         <View
           style={{
-            borderRadius: 12,
+            flexDirection: "column",
+            justifyContent: "space-between",
+            backgroundColor: secondaryColor,
+            borderRadius: 16,
+            paddingHorizontal: 16,
+            paddingVertical: 16,
+            height: 120,
             overflow: "hidden",
-            marginHorizontal: 16,
           }}
         >
           <View
             style={{
-              height: 200,
               alignItems: "center",
-              borderWidth: 0.8,
-              borderRadius: 16,
-              paddingVertical: 8,
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
             <View
               style={{
                 flexDirection: "row",
-                gap: 32,
-                width: "100%",
-                justifyContent: "space-around",
-                flex: 2,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flex: 1,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 16,
-                  }}
-                >
-                  Exercise
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 24,
-                    fontWeight: "700",
-                  }}
-                >
-                  {data.item.exercises.length}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flex: 1,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 16,
-                  }}
-                >
-                  Sets
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 24,
-                    fontWeight: "700",
-                  }}
-                >
-                  {data.item.totalSet}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flex: 1,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 16,
-                  }}
-                >
-                  Duration
-                </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    gap: 4,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 24,
-                      fontFamily: "Montserrat-Bold",
-                    }}
-                  >
-                    {data.item.totalDuration}
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: "500",
-                      fontFamily: "Montserrat-Bold",
-                    }}
-                  >
-                    min
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                marginTop: 24,
-                backgroundColor: secondaryColor,
-                padding: 12,
-                width: "90%",
                 alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 16,
-              }}
-              onPress={() => {
-                toOneExercise(data.item.id);
+                flex: 1,
+                gap: 8,
+                borderRightWidth: 1,
               }}
             >
               <Text
                 style={{
-                  fontFamily: "Montserrat-Bold",
-                  fontSize: 20,
-                  color: textSecondary,
+                  fontFamily: "Poppins",
+                  fontSize: 16,
                 }}
               >
-                Start Day
+                sets
               </Text>
-            </TouchableOpacity>
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: 32,
+                  fontFamily: "Poppins",
+                  paddingHorizontal: 8,
+                  borderRadius: 8,
+                  height: 34,
+                }}
+              >
+                1
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 1,
+                gap: 8,
+                marginLeft: 8,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                }}
+              >
+                reps
+              </Text>
+              <Text
+                style={{
+                  // backgroundColor: primaryColor,
+                  // color: textPrimary,
+                  color: "black",
+                  fontSize: 32,
+                  fontFamily: "Poppins",
+                  paddingHorizontal: 8,
+                  borderRadius: 8,
+                  height: 34,
+                }}
+              >
+                12
+              </Text>
+            </View>
+            <View></View>
           </View>
+          {/* <Text> {JSON.stringify(item.duration)}</Text> */}
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(true);
+              startthetimer(item.id);
+            }}
+          >
+            <View
+              style={{
+                backgroundColor:
+                  item.duration.status === "none"
+                    ? primaryColor
+                    : item.duration === null
+                    ? primaryColor
+                    : "grey",
+                alignItems: "center",
+                paddingVertical: 8,
+                borderRadius: 16,
+                marginTop: 16,
+              }}
+            >
+              <Text
+                style={{
+                  color: textPrimary,
+                  fontSize: 16,
+                  fontFamily: "Poppins",
+                }}
+              >
+                {item?.duration?.status === "recorded"
+                  ? `${item?.duration?.duration} minutes`
+                  : "START"}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
+        <TheModal data={item.id} />
+        <View style={{ flex: 1 }}></View>
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          marginHorizontal: 16,
-          marginVertical: 16,
-          flex: 1,
-        }}
-      >
-        <FlatListWithAvatar />
+    );
+  };
+
+  // useEffect(() => {
+  //   console.log("myTime: ", myTime);
+  // }, [myTime]);
+
+  return (
+    <ScrollView>
+      <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 30 }}>
+        <ScrollView>
+          {custom.exercises.map((item, index) => (
+            <ListItem item={item} style={{ flex: 1 }} />
+          ))}
+          <TouchableOpacity
+            onPress={() => {
+              recordExercise(custom);
+            }}
+            style={{
+              backgroundColor: textAccentSecondary,
+              marginHorizontal: 16,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 16,
+              marginBottom: 16,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.29,
+              shadowRadius: 4.65,
+
+              elevation: 7,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Poppins",
+                color: textPrimary,
+                fontSize: 20,
+                paddingVertical: 8,
+              }}
+            >
+              Finish Exercise
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+
+        {/* <FlatListWithAvatar /> */}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

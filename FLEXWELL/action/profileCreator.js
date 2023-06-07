@@ -96,7 +96,7 @@ const saveProfile =
       if (response.status === 201) {
         dispatch(profileSucess({ status: 201, message: "updated" }));
         let userData = JSON.parse(await getData("userData"));
-        userData.username = fullName;
+        userData.fullName = fullName;
         await storeData("userData", JSON.stringify(userData));
       }
     } catch (error) {
