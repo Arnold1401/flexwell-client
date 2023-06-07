@@ -307,7 +307,7 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
                 backgroundColor: "white",
               }}
               onPress={() => {
-                toOneExercise(challenge.id);
+                toOneExercise();
               }}
             >
               <Text

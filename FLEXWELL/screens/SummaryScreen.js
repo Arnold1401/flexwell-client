@@ -28,7 +28,6 @@ import LottieView from "lottie-react-native";
 import { addCustomizeExerciseMiddleware } from "../action/addCustomizeExerciseCreator";
 const loadingAnimation = require("../assets/lottie/loading.json");
 
-
 const SummaryScreen = ({ route, navigation }) => {
   const { id } = route.params;
 
@@ -173,20 +172,7 @@ const SummaryScreen = ({ route, navigation }) => {
               justifyContent: "space-between",
               flex: 1,
             }}
-          >
-            <TouchableOpacity
-              onPress={() =>
-                !favorite ? setFavorite(true) : setFavorite(false)
-              }
-              style={{ flex: 1 }}
-            >
-              <FontAwesome
-                name={!favorite ? "star-o" : "star"}
-                size={16}
-                color={!favorite ? textAccentSecondary : primaryColor}
-              />
-            </TouchableOpacity>
-          </View>
+          ></View>
           <View
             style={{
               flex: 1,

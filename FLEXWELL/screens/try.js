@@ -26,10 +26,9 @@ import {
 const lockAnimation = require("../assets/lottie/lock.json");
 const successBadge = require("../assets/lottie/success-badge.json");
 
-const CustomChallengeExercise = ({ route, navigation }) => {
+const CobaStopWatch = ({ route, navigation }) => {
   const [status, setStatus] = useState(false);
-  let { custom } = route.params;
-  console.log(JSON.stringify(custom), "-- mlm --");
+
   const [visibleModal, setVisibleModal] = useState(false);
 
   const [myTime, setMyTime] = useState(null);
@@ -98,7 +97,7 @@ const CustomChallengeExercise = ({ route, navigation }) => {
   const renderModalContent = () => (
     <View
       style={{
-        backgroundColor: "white",
+        backgroundColor: primaryColor,
         padding: 22,
         justifyContent: "center",
         alignItems: "center",
@@ -117,9 +116,12 @@ const CustomChallengeExercise = ({ route, navigation }) => {
         //options for the styling
         getTime={(time) => {
           if (!isStopwatchStart) {
-            setMyTime(changeTime(time));
+            setMyTime(time);
+            console.log(myTime, "ini console mytime dari getTime", myTime);
           }
           console.log(time);
+          setMyTime(time);
+          //   console.log(myTime, "Ini adalah my time dari getTime");
         }}
       />
       <TouchableOpacity
@@ -577,7 +579,11 @@ const CustomChallengeExercise = ({ route, navigation }) => {
     </View>
   );
 
-  console.log(myTime, "ini waktu terbaru");
+  //   console.log(myTime, "ini waktu terbaru");
+
+  //   useEffect(() => {
+  //     console.log(myTime);
+  //   }, [myTime]);
 
   return (
     <View
@@ -590,6 +596,7 @@ const CustomChallengeExercise = ({ route, navigation }) => {
         overflow: "hidden",
       }}
     >
+      <Text>{myTime}</Text>
       <TouchableOpacity
         style={{
           gap: 8,
@@ -974,4 +981,4 @@ const CustomChallengeExercise = ({ route, navigation }) => {
   );
 };
 
-export default CustomChallengeExercise;
+export default CobaStopWatch;

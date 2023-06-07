@@ -6,56 +6,238 @@ import {
   StyleSheet,
   Pressable,
   ScrollView,
+  TouchableOpacity,
+  Image,
 } from "react-native";
-import { Image } from "expo-image";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import LottieView from "lottie-react-native";
+import Modal from "react-native-modal";
+import { Stopwatch } from "react-native-stopwatch-timer";
 
 import {
   primaryColor,
   secondaryColor,
   textAccent,
   textAccentSecondary,
+  textPrimary,
   textSecondary,
 } from "../color-and-size.config";
+import { FlatList } from "react-native-web";
+
+const lockAnimation = require("../assets/lottie/lock.json");
+const successBadge = require("../assets/lottie/success-badge.json");
 
 const DayChallengeExcercise = ({ route, navigation }) => {
-  const [reps, setReps] = useState(false);
-  const [status, setStatus] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [messageModal, setModalMessage] = useState("");
+  const [data, setData] = useState({});
+  const [status, setStatus] = useState(false);
+
+  const [visibleModal, setVisibleModal] = useState(false);
+
+  const [myTime, setMyTime] = useState(null);
+
+  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
+  const [resetStopwatch, setResetStopwatch] = useState(false);
+  const [currid, setcurrid] = useState();
 
   console.log(route.params.challenge, "ini route");
 
   const openToggle = () => {
     setReps(true);
+  let { challenge } = route.params;
+  let timer = 0;
+  {
+    /* 
+    {
+
+    }
+*/
+  }
+
+  const TheModal = ({ data }) => (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        // Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
+      }}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Stopwatch
+            laps
+            msecs
+            start={isStopwatchStart}
+            //To start
+            reset={resetStopwatch}
+            //To reset
+            options={options}
+            //options for the styling
+            getTime={(time) => {
+              console.log(time);
+              if (!isStopwatchStart) {
+                setMyTime(time);
+                console.log("masuk karena false");
+              }
+              timer = time;
+            }}
+          />
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              stopthetimer(data);
+              setModalVisible(false);
+              setMyTime(timer);
+            }}
+          >
+            <Text style={styles.textStyle}>Ok</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 2,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22,
+    },
+    modalView: {
+      width: "100%",
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 16,
+      paddingHorizontal: 45,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      marginTop: 8,
+      backgroundColor: textAccentSecondary,
+      color: textPrimary,
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center",
+    },
+  });
+
+  const startthetimer = (id) => {
+    setcurrid(id);
+    setIsStopwatchStart(true);
   };
 
-  const closeToggle = () => {
-    setReps(false);
+  const indexNumber = [];
+
+  const stopthetimer = (id) => {
+    console.log(id, "id exercise");
+    setIsStopwatchStart(false);
+    setResetStopwatch(true);
+    setMyTime(timer);
+    let arr = data;
+    arr[id] = myTime;
+    setData(arr);
+    console.log("ini arr my time", data);
+
+    for (let i = 0; i < challenge.exercises.length; i++) {
+      if (challenge.exercises[i].id === currid) {
+        challenge.exercises[i].duration.status = "recorded";
+        challenge.exercises[i].duration.duration = changeTime(timer);
+      }
+    }
   };
 
-  const ListItem = ({ item }) => (
-    <ScrollView>
+  const options = {
+    container: {
+      backgroundColor: primaryColor,
+      padding: 5,
+      borderRadius: 5,
+      width: 250,
+      alignItems: "center",
+    },
+    text: {
+      fontSize: 30,
+      color: textPrimary,
+      marginLeft: 7,
+      fontWeight: "bold",
+    },
+  };
+
+  const changeTime = (timee) => {
+    const waktu = timee;
+    const bagianWaktu = waktu.split(":");
+
+    const jam = parseInt(bagianWaktu[0]) * 3600;
+    const menit = parseInt(bagianWaktu[1]) * 60;
+    const detik = parseInt(bagianWaktu[2]);
+    const milidetik = parseInt(bagianWaktu[3]) / 60000;
+    console.log(jam, menit, detik, milidetik);
+    let totalMenit = jam + menit + detik + milidetik;
+    totalMenit = Math.ceil(totalMenit / 60);
+    console.log("totalmenti", timee);
+    return totalMenit;
+  };
+
+  const ListItem = ({ item }) => {
+    const data = item.id;
+    console.log(item, "flatlist");
+    return (
       <View
+        key={item.id}
         style={{
-          flex: 1,
           flexDirection: "column",
-          marginHorizontal: 16,
-          marginVertical: 24,
-          gap: 16,
+          flex: 1,
+          padding: 10,
+          gap: 10,
+          borderRadius: 10,
+          // borderWidth: 10,
+          marginBottom: 10,
         }}
       >
-        <View
+        <TouchableOpacity
           style={{
             gap: 8,
-            height: 90,
+            height: 100,
             flexDirection: "row",
             overflow: "hidden",
             borderRadius: 16,
             borderWidth: 0.8,
           }}
+          onPress={() => (status ? setStatus(false) : setStatus(true))}
         >
-          <View style={{ height: 90, flex: 2 }}>
-            <View
-              style={{ backgroundColor: "grey", width: "100%", height: "100%" }}
+          <View style={{ height: 100, flex: 3 }}>
+            <Image
+              source={{
+                uri: "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Preacher-Curl.gif",
+              }}
+              style={{ width: 100, height: 100 }}
+              resizeMode="cover"
             />
           </View>
           <View style={{ flex: 6 }}>
@@ -63,30 +245,46 @@ const DayChallengeExcercise = ({ route, navigation }) => {
               style={{
                 flexDirection: "column",
                 marginRight: 8,
-                marginTop: 8,
                 gap: 4,
+                justifyContent: "flex-start",
+                height: "100%",
+                marginTop: 4,
               }}
             >
-              <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
-                Standing Cable Front Rise
-              </Text>
-              <Text
+              <View style={{ backgroundColor: "white" }}>
+                <Text
+                  style={{ fontFamily: "Poppins", fontSize: 16 }}
+                  numberOfLines={2}
+                >
+                  {item.name}
+                </Text>
+              </View>
+              <View
                 style={{
-                  paddingVertical: 4,
-                  paddingHorizontal: 8,
+                  borderRadius: 16,
+                  overflow: "hidden",
                   backgroundColor: primaryColor,
                   alignSelf: "baseline",
-                  borderRadius: 16,
-                  fontFamily: "Montserrat-Bold",
-                  fontSize: 10,
-                  color: textSecondary,
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  marginTop: 4,
                 }}
               >
-                SHOULDERS
-              </Text>
+                <Text
+                  style={{
+                    alignSelf: "baseline",
+                    borderRadius: 16,
+                    fontFamily: "Montserrat-Bold",
+                    fontSize: 12,
+                    color: textPrimary,
+                  }}
+                >
+                  {item.bodyPart}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: "column",
@@ -95,121 +293,172 @@ const DayChallengeExcercise = ({ route, navigation }) => {
             borderRadius: 16,
             paddingHorizontal: 16,
             paddingVertical: 16,
-            height: !reps ? "auto" : 64,
+            height: 120,
             overflow: "hidden",
           }}
         >
           <View
             style={{
+              alignItems: "center",
               flexDirection: "row",
               justifyContent: "space-between",
-              flex: 1,
             }}
           >
             <View
               style={{
-                borderRightWidth: 2,
-                borderRightColor: textAccentSecondary,
-                flex: 2,
-              }}
-            >
-              <View style={{ flex: 1, marginTop: 8 }}>
-                <Pressable onPress={reps ? closeToggle : openToggle}>
-                  <Text style={{ fontFamily: "Montserrat-Bold" }}>12 kg</Text>
-                </Pressable>
-              </View>
-              <View style={{ flex: 1, marginTop: 32 }}>
-                <Text>Increase!</Text>
-                <Text>Last: 7.50kg</Text>
-                <Text>(12 reps)</Text>
-              </View>
-            </View>
-            <View
-              style={{
-                borderRightWidth: 2,
-                borderRightColor: textAccentSecondary,
+                flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "flex-start",
-                flex: 3,
-              }}
-            >
-              <Pressable onPress={reps ? closeToggle : openToggle}>
-                <Text
-                  style={{
-                    fontFamily: "Poppins",
-                    fontSize: 24,
-                  }}
-                >
-                  10-12 reps
-                </Text>
-              </Pressable>
-            </View>
-            <View
-              style={{
                 flex: 1,
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: 8,
+                gap: 8,
+                borderRightWidth: 1,
               }}
             >
-              <Pressable
-                onPress={reps ? closeToggle : openToggle}
-                style={{
-                  width: "100%",
-                  height: 56,
-                  alignItems: "center",
-                  marginTop: -20,
-                  paddingTop: 20,
-                  paddingLeft: 12,
-                }}
-              >
-                <FontAwesome
-                  name={!reps ? "chevron-up" : "chevron-down"}
-                  style={{ color: textAccentSecondary }}
-                  size={16}
-                />
-              </Pressable>
               <Text
                 style={{
                   fontFamily: "Poppins",
                   fontSize: 16,
-                  marginLeft: 2,
-                  marginRight: -12,
-                  marginTop: 8,
-                  backgroundColor: primaryColor,
-                  paddingHorizontal: 6,
-                  borderRadius: 16,
-                  paddingVertical: 4,
-                  display: status ? "flex" : "none",
                 }}
               >
-                Did it!
+                sets
+              </Text>
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: 32,
+                  fontFamily: "Poppins",
+                  paddingHorizontal: 8,
+                  borderRadius: 8,
+                  height: 34,
+                }}
+              >
+                1
               </Text>
             </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 1,
+                gap: 8,
+                marginLeft: 8,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                }}
+              >
+                reps
+              </Text>
+              <Text
+                style={{
+                  // backgroundColor: primaryColor,
+                  // color: textPrimary,
+                  color: "black",
+                  fontSize: 32,
+                  fontFamily: "Poppins",
+                  paddingHorizontal: 8,
+                  borderRadius: 8,
+                  height: 34,
+                }}
+              >
+                12
+              </Text>
+            </View>
+            <View></View>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              flex: 1,
-              display: reps ? "none" : "flex",
-              width: "40%",
-              marginTop: 16,
-              gap: 4,
+          {/* <Text> {JSON.stringify(item.duration)}</Text> */}
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(true);
+              startthetimer(item.id);
             }}
           >
-            <FontAwesome name="chevron-right" size={16} />
-            <Text>Target Weight: </Text>
-            <Text>
-              heavy enough to challenge you, but be able to hit to the top of
-              the rep range
-            </Text>
-          </View>
+            <View
+              style={{
+                backgroundColor:
+                  item.duration.status === "none"
+                    ? primaryColor
+                    : item.duration === null
+                    ? primaryColor
+                    : "grey",
+                alignItems: "center",
+                paddingVertical: 8,
+                borderRadius: 16,
+                marginTop: 16,
+              }}
+            >
+              <Text
+                style={{
+                  color: textPrimary,
+                  fontSize: 16,
+                  fontFamily: "Poppins",
+                }}
+              >
+                {item?.duration?.status === "recorded"
+                  ? `${item?.duration?.duration} minutes`
+                  : "START"}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
+        <TheModal data={item.id} />
+        <View style={{ flex: 1 }}></View>
+      </View>
+    );
+  };
+
+  // useEffect(() => {
+  //   console.log("myTime: ", myTime);
+  // }, [myTime]);
+
+  return (
+    <ScrollView>
+      <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 30 }}>
+        <ScrollView>
+          {challenge.exercises.map((item, index) => (
+            <ListItem item={item} style={{ flex: 1 }} />
+          ))}
+          <TouchableOpacity
+            onPress={() => {
+              console.log(JSON.stringify(challenge));
+            }}
+            style={{
+              backgroundColor: textAccentSecondary,
+              marginHorizontal: 16,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 16,
+              marginBottom: 16,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.29,
+              shadowRadius: 4.65,
+
+              elevation: 7,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Poppins",
+                color: textPrimary,
+                fontSize: 20,
+                paddingVertical: 8,
+              }}
+            >
+              Finish Challenge
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+
+        {/* <FlatListWithAvatar /> */}
       </View>
     </ScrollView>
   );
-
-  return <ListItem />;
 };
 
 export default DayChallengeExcercise;

@@ -5,7 +5,7 @@ export const USER_SUCCESS = "user/success";
 
 export const USER_LOGIN = "user/login";
 export const USER_REGISTER = "user/register";
-
+export const USER_CLEAR = "user/clear";
 //------ Library
 export const LIBRARY_PENDING = "library/pending";
 export const LIBRARY_ERROR = "library/error";
@@ -42,6 +42,7 @@ export const CREATECUSTOMIZEEXERCISE_SUCCESS = "createExercise/success";
 export const PROFILE_PENDING = "profile/pending";
 export const PROFILE_ERROR = "profile/error";
 export const PROFILE_SUCCESS = "profile/success";
+export const PROFILE_CLEAR = "profile/clear";
 
 export const PROFILEMEASUREMENT_PENDING = "profileMeasurment/pending";
 export const PROFILEMEASUREMENT_ERROR = "profileMeasurment/error";
@@ -59,3 +60,9 @@ export const ACTIVITIES_SUCCESS = "activity/success";
 export const DETAILACTIVITY_PENDING = "detailActivity/pending";
 export const DETAILACTIVITY_ERROR = "detailActivity/error";
 export const DETAILACTIVITY_SUCCESS = "detailActivity/success";
+
+//------- RECORDEXERCISE
+
+export const RECORDEXERCISE_PENDING = "recordExercise/pending";
+export const RECORDEXERCISE_ERROR = "recordExercise/error";
+export const RECORDEXERCISE_SUCCESS = "recordExercise/success";

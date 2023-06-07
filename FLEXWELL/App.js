@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./store/index";
 import { LoginScreen, PersonalizeScreen, RegisterScreen } from "./screens";
 import { LogBox } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   ChallengeStack,
@@ -30,7 +31,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Pressable, TouchableOpacity } from "react-native";
 import WelcomingTextHeader from "./components/WelcomingTextHeader";
-
 SplashScreen.preventAutoHideAsync();
 
 // LogBox.ignoreAllLogs();
@@ -38,14 +38,15 @@ SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Bottomstack = () => {
+const Bottomstack = ({ navigation }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Challenge"
+        name="DashboardStack"
         options={{
           headerShown: false,
-          title: "Challenge",
+
+          title: "Dashboard",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
@@ -54,18 +55,18 @@ const Bottomstack = () => {
           headerStyle: {
             backgroundColor: primaryColor,
           },
-
           headerTintColor: textPrimary,
-          headerTitleAlign: "center",
+          headerTitleAlign: "left",
           cardStyle: {
             backgroundColor: textPrimary,
           },
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="trophy" size={size} color={color} />
+            <FontAwesome name="dashboard" size={size} color={color} />
           ),
         }}
-        component={ChallengeStack}
+        component={DashboardStack}
       />
+
       <Tab.Screen
         name="Library"
         options={{
@@ -90,6 +91,31 @@ const Bottomstack = () => {
           ),
         }}
         component={LibraryStack}
+      />
+      <Tab.Screen
+        name="Challenge"
+        options={{
+          headerShown: false,
+          title: "Challenge",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="trophy" size={size} color={color} />
+          ),
+        }}
+        component={ChallengeStack}
       />
       <Tab.Screen
         name="Custom"
@@ -117,21 +143,14 @@ const Bottomstack = () => {
         component={CustomizationStack}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileStack"
         options={{
           title: "Measurement",
           headerShown: false,
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
           headerStyle: {
             backgroundColor: primaryColor,
           },
 
-          headerTintColor: textPrimary,
-          headerTitleAlign: "center",
           cardStyle: {
             backgroundColor: textPrimary,
           },
@@ -140,31 +159,6 @@ const Bottomstack = () => {
           ),
         }}
         component={ProfileStack}
-      />
-      <Tab.Screen
-        name="DashboardStack"
-        options={{
-          headerTitle: () => <WelcomingTextHeader />,
-
-          title: "Dashboard",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-          headerTintColor: textPrimary,
-          headerTitleAlign: "left",
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="dashboard" size={size} color={color} />
-          ),
-        }}
-        component={DashboardStack}
       />
     </Tab.Navigator>
   );
@@ -242,7 +236,7 @@ const App = () => {
                 },
               }}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
               name="Personalize"
               component={PersonalizeScreen}
               options={{
@@ -260,7 +254,7 @@ const App = () => {
                   backgroundColor: textPrimary,
                 },
               }}
-            /> */}
+            />
             <Stack.Screen
               options={{
                 headerShown: false,

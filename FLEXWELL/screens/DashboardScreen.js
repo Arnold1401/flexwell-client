@@ -148,6 +148,9 @@ const DashboardScreen = ({ route, navigation }) => {
                 onDayPress={(day) => setMyDay(day.dateString)}
                 style={{
                   borderRadius: 15,
+                  color: textAccentSecondary,
+                  fontSize: 12,
+                  fontWeight: "400",
                 }}
                 theme={{
                   calendarBackground: "white",
