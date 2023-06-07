@@ -97,7 +97,7 @@ const CustomChallengeExercise = ({ route, navigation }) => {
   const renderModalContent = () => (
     <View
       style={{
-        backgroundColor: "white",
+        backgroundColor: primaryColor,
         padding: 22,
         justifyContent: "center",
         alignItems: "center",
