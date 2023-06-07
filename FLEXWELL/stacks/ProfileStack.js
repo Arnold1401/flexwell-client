@@ -9,9 +9,10 @@ import {
 const Stack = createStackNavigator();
 import { Entypo } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
-import { ProfileScreen, PersonalizeScreen } from "../screens";
+import { ProfileScreen, PersonalizeScreen, SettingScreen } from "../screens";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { getData, storeData } from "../async";
+
 const ProfileStack = ({ navigation, route }) => {
   return (
     <Stack.Navigator>
@@ -19,7 +20,7 @@ const ProfileStack = ({ navigation, route }) => {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          title: "ProfileScreen",
+          title: "Measurement",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
@@ -33,19 +34,38 @@ const ProfileStack = ({ navigation, route }) => {
           headerTintColor: textPrimary,
           headerTitleAlign: "center",
           headerRight: () => (
-            <TouchableOpacity>
-              <Entypo
-                name="log-out"
-                size={24}
-                color="white"
-                onPress={() => {
-                  storeData("userData", "");
-                  navigation.navigate("Login");
-                }}
-                style={{ marginRight: 16 }}
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SettingScreen")}
+            >
+              <FontAwesome
+                name="gear"
+                size={32}
+                style={{ marginRight: 16, color: textPrimary }}
               />
             </TouchableOpacity>
           ),
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+        options={{
+          title: "Profile",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+
           cardStyle: {
             backgroundColor: textPrimary,
           },

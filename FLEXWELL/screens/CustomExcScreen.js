@@ -32,6 +32,11 @@ const CustomExcScreen = ({ route, navigation }) => {
 
   const dispatch = useDispatch();
 
+  const toDetailCustom = (item) => {
+    console.log(item, "go to detail");
+    navigation.navigate("CustomWorkoutList", { item });
+  };
+
   useEffect(() => {
     dispatch(fetchCustomization());
 
@@ -39,10 +44,11 @@ const CustomExcScreen = ({ route, navigation }) => {
     // async () => (isEmpty = (await customization.length) ? true : false);
   }, []);
 
+  console.log(customization);
   const ListItem = ({ item }) => (
     <TouchableOpacity
       style={{
-        marginTop: 24,
+        marginTop: 10,
         flexDirection: "row",
         width: "95%",
         alignItems: "center",
@@ -54,7 +60,7 @@ const CustomExcScreen = ({ route, navigation }) => {
         borderWidth: 1.5,
         borderColor: textAccentSecondary,
       }}
-      onPress={() => toDetailCustom()}
+      onPress={() => toDetailCustom(item)}
     >
       <View
         style={{
@@ -101,19 +107,19 @@ const CustomExcScreen = ({ route, navigation }) => {
         data={customization}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ListItem item={item} />}
-        numColumns={2}
+        // numColumns={2}
         contentContainerStyle={{
-          gap: 16,
+          marginTop: 10,
+          alignItems: "center",
+          marginBottom: 100,
         }}
-        columnWrapperStyle={{ gap: 8 }}
+        // columnWrapperStyle={{ gap: 8 }}
+        // style={{
+        //   alignItems: "center",
+        // }}
       />
     </View>
   );
-
-  const toDetailCustom = (id) => {
-    console.log(id, "go to detail");
-    navigation.navigate("CustomWorkoutList", { id });
-  };
 
   return (
     <View
@@ -137,14 +143,17 @@ const CustomExcScreen = ({ route, navigation }) => {
 
       <FlatListCustomWorkout />
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           navigation.navigate("SelectedCustomExercise");
         }}
         style={{
           alignItems: "center",
           justifyContent: "flex-start",
-          marginBottom: 40,
+          // width: "50%",
+          // marginBottom: 40,
+          // opacity: 0,
+          backgroundColor: "transparent",
         }}
       >
         <Text
@@ -160,7 +169,7 @@ const CustomExcScreen = ({ route, navigation }) => {
         >
           Add Custom Workout
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

@@ -23,7 +23,6 @@ import {
 import {
   appBarFontSize,
   primaryColor,
-  textAccent,
   textPrimary,
   textSecondary,
 } from "./color-and-size.config";
@@ -61,6 +60,9 @@ const Bottomstack = () => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="trophy" size={size} color={color} />
+          ),
         }}
         component={ChallengeStack}
       />
@@ -83,6 +85,9 @@ const Bottomstack = () => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="book" size={size} color={color} />
+          ),
         }}
         component={LibraryStack}
       />
@@ -105,13 +110,16 @@ const Bottomstack = () => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="plus" size={size} color={color} />
+          ),
         }}
         component={CustomizationStack}
       />
       <Tab.Screen
         name="Profile"
         options={{
-          title: "Profile",
+          title: "Measurement",
           headerShown: false,
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
@@ -127,6 +135,9 @@ const Bottomstack = () => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="balance-scale" size={size} color={color} />
+          ),
         }}
         component={ProfileStack}
       />
@@ -149,6 +160,9 @@ const Bottomstack = () => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="dashboard" size={size} color={color} />
+          ),
         }}
         component={DashboardStack}
       />
