@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./store/index";
 import { LoginScreen, PersonalizeScreen, RegisterScreen } from "./screens";
 import { LogBox } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   ChallengeStack,
@@ -30,7 +31,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Pressable, TouchableOpacity } from "react-native";
 import WelcomingTextHeader from "./components/WelcomingTextHeader";
-
 SplashScreen.preventAutoHideAsync();
 
 // LogBox.ignoreAllLogs();
@@ -38,7 +38,7 @@ SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Bottomstack = () => {
+const Bottomstack = ({ navigation }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -117,21 +117,14 @@ const Bottomstack = () => {
         component={CustomizationStack}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileStack"
         options={{
           title: "Measurement",
           headerShown: false,
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
           headerStyle: {
             backgroundColor: primaryColor,
           },
 
-          headerTintColor: textPrimary,
-          headerTitleAlign: "center",
           cardStyle: {
             backgroundColor: textPrimary,
           },
@@ -144,7 +137,7 @@ const Bottomstack = () => {
       <Tab.Screen
         name="DashboardStack"
         options={{
-          headerTitle: () => <WelcomingTextHeader />,
+          headerShown: false,
 
           title: "Dashboard",
           headerTitleStyle: {
@@ -242,7 +235,7 @@ const App = () => {
                 },
               }}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
               name="Personalize"
               component={PersonalizeScreen}
               options={{
@@ -260,7 +253,7 @@ const App = () => {
                   backgroundColor: textPrimary,
                 },
               }}
-            /> */}
+            />
             <Stack.Screen
               options={{
                 headerShown: false,

@@ -10,8 +10,9 @@ const Stack = createStackNavigator();
 import { Entypo } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { ProfileScreen, PersonalizeScreen, SettingScreen } from "../screens";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+
 import { getData, storeData } from "../async";
+import WelcomingTextHeader from "../components/WelcomingTextHeader";
 
 const ProfileStack = ({ navigation, route }) => {
   return (
@@ -21,10 +22,35 @@ const ProfileStack = ({ navigation, route }) => {
         component={ProfileScreen}
         options={{
           title: "Measurement",
+          headerTitle: () => <WelcomingTextHeader />,
+
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
             letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+          headerTitleAlign: "left",
+          headerLeft: () => null, // Remove the back button
+          gestureEnabled: false, // Disable swipe gesture to go back
+          headerTintColor: textPrimary,
+
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="PersonalizeScreen"
+        component={PersonalizeScreen}
+        options={{
+          headerShown: false,
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
           },
           headerStyle: {
             backgroundColor: primaryColor,
@@ -32,61 +58,7 @@ const ProfileStack = ({ navigation, route }) => {
           headerLeft: () => null, // Remove the back button
           gestureEnabled: false, // Disable swipe gesture to go back
           headerTintColor: textPrimary,
-          headerTitleAlign: "center",
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SettingScreen")}
-            >
-              <FontAwesome
-                name="gear"
-                size={32}
-                style={{ marginRight: 16, color: textPrimary }}
-              />
-            </TouchableOpacity>
-          ),
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-        }}
-      />
-      <Stack.Screen
-        name="SettingScreen"
-        component={SettingScreen}
-        options={{
-          title: "Profile",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-
-          headerTintColor: textPrimary,
-          headerTitleAlign: "center",
-
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-        }}
-      />
-      <Stack.Screen
-        name="PersonalizeScreen"
-        component={PersonalizeScreen}
-        options={{
-          title: "PersonalizeScreen",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-
-          headerTintColor: textPrimary,
-          headerTitleAlign: "center",
+          headerTitleAlign: "left",
           cardStyle: {
             backgroundColor: textPrimary,
           },
