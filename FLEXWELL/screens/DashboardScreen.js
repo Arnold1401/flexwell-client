@@ -80,6 +80,9 @@ const DashboardScreen = ({ route, navigation }) => {
 
   const [myDay, setMyDay] = useState(new Date().toISOString().split("T")[0]);
 
+  console.log(myDay, "ini myDay");
+  console.log(new Date().toLocaleString());
+
   const dataMuscle = [
     { key: "biceps", value: "biceps" },
     { key: "waist", value: "waist" },

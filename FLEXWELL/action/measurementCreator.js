@@ -56,11 +56,13 @@ export const fetchMeasurementMiddleware =
 
       if (labels.length > 7) {
         labels = labels.slice(0, 7);
+        labels = labels.reverse();
       }
       let datasets = filteredMeasurement.map((obj) => obj[categoryLowerCase]);
 
       if (datasets.length > 7) {
         datasets = datasets.slice(0, 7);
+        datasets = datasets.reverse();
       }
 
       const weightMeasurement = data.filter((obj) => {
@@ -74,11 +76,13 @@ export const fetchMeasurementMiddleware =
 
       if (weightLabel.length > 7) {
         weightLabel = weightLabel.slice(0, 7);
+        weightLabel = weightLabel.reverse();
       }
       let weightDatasets = weightMeasurement.map((obj) => obj.weight);
 
       if (weightDatasets.length > 7) {
         weightDatasets = weightDatasets.slice(0, 7);
+        weightDatasets = weightDatasets.reverse();
       }
 
       console.log({ weightLabel, weightDatasets }, "weighttt");

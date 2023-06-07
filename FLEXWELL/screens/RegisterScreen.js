@@ -7,6 +7,7 @@ import {
   Pressable,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Image } from "expo-image";
 import { Fumi } from "react-native-textinput-effects";
@@ -65,165 +66,180 @@ const RegisterScreen = () => {
   }, [user]);
 
   return (
-    <View
+    <KeyboardAvoidingView
+      automaticallyAdjustContentInsets={false}
+      behavior={null}
+      contentContainerStyle={{ flex: 1 }}
       style={{
-        alignItems: "center",
-        justifyContent: "space-between",
+        backgroundColor: "backgroundColor",
         flex: 1,
+        height: "100%",
       }}
     >
-      <View
-        style={{
-          marginTop: 32,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Image
+      <ScrollView>
+        <View
           style={{
-            width: 150,
-            height: 150,
-            borderRadius: 32,
-          }}
-          contentFit="contain"
-          source={logo}
-          transition={2500}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: 32,
-          width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <Fumi
-          label={"Email"}
-          value={email}
-          autoCapitalize={"none"}
-          onChangeText={onChangeEmail}
-          iconClass={FontAwesome}
-          iconName={"envelope"}
-          iconColor={primaryColor}
-          iconSize={24}
-          iconWidth={40}
-          inputPadding={16}
-          style={{
-            width: "90%",
-            borderRadius: 16,
-          }}
-          keyboardType="email-address"
-          inputStyle={{
-            color: textSecondary,
-          }}
-        />
-        <Fumi
-          label={"Username"}
-          autoCapitalize={"none"}
-          value={username}
-          onChangeText={onChangeUsername}
-          iconClass={FontAwesome}
-          iconName={"user"}
-          iconColor={primaryColor}
-          iconSize={24}
-          iconWidth={40}
-          inputPadding={16}
-          style={{
-            width: "90%",
-            borderRadius: 16,
-          }}
-          inputStyle={{
-            color: textSecondary,
-          }}
-        />
-        <Fumi
-          label={"Password"}
-          autoCapitalize={"none"}
-          onChangeText={onChangePassword}
-          iconClass={FontAwesome}
-          iconName={"key"}
-          value={password}
-          iconColor={primaryColor}
-          iconSize={24}
-          iconWidth={40}
-          inputPadding={16}
-          style={{
-            width: "90%",
-            borderRadius: 16,
-          }}
-          secureTextEntry={true}
-          inputStyle={{
-            color: textSecondary,
-          }}
-        />
-        <Fumi
-          label={"Confirm Password"}
-          autoCapitalize={"none"}
-          value={passwordCheck}
-          onChangeText={onChangePasswordCheck}
-          iconClass={FontAwesome}
-          iconName={"key"}
-          iconColor={primaryColor}
-          iconSize={24}
-          iconWidth={40}
-          inputPadding={16}
-          style={{
-            width: "90%",
-            borderRadius: 16,
-          }}
-          secureTextEntry={true}
-          inputStyle={{
-            color: textSecondary,
-          }}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: 40,
-          width: "100%",
-          alignItems: "center",
-          gap: 16,
-          marginBottom: 32,
-        }}
-      >
-        <TouchableOpacity
-          style={{
-            height: 48,
-            backgroundColor: primaryColor,
-            width: "90%",
-            borderRadius: 16,
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
+            flex: 1,
           }}
-          onPress={() => register()}
         >
-          <Text
+          <View
             style={{
-              color: textPrimary,
-              fontSize: buttonTextSize,
-              fontFamily: "Poppins",
+              marginTop: 32,
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            Sign Up
-          </Text>
-        </TouchableOpacity>
-        <View style={{ flexDirection: "row", gap: 8 }}>
-          <Text style={{ color: textSecondary }}>Already have an account?</Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Login");
+            <Image
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 32,
+              }}
+              contentFit="contain"
+              source={logo}
+              transition={2500}
+            />
+          </View>
+          <View
+            style={{
+              marginTop: 32,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 10,
             }}
           >
-            <Text style={{ color: textSecondary, fontWeight: "bold" }}>
-              Sign In
-            </Text>
-          </TouchableOpacity>
+            <Fumi
+              label={"Email"}
+              value={email}
+              autoCapitalize={"none"}
+              onChangeText={onChangeEmail}
+              iconClass={FontAwesome}
+              iconName={"envelope"}
+              iconColor={primaryColor}
+              iconSize={24}
+              iconWidth={40}
+              inputPadding={16}
+              style={{
+                width: "90%",
+                borderRadius: 16,
+              }}
+              keyboardType="email-address"
+              inputStyle={{
+                color: textSecondary,
+              }}
+            />
+            <Fumi
+              label={"Username"}
+              autoCapitalize={"none"}
+              value={username}
+              onChangeText={onChangeUsername}
+              iconClass={FontAwesome}
+              iconName={"user"}
+              iconColor={primaryColor}
+              iconSize={24}
+              iconWidth={40}
+              inputPadding={16}
+              style={{
+                width: "90%",
+                borderRadius: 16,
+              }}
+              inputStyle={{
+                color: textSecondary,
+              }}
+            />
+            <Fumi
+              label={"Password"}
+              autoCapitalize={"none"}
+              onChangeText={onChangePassword}
+              iconClass={FontAwesome}
+              iconName={"key"}
+              value={password}
+              iconColor={primaryColor}
+              iconSize={24}
+              iconWidth={40}
+              inputPadding={16}
+              style={{
+                width: "90%",
+                borderRadius: 16,
+              }}
+              secureTextEntry={true}
+              inputStyle={{
+                color: textSecondary,
+              }}
+            />
+            <Fumi
+              label={"Confirm Password"}
+              autoCapitalize={"none"}
+              value={passwordCheck}
+              onChangeText={onChangePasswordCheck}
+              iconClass={FontAwesome}
+              iconName={"key"}
+              iconColor={primaryColor}
+              iconSize={24}
+              iconWidth={40}
+              inputPadding={16}
+              style={{
+                width: "90%",
+                borderRadius: 16,
+              }}
+              secureTextEntry={true}
+              inputStyle={{
+                color: textSecondary,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              marginTop: 40,
+              width: "100%",
+              alignItems: "center",
+              gap: 16,
+              marginBottom: 32,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: 48,
+                backgroundColor: primaryColor,
+                width: "90%",
+                borderRadius: 16,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => register()}
+            >
+              <Text
+                style={{
+                  color: textPrimary,
+                  fontSize: buttonTextSize,
+                  fontFamily: "Poppins",
+                }}
+              >
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+            <View style={{ flexDirection: "row", gap: 8 }}>
+              <Text style={{ color: textSecondary }}>
+                Already have an account?
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Login");
+                }}
+              >
+                <Text style={{ color: textSecondary, fontWeight: "bold" }}>
+                  Sign In
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
