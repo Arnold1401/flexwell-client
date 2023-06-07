@@ -7,8 +7,8 @@ import {
   Pressable,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import { Image } from "expo-image";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
 import Modal from "react-native-modal";
@@ -30,21 +30,19 @@ const successBadge = require("../assets/lottie/success-badge.json");
 const DayChallengeExcercise = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [messageModal, setModalMessage] = useState("");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
 
   const [visibleModal, setVisibleModal] = useState(false);
 
-  const [myTime, setMyTime] = useState();
+  const [myTime, setMyTime] = useState(null);
 
-  const [isTimerStart, setIsTimerStart] = useState(false);
   const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-  const [timerDuration, setTimerDuration] = useState(90000);
-  const [resetTimer, setResetTimer] = useState(false);
   const [resetStopwatch, setResetStopwatch] = useState(false);
+  const [currid, setcurrid] = useState();
 
-  const { challenge } = route.params;
-  let arr = {};
+  let { challenge } = route.params;
+  let timer = 0;
   {
     /* 
     {
@@ -75,19 +73,20 @@ const DayChallengeExcercise = ({ route, navigation }) => {
             options={options}
             //options for the styling
             getTime={(time) => {
-              if (!isStopwatchStart) {
-                setMyTime(changeTime(time));
-                console.log("akhir", time);
-              }
-              // setMyTime(changeTime(time));
               console.log(time);
+              if (!isStopwatchStart) {
+                setMyTime(time);
+                console.log("masuk karena false");
+              }
+              timer = time;
             }}
           />
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              setModalVisible(!modalVisible);
-              stopthetimer({ data });
+              stopthetimer(data);
+              setModalVisible(false);
+              setMyTime(timer);
             }}
           >
             <Text style={styles.textStyle}>Ok</Text>
@@ -99,12 +98,13 @@ const DayChallengeExcercise = ({ route, navigation }) => {
 
   const styles = StyleSheet.create({
     centeredView: {
-      flex: 1,
+      flex: 2,
       justifyContent: "center",
       alignItems: "center",
       marginTop: 22,
     },
     modalView: {
+      width: "100%",
       margin: 20,
       backgroundColor: "white",
       borderRadius: 20,
@@ -120,7 +120,8 @@ const DayChallengeExcercise = ({ route, navigation }) => {
       elevation: 5,
     },
     button: {
-      borderRadius: 20,
+      borderRadius: 16,
+      paddingHorizontal: 45,
       padding: 10,
       elevation: 2,
     },
@@ -128,7 +129,9 @@ const DayChallengeExcercise = ({ route, navigation }) => {
       backgroundColor: "#F194FF",
     },
     buttonClose: {
-      backgroundColor: primaryColor,
+      marginTop: 8,
+      backgroundColor: textAccentSecondary,
+      color: textPrimary,
     },
     textStyle: {
       color: "white",
@@ -141,14 +144,29 @@ const DayChallengeExcercise = ({ route, navigation }) => {
     },
   });
 
-  const startthetimer = () => {
+  const startthetimer = (id) => {
+    setcurrid(id);
     setIsStopwatchStart(true);
   };
 
+  const indexNumber = [];
+
   const stopthetimer = (id) => {
+    console.log(id, "id exercise");
     setIsStopwatchStart(false);
+    setResetStopwatch(true);
+    setMyTime(timer);
+    let arr = data;
     arr[id] = myTime;
-    console.log("ini my time", myTime);
+    setData(arr);
+    console.log("ini arr my time", data);
+
+    for (let i = 0; i < challenge.exercises.length; i++) {
+      if (challenge.exercises[i].id === currid) {
+        challenge.exercises[i].duration.status = "recorded";
+        challenge.exercises[i].duration.duration = changeTime(timer);
+      }
+    }
   };
 
   const options = {
@@ -156,7 +174,7 @@ const DayChallengeExcercise = ({ route, navigation }) => {
       backgroundColor: primaryColor,
       padding: 5,
       borderRadius: 5,
-      width: 200,
+      width: 250,
       alignItems: "center",
     },
     text: {
@@ -171,19 +189,20 @@ const DayChallengeExcercise = ({ route, navigation }) => {
     const waktu = timee;
     const bagianWaktu = waktu.split(":");
 
-    const jam = parseInt(bagianWaktu[0]);
-    const menit = parseInt(bagianWaktu[1]);
+    const jam = parseInt(bagianWaktu[0]) * 3600;
+    const menit = parseInt(bagianWaktu[1]) * 60;
     const detik = parseInt(bagianWaktu[2]);
-    const milidetik = parseInt(bagianWaktu[3]);
-
-    let totalMenit = jam * 60 * 60 + menit;
-    totalMenit += Math.ceil(detik / 60);
+    const milidetik = parseInt(bagianWaktu[3]) / 60000;
+    console.log(jam, menit, detik, milidetik);
+    let totalMenit = jam + menit + detik + milidetik;
+    totalMenit = Math.ceil(totalMenit / 60);
     console.log("totalmenti", timee);
     return totalMenit;
   };
 
   const ListItem = ({ item }) => {
     const data = item.id;
+    console.log(item, "flatlist");
     return (
       <View
         key={item.id}
@@ -195,13 +214,12 @@ const DayChallengeExcercise = ({ route, navigation }) => {
           borderRadius: 10,
           // borderWidth: 10,
           marginBottom: 10,
-          backgroundColor: "blue",
         }}
       >
         <TouchableOpacity
           style={{
             gap: 8,
-            height: 90,
+            height: 100,
             flexDirection: "row",
             overflow: "hidden",
             borderRadius: 16,
@@ -209,10 +227,13 @@ const DayChallengeExcercise = ({ route, navigation }) => {
           }}
           onPress={() => (status ? setStatus(false) : setStatus(true))}
         >
-          <View style={{ height: 90, flex: 2 }}>
+          <View style={{ height: 100, flex: 3 }}>
             <Image
-              source={{ uri: item.gifUrl }}
+              source={{
+                uri: "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Preacher-Curl.gif",
+              }}
               style={{ width: 100, height: 100 }}
+              resizeMode="cover"
             />
           </View>
           <View style={{ flex: 6 }}>
@@ -221,29 +242,40 @@ const DayChallengeExcercise = ({ route, navigation }) => {
                 flexDirection: "column",
                 marginRight: 8,
                 gap: 4,
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 height: "100%",
+                marginTop: 4,
               }}
             >
               <View style={{ backgroundColor: "white" }}>
-                <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
+                <Text
+                  style={{ fontFamily: "Poppins", fontSize: 16 }}
+                  numberOfLines={2}
+                >
                   {item.name}
                 </Text>
               </View>
-              <View>
+              <View
+                style={{
+                  borderRadius: 16,
+                  overflow: "hidden",
+                  backgroundColor: primaryColor,
+                  alignSelf: "baseline",
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  marginTop: 4,
+                }}
+              >
                 <Text
                   style={{
-                    paddingVertical: 4,
-                    paddingHorizontal: 8,
-                    backgroundColor: primaryColor,
                     alignSelf: "baseline",
                     borderRadius: 16,
                     fontFamily: "Montserrat-Bold",
-                    fontSize: 10,
+                    fontSize: 12,
                     color: textPrimary,
                   }}
                 >
-                  SHOULDERS
+                  {item.bodyPart}
                 </Text>
               </View>
             </View>
@@ -332,17 +364,23 @@ const DayChallengeExcercise = ({ route, navigation }) => {
             </View>
             <View></View>
           </View>
+          {/* <Text> {JSON.stringify(item.duration)}</Text> */}
           <TouchableOpacity
             onPress={() => {
               setModalVisible(true);
-              startthetimer();
+              startthetimer(item.id);
             }}
           >
             <View
               style={{
-                backgroundColor: primaryColor,
+                backgroundColor:
+                  item.duration.status === "none"
+                    ? primaryColor
+                    : item.duration === null
+                    ? primaryColor
+                    : "grey",
                 alignItems: "center",
-                paddingVertical: 4,
+                paddingVertical: 8,
                 borderRadius: 16,
                 marginTop: 16,
               }}
@@ -354,42 +392,68 @@ const DayChallengeExcercise = ({ route, navigation }) => {
                   fontFamily: "Poppins",
                 }}
               >
-                START
+                {item?.duration?.status === "recorded"
+                  ? `${item?.duration?.duration} minutes`
+                  : "START"}
               </Text>
             </View>
           </TouchableOpacity>
         </View>
-        <TheModal data={data} />
+        <TheModal data={item.id} />
         <View style={{ flex: 1 }}></View>
       </View>
     );
   };
 
-  console.log(myTime, "ini waktu terbaru");
-
-  const FlatListWithAvatar = () => {
-    const exercises = challenge.exercises;
-    return (
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={exercises}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ListItem item={item} />}
-        />
-      </View>
-    );
-  };
+  // useEffect(() => {
+  //   console.log("myTime: ", myTime);
+  // }, [myTime]);
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 30 }}>
-      <ScrollView>
-        {challenge.exercises.map((item, index) => (
-          <ListItem item={item} style={{ flex: 1 }} />
-        ))}
-      </ScrollView>
+    <ScrollView>
+      <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 30 }}>
+        <ScrollView>
+          {challenge.exercises.map((item, index) => (
+            <ListItem item={item} style={{ flex: 1 }} />
+          ))}
+          <TouchableOpacity
+            onPress={() => {
+              console.log(JSON.stringify(challenge));
+            }}
+            style={{
+              backgroundColor: textAccentSecondary,
+              marginHorizontal: 16,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 16,
+              marginBottom: 16,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.29,
+              shadowRadius: 4.65,
 
-      {/* <FlatListWithAvatar /> */}
-    </View>
+              elevation: 7,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Poppins",
+                color: textPrimary,
+                fontSize: 20,
+                paddingVertical: 8,
+              }}
+            >
+              Finish Challenge
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+
+        {/* <FlatListWithAvatar /> */}
+      </View>
+    </ScrollView>
   );
 };
 

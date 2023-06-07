@@ -42,10 +42,11 @@ const Bottomstack = ({ navigation }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Challenge"
+        name="DashboardStack"
         options={{
           headerShown: false,
-          title: "Challenge",
+
+          title: "Dashboard",
           headerTitleStyle: {
             fontFamily: "Montserrat-Bold",
             fontSize: appBarFontSize,
@@ -54,18 +55,18 @@ const Bottomstack = ({ navigation }) => {
           headerStyle: {
             backgroundColor: primaryColor,
           },
-
           headerTintColor: textPrimary,
-          headerTitleAlign: "center",
+          headerTitleAlign: "left",
           cardStyle: {
             backgroundColor: textPrimary,
           },
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="trophy" size={size} color={color} />
+            <FontAwesome name="dashboard" size={size} color={color} />
           ),
         }}
-        component={ChallengeStack}
+        component={DashboardStack}
       />
+
       <Tab.Screen
         name="Library"
         options={{
@@ -90,6 +91,31 @@ const Bottomstack = ({ navigation }) => {
           ),
         }}
         component={LibraryStack}
+      />
+      <Tab.Screen
+        name="Challenge"
+        options={{
+          headerShown: false,
+          title: "Challenge",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+
+          headerTintColor: textPrimary,
+          headerTitleAlign: "center",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="trophy" size={size} color={color} />
+          ),
+        }}
+        component={ChallengeStack}
       />
       <Tab.Screen
         name="Custom"
@@ -133,31 +159,6 @@ const Bottomstack = ({ navigation }) => {
           ),
         }}
         component={ProfileStack}
-      />
-      <Tab.Screen
-        name="DashboardStack"
-        options={{
-          headerShown: false,
-
-          title: "Dashboard",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-          headerTintColor: textPrimary,
-          headerTitleAlign: "left",
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="dashboard" size={size} color={color} />
-          ),
-        }}
-        component={DashboardStack}
       />
     </Tab.Navigator>
   );

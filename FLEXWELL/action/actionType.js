@@ -53,4 +53,8 @@ export const DETAILACTIVITY_PENDING = "detailActivity/pending";
 export const DETAILACTIVITY_ERROR = "detailActivity/error";
 export const DETAILACTIVITY_SUCCESS = "detailActivity/success";
 
+//------- RECORDEXERCISE
 
+export const RECORDEXERCISE_PENDING = "recordExercise/pending";
+export const RECORDEXERCISE_ERROR = "recordExercise/error";
+export const RECORDEXERCISE_SUCCESS = "recordExercise/success";

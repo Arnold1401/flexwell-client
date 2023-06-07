@@ -33,8 +33,10 @@ const CustomExcScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   const toDetailCustom = (item) => {
+    console.log(item, "item");
     console.log(item, "go to detail");
-    navigation.navigate("CustomWorkoutList", { item });
+    let custom = item;
+    navigation.navigate("CustomWorkoutList", { custom });
   };
 
   useEffect(() => {
@@ -133,7 +135,7 @@ const CustomExcScreen = ({ route, navigation }) => {
     >
       <View
         style={{
-          flex: 2,
+          flex: 10,
           display: customization.length == 0 ? "flex" : "none",
           width: "100%",
         }}

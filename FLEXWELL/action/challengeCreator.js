@@ -40,7 +40,16 @@ const fetchChallenge = () => async (dispatch, getState) => {
     );
     console.log(data, "ini data");
 
-    dispatch(challengeSuccess(data));
+    const hasil = data.map((challenge) => {
+      const exercises = challenge.exercises.map((exercise) => {
+        exercise.duration = { status: "none", duration: "" };
+        return exercise;
+      });
+      challenge.exercises = exercises;
+      return challenge;
+    });
+
+    dispatch(challengeSuccess(hasil));
   } catch (error) {
     console.log(error);
     // dispatch(challengeError(error));
