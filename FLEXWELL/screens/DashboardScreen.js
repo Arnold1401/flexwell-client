@@ -104,7 +104,7 @@ const DashboardScreen = ({ route, navigation }) => {
   const [exercise, setExercise] = useState({});
 
   useEffect(() => {
-    if (activity) {
+    if (Object.keys(activity).length !== 0) {
       const choosenActivity = activity.find(
         (e) => e?.activity?.date.split("T")[0] === myDay
       );
@@ -190,7 +190,7 @@ const DashboardScreen = ({ route, navigation }) => {
             >
               <Text
                 style={{
-                  color: "textAccentSecondary",
+                  color: textAccentSecondary,
                   fontSize: 12,
                   fontWeight: "400",
                 }}
