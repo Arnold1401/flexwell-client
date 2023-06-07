@@ -24,8 +24,20 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import LottieView from "lottie-react-native";
+import { addCustomizeExerciseMiddleware } from "../action/addCustomizeExerciseCreator";
+const loadingAnimation = require("../assets/lottie/loading.json");
+
+
 const SummaryScreen = ({ route, navigation }) => {
   const { id } = route.params;
+
+  const { exerciseDetail } = useSelector((state) => state.exerciseList);
+  const [exerciseDetailLocal, setExerciseDetailLocal] =
+    useState(exerciseDetail);
+
+  console.log(exerciseDetail, "ini exercise Detail");
+  // console.log(exerciseDetailLocal, "ini exercise DetailLocal");
 
   const { isLoading, exercise, erroMsg } = useSelector(
     (state) => state.fetchExerciseDetail
@@ -61,6 +73,36 @@ const SummaryScreen = ({ route, navigation }) => {
     setReps(reps - 1);
   };
 
+  const addExercise = () => {
+    console.log(exercise, "masuk add Exercise");
+    const choosenExercises = {
+      bodyPartId: exercise.id,
+      bodyPart: exercise.bodyPart,
+      gifUrl: exercise.gifUrl,
+      name: exercise.name,
+      repetition: reps,
+      totalSet: sets,
+    };
+    // console.log(choosenExercises, "testing");
+    // setExerciseDetailLocal(exerciseDetail.push(choosenExercises));
+
+    dispatch(addCustomizeExerciseMiddleware(choosenExercises));
+    navigation.navigate("SelectedCustomExercise");
+
+    // console.log(exerciseDetailLocal, "ini dari addExercise");
+  };
+
+  useEffect(() => {
+    if (exercise) {
+      const findExercise = exerciseDetail?.find(
+        (val) => val?.bodyPartId === exercise?.id
+      );
+      if (findExercise) {
+        setReps(findExercise?.repetition || 0);
+        setSets(findExercise?.totalSet || 0);
+      }
+    }
+  }, [exerciseDetail, exercise]);
   // const data = [
   //   {
   //     id: "1",
@@ -101,396 +143,398 @@ const SummaryScreen = ({ route, navigation }) => {
     reps < 0 ? setReps(0) : reps;
   }, [sets, reps]);
 
-  return (
-    <ScrollView>
-      <View style={{ flexDirection: "column", flex: 1 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            marginHorizontal: 16,
-            marginVertical: 24,
-            alignItems: "center",
-            justifyContent: "space-between",
-            flex: 1,
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => (!favorite ? setFavorite(true) : setFavorite(false))}
-            style={{ flex: 1 }}
-          >
-            <FontAwesome
-              name={!favorite ? "star-o" : "star"}
-              size={16}
-              color={!favorite ? textAccentSecondary : primaryColor}
-            />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            borderColor: textAccentSecondary,
-          }}
-        >
-          <Image
-            source={{ uri: exercise.gifUrl }}
-            style={{
-              width: "100%",
-              height: 400,
-            }}
-            resizeMode="cover"
-          />
-        </View>
-        <Text
-          style={{
-            fontFamily: "Poppins",
-            fontSize: 22,
-            flex: 16,
-            paddingHorizontal: 12,
-            marginTop: 20,
-          }}
-        >
-          {exercise?.name?.split(" ").map((word) => {
-            word = word.charAt(0).toUpperCase() + word.slice(1);
-            return `${word} `;
-          })}
-        </Text>
-        <View
-          style={{
-            marginVertical: 16,
-            marginHorizontal: 8,
-            flex: 1,
-            padding: 4,
-            display: "flex",
-            flexDirection: "row",
-            gap: 8,
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: secondaryColor,
-              alignSelf: "baseline",
-              paddingHorizontal: 8,
-              paddingVertical: 5,
-              borderRadius: 16,
-              display: "flex",
-              flexDirection: "row",
-              overflow: "hidden",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Ionicons name="ios-body-outline" size={18} color="black" />
-            <Text
-              style={{
-                backgroundColor: secondaryColor,
-                alignSelf: "baseline",
-                paddingHorizontal: 8,
-                paddingVertical: 2,
-                borderRadius: 16,
-              }}
-            >
-              {exercise.bodyPart}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: secondaryColor,
-              alignSelf: "baseline",
-              paddingHorizontal: 8,
-              paddingVertical: 5,
-              borderRadius: 16,
-              display: "flex",
-              flexDirection: "row",
-              overflow: "hidden",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <MaterialCommunityIcons
-              name="arm-flex-outline"
-              size={20}
-              color="black"
-            />
-            <Text
-              style={{
-                backgroundColor: secondaryColor,
-                alignSelf: "baseline",
-                paddingHorizontal: 8,
-                paddingVertical: 2,
-                borderRadius: 16,
-              }}
-            >
-              {exercise.target}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: secondaryColor,
-              alignSelf: "baseline",
-              paddingHorizontal: 8,
-              paddingVertical: 5,
-              borderRadius: 16,
-              display: "flex",
-              flexDirection: "row",
-              overflow: "hidden",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <FontAwesome5 name="dumbbell" size={18} color="black" />
-            <Text
-              style={{
-                backgroundColor: secondaryColor,
-                alignSelf: "baseline",
-                paddingHorizontal: 8,
-                paddingVertical: 2,
-                borderRadius: 16,
-              }}
-            >
-              {exercise.equipment}
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
-        style={{
-          flexDirection: "column",
-          marginTop: 0,
-          alignItems: "center",
-          flex: 1,
-          justifyContent: "space-between",
-        }}
-      >
-        <View
-          style={{
-            width: "95%",
-            borderRadius: 16,
-            // borderWidth: 1,
-            // borderColor: textAccent,
-            paddingHorizontal: 4,
-            paddingTop: 16,
-            marginBottom: 8,
-            // shadowColor: "#000",
-            // shadowOffset: {
-            //   width: 0,
-            //   height: 2,
-            // },
-            // shadowOpacity: 0.25,
-            // shadowRadius: 3.84,
+  useEffect(() => {
+    setReps(0);
+    setSets(0);
+  }, []);
 
-            // elevation: 5,
-          }}
-        >
+  if (isLoading) {
+    return (
+      <LottieView
+        style={{
+          justifyContent: "flex-end",
+          marginLeft: 45,
+        }}
+        source={loadingAnimation}
+        autoPlay
+        loop
+      />
+    );
+  } else {
+    return (
+      <ScrollView>
+        <View style={{ flexDirection: "column", flex: 1 }}>
           <View
             style={{
               flexDirection: "row",
-              gap: 16,
+              marginHorizontal: 16,
+              marginVertical: 24,
+              alignItems: "center",
+              justifyContent: "space-between",
+              flex: 1,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() =>
+                !favorite ? setFavorite(true) : setFavorite(false)
+              }
+              style={{ flex: 1 }}
+            >
+              <FontAwesome
+                name={!favorite ? "star-o" : "star"}
+                size={16}
+                color={!favorite ? textAccentSecondary : primaryColor}
+              />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              borderColor: textAccentSecondary,
+            }}
+          >
+            <Image
+              source={{ uri: exercise.gifUrl }}
+              style={{
+                width: "100%",
+                height: 400,
+              }}
+              resizeMode="cover"
+            />
+          </View>
+          <Text
+            style={{
+              fontFamily: "Poppins",
+              fontSize: 22,
+              flex: 16,
+              paddingHorizontal: 12,
+              marginTop: 20,
+            }}
+          >
+            {exercise?.name?.split(" ").map((word) => {
+              word = word.charAt(0).toUpperCase() + word.slice(1);
+              return `${word} `;
+            })}
+          </Text>
+          <View
+            style={{
+              marginVertical: 16,
               marginHorizontal: 8,
-              marginTop: 0,
-              marginBottom: 8,
+              flex: 1,
+              padding: 4,
+              display: "flex",
+              flexDirection: "row",
+              gap: 8,
             }}
           >
             <View
               style={{
-                flexDirection: "column",
-                flex: 1,
-                height: 80,
-                borderWidth: 1,
-                borderColor: textAccent,
-                borderRadius: 15,
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 5,
+                borderRadius: 16,
+                display: "flex",
+                flexDirection: "row",
+                overflow: "hidden",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <View style={{ alignItems: "center" }}>
-                <Text style={{ fontSize: 24, fontFamily: "Montserrat-Bold" }}>
-                  sets
-                </Text>
-              </View>
-              <View
+              <Ionicons name="ios-body-outline" size={18} color="black" />
+              <Text
                 style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 100,
-                  height: 40,
-                  flexDirection: "row",
-                  width: "100%",
-                  marginTop: 4,
-                  // borderWidth: 1,
-                  borderColor: textAccent,
+                  backgroundColor: secondaryColor,
+                  alignSelf: "baseline",
+                  paddingHorizontal: 8,
+                  paddingVertical: 2,
+                  borderRadius: 16,
                 }}
               >
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onPress={decreaseSets}
-                >
-                  <FontAwesome
-                    name={"minus-square"}
-                    size={32}
-                    color={textAccentSecondary}
-                  />
-                </TouchableOpacity>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ fontFamily: "Poppins", fontSize: 24 }}>
-                    {sets}
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onPress={increaseSets}
-                >
-                  <FontAwesome
-                    name={"plus-square"}
-                    size={32}
-                    style={{ color: primaryColor, fontWeight: 800 }}
-                  />
-                </TouchableOpacity>
-              </View>
+                {exercise.bodyPart}
+              </Text>
             </View>
             <View
               style={{
-                flexDirection: "column",
-                flex: 1,
-                height: 80,
-                borderWidth: 1,
-                borderColor: textAccent,
-                borderRadius: 15,
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 5,
+                borderRadius: 16,
+                display: "flex",
+                flexDirection: "row",
+                overflow: "hidden",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <View style={{ alignItems: "center" }}>
-                <Text style={{ fontSize: 24, fontFamily: "Montserrat-Bold" }}>
-                  reps
-                </Text>
-              </View>
-              <View></View>
-              <View
+              <MaterialCommunityIcons
+                name="arm-flex-outline"
+                size={20}
+                color="black"
+              />
+              <Text
                 style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 100,
-                  height: 40,
-                  flexDirection: "row",
-                  width: "100%",
-                  marginTop: 4,
-                  // borderWidth: 1,
-                  borderColor: textAccent,
+                  backgroundColor: secondaryColor,
+                  alignSelf: "baseline",
+                  paddingHorizontal: 8,
+                  paddingVertical: 2,
+                  borderRadius: 16,
                 }}
               >
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onPress={decreaseReps}
-                >
-                  <FontAwesome
-                    name={"minus-square"}
-                    size={32}
-                    color={textAccentSecondary}
-                  />
-                </TouchableOpacity>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ fontFamily: "Poppins", fontSize: 24 }}>
-                    {reps}
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onPress={increaseReps}
-                >
-                  <FontAwesome
-                    name={"plus-square"}
-                    size={32}
-                    style={{ color: primaryColor, fontWeight: 800 }}
-                  />
-                </TouchableOpacity>
-              </View>
+                {exercise.target}
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: secondaryColor,
+                alignSelf: "baseline",
+                paddingHorizontal: 8,
+                paddingVertical: 5,
+                borderRadius: 16,
+                display: "flex",
+                flexDirection: "row",
+                overflow: "hidden",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <FontAwesome5 name="dumbbell" size={18} color="black" />
+              <Text
+                style={{
+                  backgroundColor: secondaryColor,
+                  alignSelf: "baseline",
+                  paddingHorizontal: 8,
+                  paddingVertical: 2,
+                  borderRadius: 16,
+                }}
+              >
+                {exercise.equipment}
+              </Text>
             </View>
           </View>
         </View>
         <View
           style={{
-            width: "100%",
-            height: 50,
-            backgroundColor: primaryColor,
-            flexDirection: "row",
-            paddingHorizontal: 8,
+            flexDirection: "column",
+            marginTop: 0,
+            alignItems: "center",
+            flex: 1,
+            justifyContent: "space-between",
           }}
         >
           <View
             style={{
-              flex: 8,
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              gap: 4,
+              width: "95%",
+              borderRadius: 16,
+              // borderWidth: 1,
+              // borderColor: textAccent,
+              paddingHorizontal: 4,
+              paddingTop: 16,
+              marginBottom: 8,
+              // shadowColor: "#000",
+              // shadowOffset: {
+              //   width: 0,
+              //   height: 2,
+              // },
+              // shadowOpacity: 0.25,
+              // shadowRadius: 3.84,
+
+              // elevation: 5,
             }}
           >
-            <Text
+            <View
               style={{
-                fontFamily: "Montserrat-Bold",
-                color: textPrimary,
+                flexDirection: "row",
+                gap: 16,
+                marginHorizontal: 8,
+                marginTop: 0,
+                marginBottom: 8,
               }}
             >
-              Selected Exercise:
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Montserrat-Bold",
-                color: textPrimary,
-                textDecorationLine: "underline",
-              }}
-            >
-              0
-            </Text>
+              <View
+                style={{
+                  flexDirection: "column",
+                  flex: 1,
+                  height: 80,
+                  borderWidth: 1,
+                  borderColor: textAccent,
+                  borderRadius: 15,
+                }}
+              >
+                <View style={{ alignItems: "center" }}>
+                  <Text style={{ fontSize: 24, fontFamily: "Montserrat-Bold" }}>
+                    sets
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 100,
+                    height: 40,
+                    flexDirection: "row",
+                    width: "100%",
+                    marginTop: 4,
+                    // borderWidth: 1,
+                    borderColor: textAccent,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    onPress={decreaseSets}
+                  >
+                    <FontAwesome
+                      name={"minus-square"}
+                      size={32}
+                      color={textAccentSecondary}
+                    />
+                  </TouchableOpacity>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ fontFamily: "Poppins", fontSize: 24 }}>
+                      {sets}
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    onPress={increaseSets}
+                  >
+                    <FontAwesome
+                      name={"plus-square"}
+                      size={32}
+                      style={{ color: primaryColor, fontWeight: 800 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: "column",
+                  flex: 1,
+                  height: 80,
+                  borderWidth: 1,
+                  borderColor: textAccent,
+                  borderRadius: 15,
+                }}
+              >
+                <View style={{ alignItems: "center" }}>
+                  <Text style={{ fontSize: 24, fontFamily: "Montserrat-Bold" }}>
+                    reps
+                  </Text>
+                </View>
+                <View></View>
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 100,
+                    height: 40,
+                    flexDirection: "row",
+                    width: "100%",
+                    marginTop: 4,
+                    // borderWidth: 1,
+                    borderColor: textAccent,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    onPress={decreaseReps}
+                  >
+                    <FontAwesome
+                      name={"minus-square"}
+                      size={32}
+                      color={textAccentSecondary}
+                    />
+                  </TouchableOpacity>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ fontFamily: "Poppins", fontSize: 24 }}>
+                      {reps}
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    onPress={increaseReps}
+                  >
+                    <FontAwesome
+                      name={"plus-square"}
+                      size={32}
+                      style={{ color: primaryColor, fontWeight: 800 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
           </View>
-          <TouchableOpacity
-            style={{ flex: 3, justifyContent: "center", alignItems: "center" }}
-            onPress={() => {
-              navigation.navigate("SelectedCustomExercise", { id: 1 });
+          <View
+            style={{
+              // width: "100%",
+              height: 50,
+              backgroundColor: primaryColor,
+              flexDirection: "row",
+              paddingHorizontal: 8,
+              marginHorizontal: 12,
+              borderRadius: 30,
             }}
           >
-            <Text
+            <TouchableOpacity
               style={{
-                backgroundColor: secondaryColor,
-                paddingVertical: 8,
-                paddingHorizontal: 20,
-                color: textAccentSecondary,
-                borderRadius: 100,
-                fontFamily: "Montserrat-Bold",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+              onPress={() => {
+                addExercise();
+                // navigation.navigate("SelectedCustomExercise", { id: 1 });
               }}
             >
-              Add
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{
+                  // backgroundColor: secondaryColor,
+                  paddingVertical: 8,
+                  // paddingHorizontal: 20,
+                  color: textPrimary,
+                  borderRadius: 100,
+                  fontFamily: "Montserrat-Bold",
+                  fontSize: 24,
+                }}
+              >
+                Add
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ScrollView>
-  );
+      </ScrollView>
+    );
+  }
 };
 
 export default SummaryScreen;

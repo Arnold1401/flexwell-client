@@ -1,8 +1,11 @@
+import axios from "axios";
 import {
   CUSTOMIZATION_ERROR,
   CUSTOMIZATION_SUCCESS,
   CUSTOMIZATION_PENDING,
 } from "./actionType.js";
+import { baseUrl } from "../config.js";
+import { getData } from "../async/index.js";
 
 const datanya = [
   {
@@ -56,12 +59,27 @@ const customizationError = (errorMessage) => ({
   payload: errorMessage,
 });
 
-const fetchCustomization = () => (dispatch, getState) => {
+const fetchCustomization = () => async (dispatch, getState) => {
   dispatch(customizationPending());
   try {
-    dispatch(customizationSuccess(datanya));
-    console.log(datanya, "-- Customization Creator --");
+    console.log("-- Customization Creator --");
+
+    const { access_token } = JSON.parse(await getData("userData"));
+
+    console.log(access_token);
+
+    const { data } = await axios.get(`${baseUrl}/pub/exercises`, {
+      headers: {
+        access_token: access_token,
+      },
+    });
+
+    console.log(data, "ini response");
+
+    // console.log(data, "ini data dari fetchCustomization");
+    dispatch(customizationSuccess(data));
   } catch (error) {
+    console.log(error);
     dispatch(customizationError(error));
   }
 };

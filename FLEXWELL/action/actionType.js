@@ -26,7 +26,20 @@ export const EXERCISEDETAIL_PENDING = "exerciseDetail/pending";
 export const EXERCISEDETAIL_ERROR = "exerciseDetail/error";
 export const EXERCISEDETAIL_SUCCESS = "exerciseDetail/success";
 
+//------ AddExerciseIntoCustomization
+
+export const ADDECUSTOMIZEEXERCISE_PENDING = "addExercise/pending";
+export const ADDECUSTOMIZEEXERCISE_ERROR = "addExercise/error";
+export const ADDECUSTOMIZEEXERCISE_SUCCESS = "addExercise/success";
+
+//------ AddCustomExcercise
+
+export const CREATECUSTOMIZEEXERCISE_PENDING = "createExercise/pending";
+export const CREATECUSTOMIZEEXERCISE_ERROR = "createExercise/error";
+export const CREATECUSTOMIZEEXERCISE_SUCCESS = "createExercise/success";
+
 //------- PROFILE
 export const PROFILE_PENDING = "profile/pending";
 export const PROFILE_ERROR = "profile/error";
 export const PROFILE_SUCCESS = "profile/success";
+
