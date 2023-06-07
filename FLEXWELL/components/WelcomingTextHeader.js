@@ -12,7 +12,7 @@ const WelcomingTextHeader = () => {
     if (userData.fullName === undefined) {
       setUsername(userData.username);
     } else {
-      setUsername(userData.fullName);
+      setUsername(userData.username);
     }
   };
   useEffect(() => {

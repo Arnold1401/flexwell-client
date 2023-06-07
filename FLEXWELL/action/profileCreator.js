@@ -95,6 +95,9 @@ const saveProfile =
       console.log("-- setting profile requst post --", response);
       if (response.status === 201) {
         dispatch(profileSucess({ status: 201, message: "updated" }));
+        let userData = JSON.parse(await getData("userData"));
+        userData.username = fullName;
+        await storeData("userData", JSON.stringify(userData));
       }
     } catch (error) {
       profileError(error);
