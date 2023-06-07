@@ -1,6 +1,11 @@
 import axios from "axios";
 import { baseUrl } from ".././config";
-import { USER_ERROR, USER_SUCCESS, USER_PENDING } from "./actionType.js";
+import {
+  USER_ERROR,
+  USER_SUCCESS,
+  USER_PENDING,
+  USER_CLEAR,
+} from "./actionType.js";
 import { storeData, getData } from "../async";
 
 const userPending = () => ({
@@ -15,6 +20,11 @@ const userSucess = (responseJson) => ({
 const userError = (errorMessage) => ({
   type: USER_ERROR,
   payload: errorMessage,
+});
+
+const userClear = () => ({
+  type: USER_CLEAR,
+  payload: "",
 });
 
 const doLogin = (username, password) => async (dispatch, getState) => {
@@ -112,4 +122,12 @@ const saveRecord =
     }
   };
 
-export { userPending, userError, userSucess, doLogin, doRegister, saveRecord };
+export {
+  userPending,
+  userError,
+  userSucess,
+  doLogin,
+  doRegister,
+  saveRecord,
+  userClear,
+};

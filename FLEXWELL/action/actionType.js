@@ -5,7 +5,7 @@ export const USER_SUCCESS = "user/success";
 
 export const USER_LOGIN = "user/login";
 export const USER_REGISTER = "user/register";
-
+export const USER_CLEAR = "user/clear";
 //------ Library
 export const LIBRARY_PENDING = "library/pending";
 export const LIBRARY_ERROR = "library/error";

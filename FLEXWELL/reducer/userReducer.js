@@ -1,4 +1,9 @@
-import { USER_PENDING, USER_ERROR, USER_SUCCESS } from "../action/actionType";
+import {
+  USER_PENDING,
+  USER_ERROR,
+  USER_SUCCESS,
+  USER_CLEAR,
+} from "../action/actionType";
 
 const initalState = {
   isLoading: true,
@@ -23,6 +28,13 @@ const userReducer = (state = initalState, action) => {
         ...state,
         isLoading: false,
         errorMsg: action.payload,
+      };
+    case USER_CLEAR:
+      return {
+        ...state,
+        isLoading: false,
+        errorMsg: "",
+        user: "",
       };
     default:
       return state;
