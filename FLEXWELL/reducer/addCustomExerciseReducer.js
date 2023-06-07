@@ -13,19 +13,19 @@ const initalState = {
 const addExerciseReducer = (state = initalState, action) => {
   switch (action.type) {
     case ADDECUSTOMIZEEXERCISE_SUCCESS:
-      console.log(action.payload, "-- customization Reducer--");
+      //   console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
         isLoading: false,
         exerciseDetail: action.payload,
       };
     case ADDECUSTOMIZEEXERCISE_PENDING:
-      console.log(action.payload, "-- customization Reducer--");
+      //   console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
       };
     case ADDECUSTOMIZEEXERCISE_ERROR:
-      console.log(action.payload, "-- customization Reducer--");
+      //   console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
         isLoading: false,

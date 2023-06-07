@@ -13,7 +13,7 @@ const initalState = {
 const challengeReducer = (state = initalState, action) => {
   switch (action.type) {
     case CHALLENGE_SUCCESS:
-      console.log("ini reducer challenge", action.payload);
+      // console.log("ini reducer challenge", action.payload);
       return {
         ...state,
         isLoading: false,

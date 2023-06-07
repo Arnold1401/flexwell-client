@@ -26,9 +26,12 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
   const { challenge } = route.params;
   // Data untuk flatlist
 
-  const toOneExercise = () => {
+  const toOneExercise = (id) => {
+    console.log(id);
     navigation.navigate("DayExercise", { challenge });
   };
+
+  console.log(challenge, "ini challange");
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (

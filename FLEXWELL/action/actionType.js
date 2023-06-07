@@ -44,6 +44,14 @@ export const PROFILE_ERROR = "profile/error";
 export const PROFILE_SUCCESS = "profile/success";
 export const PROFILE_CLEAR = "profile/clear";
 
+export const PROFILEMEASUREMENT_PENDING = "profileMeasurment/pending";
+export const PROFILEMEASUREMENT_ERROR = "profileMeasurment/error";
+export const PROFILEMEASUREMENT_SUCCESS = "profileMeasurment/success";
+
+export const PROFILEWEIGHT_PENDING = "profileWeight/pending";
+export const PROFILEWEIGHT_ERROR = "profileWeight/error";
+export const PROFILEWEIGHT_SUCCESS = "profileWeight/success";
+
 //------- ACTIVITY
 export const ACTIVITIES_PENDING = "activity/pending";
 export const ACTIVITIES_ERROR = "activity/error";

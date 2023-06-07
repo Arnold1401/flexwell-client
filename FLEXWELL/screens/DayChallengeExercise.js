@@ -41,6 +41,10 @@ const DayChallengeExcercise = ({ route, navigation }) => {
   const [resetStopwatch, setResetStopwatch] = useState(false);
   const [currid, setcurrid] = useState();
 
+  console.log(route.params.challenge, "ini route");
+
+  const openToggle = () => {
+    setReps(true);
   let { challenge } = route.params;
   let timer = 0;
   {

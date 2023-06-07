@@ -10,12 +10,6 @@ import {
 import { baseUrl } from "../config.js";
 import { storeData, getData } from "../async/index.js";
 
-const data = [
-  { date: "2023-06-22" },
-  { date: "2023-06-23" },
-  { date: "2023-06-24" },
-];
-
 const datanya = [
   {
     id: 31,
@@ -157,27 +151,24 @@ export const fetchActivities = () => async (dispatch, getState) => {
   console.log("---Fetch Activities Creator");
   dispatch(activitiesPendingAction());
   try {
-    // const { access_token } = JSON.parse(await getData("userData"));
-    // console.log(access_token, "ini akses Token");
-    // const { data } = await axios.get(
-    //   `${baseUrl}/pub/bodyparts?target=${bodyPart}`,
-    //   {
-    //     headers: {
-    //       access_token: access_token,
-    //     },
-    //   }
-    // );
+    const { access_token } = JSON.parse(await getData("userData"));
+    console.log(access_token, "ini akses Token");
+    const { data } = await axios.get(`${baseUrl}/pub/exercises`, {
+      headers: {
+        access_token: access_token,
+      },
+    });
     // console.log(data, "ini response dari backend");
 
-    const filteredDatanya = datanya.filter((exercise) => {
+    const filteredDatanya = data.filter((exercise) => {
       return exercise.activity.status === "Finished";
     });
 
     const dateArray = filteredDatanya.map((exercise) => ({
       date: exercise.activity.date.split("T")[0],
     }));
-    console.log(filteredDatanya, "data filter");
-    console.log(dateArray, "weyyyyyyyyyy");
+    // console.log(filteredDatanya, "data filter");
+    // console.log(dateArray, "weyyyyyyyyyy");
 
     dispatch(activitiesSuccessAction(dateArray));
     dispatch(detailActivitySuccessAction(filteredDatanya));
