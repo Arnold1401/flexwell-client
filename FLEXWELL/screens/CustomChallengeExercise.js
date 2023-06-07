@@ -79,8 +79,8 @@ const CustomChallengeExercise = ({ route, navigation }) => {
     </TouchableOpacity>
   );
 
-  const changeTime = () => {
-    const waktu = "00:60:02:993";
+  const changeTime = (times) => {
+    const waktu = times;
     const bagianWaktu = waktu.split(":");
 
     const jam = parseInt(bagianWaktu[0]);
@@ -97,7 +97,7 @@ const CustomChallengeExercise = ({ route, navigation }) => {
   const renderModalContent = () => (
     <View
       style={{
-        backgroundColor: primaryColor,
+        backgroundColor: "white",
         padding: 22,
         justifyContent: "center",
         alignItems: "center",
