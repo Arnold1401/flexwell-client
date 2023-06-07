@@ -37,3 +37,9 @@ export const ADDECUSTOMIZEEXERCISE_SUCCESS = "addExercise/success";
 export const CREATECUSTOMIZEEXERCISE_PENDING = "createExercise/pending";
 export const CREATECUSTOMIZEEXERCISE_ERROR = "createExercise/error";
 export const CREATECUSTOMIZEEXERCISE_SUCCESS = "createExercise/success";
+
+//------- PROFILE
+export const PROFILE_PENDING = "profile/pending";
+export const PROFILE_ERROR = "profile/error";
+export const PROFILE_SUCCESS = "profile/success";
+

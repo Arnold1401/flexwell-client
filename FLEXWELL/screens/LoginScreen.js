@@ -46,7 +46,7 @@ const LoginScreen = ({}) => {
   useEffect(() => {
     console.log(user, "test--logged");
     if (user === "Logged") {
-      navigation.navigate("Main");
+      // navigation.navigate("Main");
       test();
     } else if (errorMsg !== undefined) {
       console.warn(errorMsg);

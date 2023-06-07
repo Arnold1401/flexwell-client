@@ -23,9 +23,11 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import LottieView from "lottie-react-native";
 import { addCustomizeExerciseMiddleware } from "../action/addCustomizeExerciseCreator";
 const loadingAnimation = require("../assets/lottie/loading.json");
+
 
 const SummaryScreen = ({ route, navigation }) => {
   const { id } = route.params;
@@ -101,6 +103,38 @@ const SummaryScreen = ({ route, navigation }) => {
       }
     }
   }, [exerciseDetail, exercise]);
+  // const data = [
+  //   {
+  //     id: "1",
+  //     name: "Lever Shoulder Press ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Dumbbell Shoulder Press ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Rear Delt Fly Machine ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+  //   },
+  //   {
+  //     id: "4",
+  //     name: "Rear Delt Fly Machine ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+  //   },
+  //   {
+  //     id: "5",
+  //     name: "Rear Delt Fly Machine ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+  //   },
+  // ];
 
   useEffect(() => {
     console.log(sets, "sets dari useEffect");
