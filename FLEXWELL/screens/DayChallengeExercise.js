@@ -22,6 +22,8 @@ const DayChallengeExcercise = ({ route, navigation }) => {
   const [reps, setReps] = useState(false);
   const [status, setStatus] = useState(true);
 
+  console.log(route.params.challenge, "ini route");
+
   const openToggle = () => {
     setReps(true);
   };

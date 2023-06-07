@@ -24,11 +24,11 @@ const challengeError = (errorMessage) => ({
 const fetchChallenge = () => async (dispatch, getState) => {
   dispatch(challengePending());
   try {
-    console.log("masuk fetch challenge");
+    // console.log("masuk fetch challenge");
 
     const { access_token } = JSON.parse(await getData("userData"));
 
-    console.log(access_token);
+    // console.log(access_token);
 
     const { data } = await axios.get(
       `${baseUrl}/pub/exercises?type=Challenge`,
@@ -38,7 +38,7 @@ const fetchChallenge = () => async (dispatch, getState) => {
         },
       }
     );
-    console.log(data, "ini data");
+    // console.log(data, "ini data");
 
     dispatch(challengeSuccess(data));
   } catch (error) {

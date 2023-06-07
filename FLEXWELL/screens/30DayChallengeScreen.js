@@ -30,14 +30,14 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
     (state) => state.fetchChallange
   );
 
-  console.log(challenge);
+  // console.log(chalrlenge);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchChallenge());
   }, []);
 
-  console.log(challenge, "--30daychallengescreen--");
+  // console.log(challenge, "--30daychallengescreen--");
 
   const toDetailDay = (challenge) => {
     console.log(challenge, "--go to detail--");

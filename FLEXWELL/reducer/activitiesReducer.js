@@ -13,19 +13,19 @@ const initalState = {
 const fetchActivitiesReducer = (state = initalState, action) => {
   switch (action.type) {
     case ACTIVITIES_SUCCESS:
-      console.log(action.payload, "-- customization Reducer--");
+      //   console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
         isLoading: false,
         activities: action.payload,
       };
     case ACTIVITIES_PENDING:
-      console.log(action.payload, "-- customization Reducer--");
+      //   console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
       };
     case ACTIVITIES_ERROR:
-      console.log(action.payload, "-- customization Reducer--");
+      //   console.log(action.payload, "-- customization Reducer--");
       return {
         ...state,
         isLoading: false,

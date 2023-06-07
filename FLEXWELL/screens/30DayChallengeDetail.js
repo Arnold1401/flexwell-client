@@ -28,8 +28,10 @@ const ThirtyDayChallengeDetail = ({ route, navigation }) => {
 
   const toOneExercise = (id) => {
     console.log(id);
-    navigation.navigate("DayExercise");
+    navigation.navigate("DayExercise", { challenge });
   };
+
+  console.log(challenge, "ini challange");
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
   const ListItem = ({ item }) => (
