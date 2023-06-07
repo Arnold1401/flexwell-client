@@ -33,7 +33,7 @@ import WelcomingTextHeader from "./components/WelcomingTextHeader";
 
 SplashScreen.preventAutoHideAsync();
 
-LogBox.ignoreAllLogs();
+// LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -242,7 +242,7 @@ const App = () => {
                 },
               }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Personalize"
               component={PersonalizeScreen}
               options={{
@@ -260,7 +260,7 @@ const App = () => {
                   backgroundColor: textPrimary,
                 },
               }}
-            />
+            /> */}
             <Stack.Screen
               options={{
                 headerShown: false,

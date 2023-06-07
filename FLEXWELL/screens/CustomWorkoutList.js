@@ -74,7 +74,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
 
   const toOneExercise = (id) => {
     console.log(id);
-    navigation.navigate("CustomChallengeExercise");
+    navigation.navigate("CustomChallengeExercise", { id });
   };
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
@@ -317,7 +317,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
               onPress={() => {
-                toOneExercise(id);
+                toOneExercise(data.item.id);
               }}
             >
               <Text

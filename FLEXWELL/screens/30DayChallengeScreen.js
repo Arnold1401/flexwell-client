@@ -23,7 +23,6 @@ import LottieView from "lottie-react-native";
 
 const sleepingAnimation = require("../assets/lottie/rest-bell.json");
 
-
 const ThirtyDayChallenge = ({ route, navigation }) => {
   // Data untuk flatlist
 
@@ -129,20 +128,6 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
               >
                 {item.name}
               </Text>
-
-              {item.name === "Rest and Recovery" ? (
-                <LottieView
-                  style={{
-                    justifyContent: "flex-end",
-                    marginLeft: 45,
-                  }}
-                  source={sleepingAnimation}
-                  autoPlay
-                  loop
-                />
-              ) : (
-                ""
-              )}
             </View>
           </View>
         </View>
