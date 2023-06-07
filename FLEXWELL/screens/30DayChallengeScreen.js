@@ -85,7 +85,10 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
               borderRadius: 16,
               height: 75,
               flex: 15,
-              justifyContent: "center",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              gap: 4,
+              flexDirection: "row",
               backgroundColor:
                 item.name === "Rest and Recovery" ? textAccent : secondaryColor,
               // opacity: ,
@@ -100,33 +103,23 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
               elevation: 5,
             }}
           >
-            <View
+            <Text
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                paddingLeft: 0,
-                gap: 4,
+                fontFamily: "Poppins",
+                fontSize: 24,
+                color: textSecondary,
+                marginLeft: 4,
               }}
             >
-              <Text
-                style={{
-                  fontFamily: "Poppins",
-                  fontSize: 24,
-                  color: textSecondary,
-                  marginLeft: 4,
-                }}
-              >
-                Day {item.id} :
-              </Text>
-              <Text
-                style={{
-                  fontSize: 16,
-                }}
-              >
-                {item.name}
-              </Text>
-            </View>
+              Day {item.id} :
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+              }}
+            >
+              {item.name}
+            </Text>
           </View>
         </View>
       </View>
