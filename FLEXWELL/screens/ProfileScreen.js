@@ -55,8 +55,9 @@ const styles = StyleSheet.create({
   buttonOpen: {
     backgroundColor: "#F194FF",
   },
+
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: primaryColor,
   },
   textStyle: {
     color: "white",
@@ -169,13 +170,13 @@ const ProfileScreen = () => {
   const doSave = () => {
     if (vbiceps === "") {
       setModalVisible(true);
-      setModalMessage("Biceps measurement must be filled !");
-    } else if (vwaist === "") {
-      setModalVisible(true);
-      setModalMessage("Waist measurement must be filled !");
+      setModalMessage("Arms measurement must be filled !");
     } else if (vchest === "") {
       setModalVisible(true);
       setModalMessage("Chest measurement must be filled !");
+    } else if (vwaist === "") {
+      setModalVisible(true);
+      setModalMessage("Waist measurement must be filled !");
     } else if (vshoulders === "") {
       setModalVisible(true);
       setModalMessage("Shoulders measurement must be filled !");
@@ -262,10 +263,13 @@ const ProfileScreen = () => {
           >
             Muscle Measurement
           </Text>
+
           <TheModal data={"test 12"} />
           <View
             style={{
+              marginTop: 30,
               width: "100%",
+
               gap: 12,
               flexDirection: "row",
               height: 450,
@@ -273,166 +277,291 @@ const ProfileScreen = () => {
             }}
           >
             <View style={{ flex: 1, gap: 8 }}>
-              <View style={{ flex: 1, justifyContent: "center" }}>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}
-                  >
-                    Biceps
-                  </Text>
-                </View>
+              <View style={{ gap: 2 }}>
+                <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
+                  Arms
+                </Text>
                 <View
                   style={{
-                    flex: 3,
+                    borderWidth: 1,
                     flexDirection: "row",
-                    justifyContent: "center",
+                    borderRadius: 10,
+                    padding: 1,
+                    paddingRight: 12,
                   }}
                 >
-                  <View style={{ flex: 1 }}>
-                    <TextInput
-                      style={{
-                        borderWidth: 0.8,
-                        borderRadius: 8,
-                        paddingHorizontal: 8,
-                        height: 32,
-                        fontSize: 20,
-                        paddingVertical: 4,
-                      }}
-                      numeric
-                      keyboardType={"numeric"}
-                      onChangeText={(value) => setvBiceps(value)}
-                      onPressIn={handleBiceps}
-                    />
-                  </View>
-                  <View style={{ alignContent: "center" }}>
-                    <Text>CM</Text>
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      // borderWidth: 0.8,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      height: 32,
+                      fontSize: 20,
+                      paddingVertical: 4,
+                    }}
+                    numeric
+                    keyboardType={"numeric"}
+                    onChangeText={(value) => setvBiceps(value)}
+                    onPressIn={handleBiceps}
+                  />
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{ fontSize: 16, fontFamily: "Montserrat-Bold" }}
+                    >
+                      CM
+                    </Text>
                   </View>
                 </View>
               </View>
 
-              <View style={{ flex: 1 }}>
-                <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
-                  Waist
-                </Text>
-                <TextInput
-                  style={{
-                    borderWidth: 0.8,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    height: 32,
-                    fontSize: 20,
-                    paddingVertical: 4,
-                  }}
-                  numeric
-                  keyboardType={"numeric"}
-                  onChangeText={(value) => setvWaist(value)}
-                  onPressIn={handleWaist}
-                />
-              </View>
               <View style={{ gap: 2 }}>
                 <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
                   Chest
                 </Text>
-                <TextInput
+                <View
                   style={{
-                    borderWidth: 0.8,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    height: 32,
-                    fontSize: 20,
-                    paddingVertical: 4,
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    borderRadius: 10,
+                    padding: 1,
+                    paddingRight: 12,
                   }}
-                  numeric
-                  keyboardType={"numeric"}
-                  onChangeText={(value) => setvChest(value)}
-                  onPressIn={handleChest}
-                />
+                >
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      // borderWidth: 0.8,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      height: 32,
+                      fontSize: 20,
+                      paddingVertical: 4,
+                    }}
+                    numeric
+                    keyboardType={"numeric"}
+                    onChangeText={(value) => setvChest(value)}
+                    onPressIn={handleChest}
+                  />
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{ fontSize: 16, fontFamily: "Montserrat-Bold" }}
+                    >
+                      CM
+                    </Text>
+                  </View>
+                </View>
               </View>
+
+              <View style={{ gap: 2 }}>
+                <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
+                  Waist
+                </Text>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    borderRadius: 10,
+                    padding: 1,
+                    paddingRight: 12,
+                  }}
+                >
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      // borderWidth: 0.8,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      height: 32,
+                      fontSize: 20,
+                      paddingVertical: 4,
+                    }}
+                    numeric
+                    keyboardType={"numeric"}
+                    onChangeText={(value) => setWaist(value)}
+                    onPressIn={handleWaist}
+                  />
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{ fontSize: 16, fontFamily: "Montserrat-Bold" }}
+                    >
+                      CM
+                    </Text>
+                  </View>
+                </View>
+              </View>
+
               <View style={{ gap: 2 }}>
                 <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
                   Shoulders
                 </Text>
-                <TextInput
+                <View
                   style={{
-                    borderWidth: 0.8,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    height: 32,
-                    fontSize: 20,
-                    paddingVertical: 4,
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    borderRadius: 10,
+                    padding: 1,
+                    paddingRight: 12,
                   }}
-                  numeric
-                  keyboardType={"numeric"}
-                  onPressIn={handlShoulders}
-                  onChangeText={(value) => setvShoulders(value)}
-                />
+                >
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      // borderWidth: 0.8,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      height: 32,
+                      fontSize: 20,
+                      paddingVertical: 4,
+                    }}
+                    numeric
+                    keyboardType={"numeric"}
+                    onChangeText={(value) => setvShoulders(value)}
+                    onPressIn={handlShoulders}
+                  />
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{ fontSize: 16, fontFamily: "Montserrat-Bold" }}
+                    >
+                      CM
+                    </Text>
+                  </View>
+                </View>
               </View>
+
               <View style={{ gap: 2 }}>
                 <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
                   Thigh
                 </Text>
-                <TextInput
+                <View
                   style={{
-                    borderWidth: 0.8,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    height: 32,
-                    fontSize: 20,
-                    paddingVertical: 4,
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    borderRadius: 10,
+                    padding: 1,
+                    paddingRight: 12,
                   }}
-                  numeric
-                  keyboardType={"numeric"}
-                  onPressIn={handleThigh}
-                  onChangeText={(value) => setvThigh(value)}
-                />
+                >
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      // borderWidth: 0.8,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      height: 32,
+                      fontSize: 20,
+                      paddingVertical: 4,
+                    }}
+                    numeric
+                    keyboardType={"numeric"}
+                    onChangeText={(value) => setvThigh(value)}
+                    onPressIn={handleThigh}
+                  />
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{ fontSize: 16, fontFamily: "Montserrat-Bold" }}
+                    >
+                      CM
+                    </Text>
+                  </View>
+                </View>
               </View>
+
               <View style={{ gap: 2 }}>
                 <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
                   Calf
                 </Text>
-                <TextInput
+                <View
                   style={{
-                    borderWidth: 0.8,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    height: 32,
-                    fontSize: 20,
-                    paddingVertical: 4,
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    borderRadius: 10,
+                    padding: 1,
+                    paddingRight: 12,
                   }}
-                  onPressIn={handleCalf}
-                  onChangeText={(value) => setvCalf(value)}
-                />
+                >
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      // borderWidth: 0.8,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      height: 32,
+                      fontSize: 20,
+                      paddingVertical: 4,
+                    }}
+                    numeric
+                    keyboardType={"numeric"}
+                    onChangeText={(value) => setvShoulders(value)}
+                    onPressIn={handlShoulders}
+                  />
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{ fontSize: 16, fontFamily: "Montserrat-Bold" }}
+                    >
+                      CM
+                    </Text>
+                  </View>
+                </View>
+              </View>
+
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  fontSize: 20,
+                  alignSelf: "flex-start",
+                }}
+              >
+                Body Weight
+              </Text>
+
+              <View style={{ gap: 2 }}>
+                <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
+                  Weight
+                </Text>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    borderRadius: 10,
+                    padding: 1,
+                    paddingRight: 12,
+                  }}
+                >
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      // borderWidth: 0.8,
+                      borderRadius: 8,
+                      paddingHorizontal: 8,
+                      height: 32,
+                      fontSize: 20,
+                      paddingVertical: 4,
+                    }}
+                    numeric
+                    keyboardType={"numeric"}
+                    onChangeText={(value) => setWeight(value)}
+                  />
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{ fontSize: 16, fontFamily: "Montserrat-Bold" }}
+                    >
+                      KG
+                    </Text>
+                  </View>
+                </View>
               </View>
             </View>
           </View>
+
           <View
             style={{
               width: "100%",
               gap: 4,
               flexDirection: "row",
               justifyContent: "space-between",
-              gap: 16,
             }}
-          >
-            <View style={{ flex: 1, gap: 4 }}>
-              <Text style={{ marginLeft: 10, fontFamily: "Montserrat-Bold" }}>
-                Weight
-              </Text>
-              <TextInput
-                numeric
-                keyboardType={"numeric"}
-                onChangeText={(weight) => setWeight(weight)}
-                style={{
-                  borderWidth: 0.8,
-                  borderRadius: 12,
-                  height: 45,
-                  paddingHorizontal: 20,
-                }}
-                placeholder="e.g. 60"
-                placeholderTextColor={textAccent}
-              />
-            </View>
-          </View>
+          ></View>
           <Pressable
             onPress={() => {
               doSave();
