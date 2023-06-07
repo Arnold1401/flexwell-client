@@ -1,8 +1,24 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { textPrimary } from "../color-and-size.config";
+import { getData } from "../async";
 
 const WelcomingTextHeader = () => {
+  const [username, setUsername] = useState("");
+  const test = async () => {
+    const userData = JSON.parse(await getData("userData"));
+    console.log(userData, "ini welcome ");
+
+    if (userData.fullName === undefined) {
+      setUsername(userData.username);
+    } else {
+      setUsername(userData.fullName);
+    }
+  };
+  useEffect(() => {
+    test();
+  }, [username]);
+
   return (
     <View style={{ flexDirection: "column" }}>
       <Text
@@ -20,7 +36,7 @@ const WelcomingTextHeader = () => {
           color: textPrimary,
         }}
       >
-        Itan Sutarlan
+        {username}
       </Text>
     </View>
   );

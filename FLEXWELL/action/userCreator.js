@@ -26,13 +26,16 @@ const doLogin = (username, password) => async (dispatch, getState) => {
       password,
     });
     const { data } = response;
+    console.log(data, "ini user creator");
     const accessToken = data.access_token;
-    dispatch(userSucess("Logged"));
-
+    const cusername = data.username;
     const value = {
       access_token: accessToken,
+      username: cusername,
     };
     await storeData("userData", JSON.stringify(value));
+    dispatch(userSucess("Logged"));
+
     console.log(await getData("userData"), "ini di dalam asyncstorage");
     //SUCCESS
   } catch (err) {
