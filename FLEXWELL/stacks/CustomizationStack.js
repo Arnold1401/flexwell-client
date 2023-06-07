@@ -24,11 +24,31 @@ import CustomWorkoutList from "../screens/CustomWorkoutList";
 import CustomChallengeExercise from "../screens/CustomChallengeExercise";
 import { Pressable } from "react-native";
 import CustomExerciseListScreen from "../screens/CustomExcListScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomExerciseMiddleware } from "../action/addCustomizeExerciseCreator";
+import { fetchCustomization } from "../action/customizationCreator";
 
 const CustomizationStack = ({ navigation }) => {
   //SUPAAYA lottie tamoil      - TRUE
   // lottie hilang data tampil - FALSE
   const [isEmpty, setIsEmpty] = useState(true);
+  const { exerciseDetail } = useSelector((state) => state.exerciseList);
+  const { errorMsg, isLoading, newCustomExercise } = useSelector(
+    (state) => state.newExerciseName
+  );
+  const dispatch = useDispatch();
+
+  const saveCustomWorkout = () => {
+    console.log("masuk save Custom Workout");
+    console.log(newCustomExercise);
+    if (Object.keys(newCustomExercise).length === 0) {
+      console.warn("Please fill your custom workout name");
+    } else {
+      dispatch(createCustomExerciseMiddleware());
+      dispatch(fetchCustomization());
+      navigation.navigate("CustomExcScreen");
+    }
+  };
 
   return (
     <Stack.Navigator>
@@ -55,6 +75,7 @@ const CustomizationStack = ({ navigation }) => {
           headerRight: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate("SelectedCustomExercise")}
+              // navigation.navigate("SelectedCustomExercise"
             >
               <FontAwesome
                 name="plus-square"
@@ -85,7 +106,8 @@ const CustomizationStack = ({ navigation }) => {
           headerRight: () => (
             <TouchableOpacity
               disabled={!isEmpty ? true : false}
-              onPress={() => navigation.navigate("CustomExcScreen")}
+              onPress={() => saveCustomWorkout()}
+              //  navigation.navigate("CustomExcScreen")
             >
               <Text
                 style={{
@@ -214,25 +236,6 @@ const CustomizationStack = ({ navigation }) => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
-          headerRight: () => (
-            <Pressable
-              style={{
-                marginTop: 10,
-                marginRight: 16,
-              }}
-              onPress={() => navigation.navigate("SelectedCustomExercise")}
-            >
-              <Text
-                style={{
-                  fontFamily: "Poppins",
-                  color: textPrimary,
-                  fontSize: 16,
-                }}
-              >
-                Exercise List
-              </Text>
-            </Pressable>
-          ),
         }}
       />
     </Stack.Navigator>

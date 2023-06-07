@@ -47,8 +47,8 @@ const LoginScreen = ({}) => {
     console.log(user, "test--logged");
     if (user === "Logged") {
       navigation.navigate("Main");
-      test();
-    } else if (errorMsg !== undefined) {
+      // test();
+    } else if (errorMsg !== "") {
       console.warn(errorMsg);
     }
   }, [user, errorMsg]);

@@ -20,6 +20,7 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 import LottieView from "lottie-react-native";
+
 const sleepingAnimation = require("../assets/lottie/rest-bell.json");
 
 const ThirtyDayChallenge = ({ route, navigation }) => {
@@ -29,6 +30,7 @@ const ThirtyDayChallenge = ({ route, navigation }) => {
     (state) => state.fetchChallange
   );
 
+  console.log(challenge);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -23,50 +23,58 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 const CustomWorkoutList = ({ route, navigation }) => {
-  const { id } = route.params;
+  // const { id, name, totalDuration, exercises, totalSet, activity } =
+  //   route.params;
   // Data untuk flatlist
-  const data = [
-    {
-      id: "1",
-      name: "Lever Shoulder Press ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
-    },
-    {
-      id: "2",
-      name: "Dumbbell Shoulder Press ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
-    },
-    {
-      id: "3",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-    {
-      id: "4",
-      name: "Lever Shoulder Press ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
-    },
-    {
-      id: "5",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-    {
-      id: "6",
-      name: "Rear Delt Fly Machine ",
-      avatar:
-        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
-    },
-  ];
+
+  const data = route.params;
+  console.log(data, "xxxxx");
+  console.log(data.item.exercises, "<<<<");
+
+  // console.log(route.params, "ini Params");
+  // console.log(totalDuration);
+  // const data = [
+  //   {
+  //     id: "1",
+  //     name: "Lever Shoulder Press ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Dumbbell Shoulder Press ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Rear Delt Fly Machine ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+  //   },
+  //   {
+  //     id: "4",
+  //     name: "Lever Shoulder Press ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/04/Lever-Shoulder-Press.gif",
+  //   },
+  //   {
+  //     id: "5",
+  //     name: "Rear Delt Fly Machine ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+  //   },
+  //   {
+  //     id: "6",
+  //     name: "Rear Delt Fly Machine ",
+  //     avatar:
+  //       "https://fitnessprogramer.com/wp-content/uploads/2021/02/Rear-Delt-Machine-Flys.gif",
+  //   },
+  // ];
 
   const toOneExercise = (id) => {
     console.log(id);
-    navigation.navigate("CustomChallengeExercise");
+    navigation.navigate("CustomChallengeExercise", { id });
   };
 
   //buat list item untuk persatuan yang dicustom berdasarkan data darai flat list
@@ -88,7 +96,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
         }}
       >
         <Image
-          source={{ uri: item.avatar }}
+          source={{ uri: item.gifUrl }}
           style={{ height: 64, width: 64 }}
         />
       </View>
@@ -100,16 +108,19 @@ const CustomWorkoutList = ({ route, navigation }) => {
               fontSize: 12,
             }}
           >
-            3sets x 12reps x 10kg
+            {item.totalSet} sets x {item.repetition} reps
           </Text>
         </View>
       </View>
       <View
         style={{
-          height: 64,
-          flex: 3,
+          height: 24,
+          flex: 2,
           justifyContent: "center",
           alignItems: "center",
+          borderRadius: 16,
+          backgroundColor: primaryColor,
+          // mar
         }}
       >
         <Text
@@ -117,13 +128,13 @@ const CustomWorkoutList = ({ route, navigation }) => {
             fontFamily: "Montserrat-Bold",
             fontSize: 8,
             paddingVertical: 8,
-            paddingHorizontal: 12,
-            backgroundColor: primaryColor,
+            paddingHorizontal: 0,
             borderRadius: 16,
             color: textPrimary,
           }}
+          numberOfLines={1}
         >
-          SHOULDERS
+          {item.bodyPart.toUpperCase()}
         </Text>
       </View>
     </View>
@@ -133,7 +144,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
   const FlatListWithAvatar = () => (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={data}
+        data={data.item.exercises}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ListItem item={item} />}
       />
@@ -168,7 +179,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
           }}
           numberOfLines={1}
         >
-          PUSH DAY ALA Flexwell
+          {data.item.name}
         </Text>
       </View>
       <View
@@ -226,7 +237,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
                     fontWeight: "700",
                   }}
                 >
-                  13
+                  {data.item.exercises.length}
                 </Text>
               </View>
               <View
@@ -250,7 +261,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
                     fontWeight: "700",
                   }}
                 >
-                  29
+                  {data.item.totalSet}
                 </Text>
               </View>
               <View
@@ -281,7 +292,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
                       fontFamily: "Montserrat-Bold",
                     }}
                   >
-                    80
+                    {data.item.totalDuration}
                   </Text>
                   <Text
                     style={{
@@ -306,7 +317,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
                 borderRadius: 16,
               }}
               onPress={() => {
-                toOneExercise(id);
+                toOneExercise(data.item.id);
               }}
             >
               <Text
@@ -316,7 +327,7 @@ const CustomWorkoutList = ({ route, navigation }) => {
                   color: textSecondary,
                 }}
               >
-                Start Day {id}
+                Start Day
               </Text>
             </TouchableOpacity>
           </View>
