@@ -88,64 +88,78 @@ const CustomWorkouts = ({ navigation }) => {
         alignItems: "flex-start",
       }}
     >
-      <TouchableOpacity
-        style={{
-          flex: 2,
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100%",
-          alignSelf: "baseline",
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: textAccent,
-            paddingHorizontal: 4,
-            paddingVertical: 4,
-            borderRadius: 8,
-          }}
-        >
-          <FontAwesome name={"trash"} size={24} color={primaryColor} />
-        </View>
-      </TouchableOpacity>
       <View style={{ flex: 4 }}>
         <Image
           source={{ uri: item.gifUrl }}
           style={{ height: 80, width: 80 }}
         />
       </View>
-      <View style={{ flex: 8, flexDirection: "column", gap: 4 }}>
+      <View style={{ flex: 12, flexDirection: "column", gap: 4 }}>
         <Text
-          style={{ fontFamily: "Montserrat-Bold", fontSize: 14 }}
+          style={{ fontFamily: "Montserrat-Bold", fontSize: 16 }}
           numberOfLines={2}
         >
-          {item.name}
+          {item?.name?.split(" ").map((word) => {
+            word = word.charAt(0).toUpperCase() + word.slice(1);
+            return `${word} `;
+          })}
         </Text>
-        <Text style={{ fontFamily: "Montserrat-Bold", fontSize: 10 }}>
+        <Text style={{ fontFamily: "Montserrat-Bold", fontSize: 12 }}>
           {item.totalSet} sets x {item.repetition} reps
         </Text>
+        <View
+          style={{
+            borderRadius: 15,
+            marginTop: 10,
+            overflow: "hidden",
+            backgroundColor: secondaryColor,
+            paddingHorizontal: 16,
+            paddingVertical: 4,
+            alignSelf: "baseline",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Montserrat-Bold",
+              fontSize: 12,
+
+              borderRadius: 100,
+              alignSelf: "baseline",
+            }}
+          >
+            {item.bodyPart.toUpperCase()}
+          </Text>
+        </View>
       </View>
-      <View
+      {/* <View
         style={{
-          flex: 5,
+          flex: 2,
           flexDirection: "column",
           alignItems: "center",
           height: "100%",
         }}
       >
-        <Text
+        <TouchableOpacity
           style={{
-            backgroundColor: secondaryColor,
-            fontFamily: "Montserrat-Bold",
-            fontSize: 10,
-            paddingHorizontal: 8,
-            paddingVertical: 4,
-            borderRadius: 100,
+            flex: 2,
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            height: "100%",
+            alignSelf: "baseline",
           }}
         >
-          {item.bodyPart.toUpperCase()}
-        </Text>
-      </View>
+          <View
+            style={{
+              backgroundColor: textAccent,
+              paddingHorizontal: 4,
+              paddingVertical: 4,
+              borderRadius: 8,
+            }}
+          >
+            <FontAwesome name={"trash"} size={24} color={primaryColor} />
+          </View>
+        </TouchableOpacity>
+      </View> */}
     </View>
   );
 

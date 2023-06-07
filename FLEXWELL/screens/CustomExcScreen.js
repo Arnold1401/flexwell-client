@@ -134,7 +134,7 @@ const CustomExcScreen = ({ route, navigation }) => {
       <View
         style={{
           flex: 2,
-          display: isEmpty ? "flex" : "none",
+          display: customization.length == 0 ? "flex" : "none",
           width: "100%",
         }}
       >

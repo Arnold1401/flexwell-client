@@ -17,31 +17,68 @@ import {
   textPrimary,
   textSecondary,
 } from "../color-and-size.config";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchActivities,
+  fetchDetailActivityMiddleware,
+} from "../action/fetchActivitiesCreator";
 
 const DashboardScreen = ({ route, navigation }) => {
-  const marked = {
-    "2023-06-22": { marked: true },
-    "2023-06-23": { marked: true },
-  };
+  const dispatch = useDispatch();
 
-  const [items, setItems] = useState({});
-  const windowWidth = Dimensions.get("window").width * 0.9;
-  const agendaHeight = Dimensions.get("window").height * 0.4;
+  const { isLoading, activities, errorMsg } = useSelector(
+    (state) => state.activitiesReducer
+  );
+
+  const { activity } = useSelector((state) => state.detailActivityReducer);
+
+  // const mapped = activity?.exercises?.map((e) => e);
+
+  console.log(activity, "ini Activity Detail");
+  // console.log("ini activity detail yang baru", mapped);
+
+  const [marked, setMarked] = useState({});
+
+  console.log(activities, "ini activities");
+
+  useEffect(() => {
+    dispatch(fetchActivities());
+  }, []);
+
+  const date = new Date().toISOString().split("T")[0];
+  const markedDateArray = Object.keys(marked);
+
+  console.log(markedDateArray);
+  console.log(
+    markedDateArray.findIndex((arrayDate) => arrayDate === "2023-06-22"),
+    "findIndex"
+  );
+
+  useEffect(() => {
+    if (activities?.length) {
+      const currMarked = {};
+      activities.forEach((val) => {
+        if (val?.date) {
+          currMarked[val.date] = { marked: true };
+        }
+      });
+      setMarked(currMarked);
+    }
+  }, [activities]);
+
+  console.log(marked, "xxxxxxxxxxxxx");
 
   const [category, setCategory] = useState("");
 
-  const minDate = new Date().toISOString().split("T")[0];
-  const maxDate = new Date().toISOString().split("T")[0];
-
-  const [myDay, setMyDay] = useState([]);
+  const [myDay, setMyDay] = useState(new Date().toISOString().split("T")[0]);
 
   const dataMuscle = [
-    { key: 1, value: "Biceps" },
-    { key: 2, value: "Triceps" },
-    { key: 3, value: "Legs" },
-    { key: 4, value: "Calf" },
-    { key: 5, value: "Thigh" },
-    { key: 6, value: "Coba" },
+    { key: 1, value: "UpperArm" },
+    { key: 2, value: "Waist" },
+    { key: 3, value: "Calf" },
+    { key: 4, value: "Thigh" },
+    { key: 5, value: "Chest" },
+    { key: 6, value: "Shoulder" },
   ];
 
   const plaseFormat = (myDate) => {
@@ -64,183 +101,293 @@ const DashboardScreen = ({ route, navigation }) => {
     return formattedDate;
   };
 
+  const [exercise, setExercise] = useState({});
+
   useEffect(() => {
-    console.log(myDay);
+    if (activity) {
+      const choosenActivity = activity.find(
+        (e) => e?.activity?.date.split("T")[0] === myDay
+      );
+      setExercise(choosenActivity);
+    }
+  }, [myDay]);
+
+  console.log(exercise, "Ttttttttttttttttttttt");
+
+  useEffect(() => {
+    console.log(myDay, "tes");
   }, [myDay]);
 
   useEffect(() => {
-    console.log(category);
+    console.log(category, "tes");
   }, [category]);
   return (
-    <View
-      style={{
-        alignItems: "center",
-        alignItems: "center",
-        flex: 1,
-      }}
-    >
-      <ScrollView>
-        <View
-          style={{
-            flexDirection: "column",
-            marginVertical: 24,
-            flex: 1,
-          }}
-        >
-          {/* Calendar View */}
-          <View style={{ flex: 1 }}>
-            <CalendarProvider date={new Date().toISOString().split("T")[0]}>
-              <ExpandableCalendar
-                onDayPress={(day) => setMyDay(day.dateString)}
-                style={{
-                  borderRadius: 15,
-                }}
-                theme={{
-                  calendarBackground: "white",
-                  textDayFontSize: 12,
-                  textMonthFontSize: 16,
-                  textDayHeaderFontSize: 12,
-                  arrowColor: "red",
-                  dotColor: "red",
-                  selectedDotColor: "white",
-                  selectedDayBackgroundColor: "rgb(255, 124, 97)",
-                }}
-                markedDates={marked}
-                closeOnDayPress={false}
-                disableMonthChange={true}
-                minDate={"2023-01-01"}
-                maxDate={"2024-12-31"}
-                monthFormat={"MMM/yyyy"}
-                allowShadow={false}
-              />
-            </CalendarProvider>
+    // <View
+    //   style={{
+    //     alignItems: "center",
+    //     alignItems: "center",
+    //     flex: 1,
+    //   }}
+    // >
+    <ScrollView>
+      <View
+        style={{
+          flexDirection: "column",
+          marginVertical: 24,
+          flex: 1,
+        }}
+      >
+        {/* Calendar View */}
+        <View style={{ flex: 1 }}>
+          <CalendarProvider date={new Date().toISOString().split("T")[0]}>
+            <ExpandableCalendar
+              onDayPress={(day) => setMyDay(day.dateString)}
+              style={{
+                borderRadius: 15,
+              }}
+              theme={{
+                calendarBackground: "white",
+                textDayFontSize: 12,
+                textMonthFontSize: 16,
+                textDayHeaderFontSize: 12,
+                arrowColor: "red",
+                dotColor: "red",
+                selectedDotColor: "white",
+                selectedDayBackgroundColor: "rgb(255, 124, 97)",
+              }}
+              markedDates={marked}
+              closeOnDayPress={false}
+              disableMonthChange={true}
+              minDate={"2023-01-01"}
+              maxDate={"2024-12-31"}
+              monthFormat={"MMM/yyyy"}
+              allowShadow={false}
+            />
+          </CalendarProvider>
+          <View
+            style={{
+              marginHorizontal: 24,
+              backgroundColor: textAccent,
+              paddingVertical: 8,
+              borderRadius: 8,
+              overflow: "hidden",
+              gap: 2,
+              display:
+                markedDateArray.findIndex(
+                  (arrayDate) => arrayDate === myDay
+                ) !== -1
+                  ? "flex"
+                  : "none",
+            }}
+          >
             <View
               style={{
-                marginHorizontal: 24,
-                backgroundColor: textAccent,
-                paddingVertical: 8,
-                borderRadius: 8,
-                overflow: "hidden",
-                gap: 2,
-                display:
-                  myDay.length !== 0 && myDay === "2023-06-22"
-                    ? "flex"
-                    : "none",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingBottom: 4,
+              }}
+            >
+              <Text
+                style={{
+                  color: "textAccentSecondary",
+                  fontSize: 12,
+                  fontWeight: "400",
+                }}
+              >
+                {plaseFormat(myDay)}
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: textPrimary,
+                width: "100%",
+                height: 3,
+              }}
+            />
+            <View
+              style={{
+                marginHorizontal: 16,
+                paddingVertical: 16,
               }}
             >
               <View
                 style={{
                   flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  paddingBottom: 4,
+                  alignItems: "flex-end",
+                  gap: 4,
                 }}
               >
                 <Text
                   style={{
-                    color: "textAccentSecondary",
-                    fontSize: 12,
-                    fontWeight: "400",
+                    fontSize: 24,
                   }}
                 >
-                  {myDay.length !== 0 ? plaseFormat(myDay) : "nggak tampil"}
+                  {exercise?.activity?.duration}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                  }}
+                >
+                  min
                 </Text>
               </View>
               <View
                 style={{
-                  backgroundColor: textPrimary,
-                  width: "100%",
-                  height: 3,
-                }}
-              />
-              <View
-                style={{
-                  marginHorizontal: 16,
-                  paddingVertical: 16,
+                  flexDirection: "column",
+                  marginTop: 4,
                 }}
               >
-                <View
+                <Text
                   style={{
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    gap: 4,
+                    fontSize: 14,
+                    fontWeight: "bold",
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: 24,
-                    }}
-                  >
-                    0:15
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                    }}
-                  >
-                    min
-                  </Text>
-                </View>
-                <View
+                  EXERCISE
+                </Text>
+                <Text
                   style={{
-                    flexDirection: "column",
-                    marginTop: 4,
+                    fontSize: 14,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    CHALLENGE
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                    }}
-                  >
-                    Push Day ala Arnold
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: "100%",
-                    height: 2,
-                    backgroundColor: textPrimary,
-                    borderRadius: 8,
-                    marginTop: 8,
-                  }}
-                />
-                <View style={{ marginTop: 12, width: "100%" }}>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Standing Cable Front Rise
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                      }}
-                    >
-                      12 Reps | 12 Sets
-                    </Text>
-                  </View>
-                </View>
+                  {exercise?.name}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  width: "100%",
+                  height: 2,
+                  backgroundColor: textPrimary,
+                  borderRadius: 8,
+                  marginTop: 8,
+                }}
+              />
+              <View style={{ marginTop: 12, width: "100%" }}>
+                {exercise?.exercises?.map((e, i) => {
+                  return (
+                    <View key={i} style={{ marginTop: 12 }}>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {e.name}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                        }}
+                      >
+                        {e.repetition} Reps | {e.totalSet} Sets
+                      </Text>
+                    </View>
+                  );
+                })}
               </View>
             </View>
           </View>
+        </View>
 
-          {/* Measurement */}
+        {/* Measurement */}
 
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 24,
+          }}
+        >
           <View
             style={{
-              flex: 1,
-              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                }}
+              >
+                Measurements
+              </Text>
+              <SelectList
+                setSelected={(val) => setCategory(val)}
+                data={dataMuscle}
+                save="value"
+                search={false}
+                boxStyles={{
+                  borderRadius: 16,
+                  borderColor: textSecondary,
+                  borderWidth: 0.8,
+                }}
+                defaultOption={{
+                  key: "1",
+                  value: "UpperArm",
+                  disabled: false,
+                }}
+                dropdownStyles={{
+                  marginBottom: 0,
+                }}
+                inputStyles={{
+                  width: 120,
+                }}
+                maxHeight={dataMuscle.length * 40}
+              />
+            </View>
+            <View style={{ backgroundColor: "blue", marginLeft: -20 }}>
+              <LineChart
+                data={{
+                  labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                  datasets: [
+                    {
+                      data: [60, 55, 54, 55, 56, 55, 56],
+                    },
+                  ],
+                }}
+                bezier
+                width={Dimensions.get("window").width * 1.1} // from react-native
+                height={220}
+                withInnerLines={true}
+                withOuterLines={false}
+                withVerticalLines={false}
+                withHorizontalLines={true}
+                yLabelsOffset="15"
+                yAxisInterval={1} // optional, defaults to 1
+                chartConfig={{
+                  backgroundColor: "white",
+                  backgroundGradientFrom: "white",
+                  backgroundGradientTo: "white",
+                  decimalPlaces: 0, // optional, defaults to 2dp
+                  strokeWidth: "3",
+                  fillShadowGradientFrom: "rgb(247, 124, 97)",
+                  fillShadowGradientFromOpacity: "0.8",
+                  fillShadowGradientToOpacity: "0.3",
+                  color: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
+                  labelColor: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
+                  propsForDots: {
+                    r: "4",
+                    strokeWidth: "2",
+                    stroke: "rgb(247, 124, 97)",
+                  },
+                }}
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: "column",
               alignItems: "center",
               marginTop: 24,
             }}
@@ -251,150 +398,58 @@ const DashboardScreen = ({ route, navigation }) => {
                 alignItems: "center",
               }}
             >
-              <View
+              <Text
                 style={{
-                  flexDirection: "column",
-                  alignItems: "center",
+                  fontFamily: "Poppins",
+                  fontSize: 16,
                 }}
               >
-                <Text
-                  style={{
-                    fontFamily: "Poppins",
-                    fontSize: 16,
-                  }}
-                >
-                  Measurements
-                </Text>
-                <SelectList
-                  setSelected={(val) => setCategory(val)}
-                  data={dataMuscle}
-                  save="value"
-                  search={false}
-                  boxStyles={{
-                    borderRadius: 16,
-                    borderColor: textSecondary,
-                    borderWidth: 0.8,
-                  }}
-                  defaultOption={{
-                    key: "10",
-                    value: "Select Muslce",
-                    disabled: true,
-                  }}
-                  dropdownStyles={{
-                    marginBottom: 0,
-                  }}
-                  inputStyles={{
-                    width: 120,
-                  }}
-                  maxHeight={dataMuscle.length * 40}
-                />
-              </View>
-              <View style={{ backgroundColor: "blue", marginLeft: -20 }}>
-                <LineChart
-                  data={{
-                    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                    datasets: [
-                      {
-                        data: [60, 55, 54, 55, 56, 55, 56],
-                      },
-                    ],
-                  }}
-                  bezier
-                  width={Dimensions.get("window").width * 1.1} // from react-native
-                  height={220}
-                  withInnerLines={true}
-                  withOuterLines={false}
-                  withVerticalLines={false}
-                  withHorizontalLines={true}
-                  yLabelsOffset="15"
-                  yAxisInterval={1} // optional, defaults to 1
-                  chartConfig={{
-                    backgroundColor: "white",
-                    backgroundGradientFrom: "white",
-                    backgroundGradientTo: "white",
-                    decimalPlaces: 0, // optional, defaults to 2dp
-                    strokeWidth: "3",
-                    fillShadowGradientFrom: "rgb(247, 124, 97)",
-                    fillShadowGradientFromOpacity: "0.8",
-                    fillShadowGradientToOpacity: "0.3",
-                    color: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
-                    labelColor: (opacity = 1) =>
-                      `rgba(247, 124, 97, ${opacity})`,
-                    propsForDots: {
-                      r: "4",
-                      strokeWidth: "2",
-                      stroke: "rgb(247, 124, 97)",
-                    },
-                  }}
-                />
-              </View>
+                Body Weight
+              </Text>
             </View>
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                marginTop: 24,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: "Poppins",
-                    fontSize: 16,
-                  }}
-                >
-                  Body Weight
-                </Text>
-              </View>
-              <View style={{ backgroundColor: "blue", marginLeft: -20 }}>
-                <LineChart
-                  data={{
-                    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                    datasets: [
-                      {
-                        data: [60, 55, 54, 55, 56, 55, 56],
-                      },
-                    ],
-                  }}
-                  bezier
-                  width={Dimensions.get("window").width * 1.1} // from react-native
-                  height={220}
-                  withInnerLines={true}
-                  withOuterLines={false}
-                  withVerticalLines={false}
-                  withHorizontalLines={true}
-                  yLabelsOffset="15"
-                  yAxisInterval={1} // optional, defaults to 1
-                  chartConfig={{
-                    backgroundColor: "white",
-                    backgroundGradientFrom: "white",
-                    backgroundGradientTo: "white",
-                    decimalPlaces: 0, // optional, defaults to 2dp
-                    strokeWidth: "3",
-                    fillShadowGradientFrom: "rgb(247, 124, 97)",
-                    fillShadowGradientFromOpacity: "0.8",
-                    fillShadowGradientToOpacity: "0.3",
-                    color: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
-                    labelColor: (opacity = 1) =>
-                      `rgba(247, 124, 97, ${opacity})`,
-                    propsForDots: {
-                      r: "4",
-                      strokeWidth: "2",
-                      stroke: "rgb(247, 124, 97)",
+            <View style={{ backgroundColor: "blue", marginLeft: -20 }}>
+              <LineChart
+                data={{
+                  labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                  datasets: [
+                    {
+                      data: [60, 55, 54, 55, 56, 55, 56],
                     },
-                  }}
-                />
-              </View>
+                  ],
+                }}
+                bezier
+                width={Dimensions.get("window").width * 1.1} // from react-native
+                height={220}
+                withInnerLines={true}
+                withOuterLines={false}
+                withVerticalLines={false}
+                withHorizontalLines={true}
+                yLabelsOffset="15"
+                yAxisInterval={1} // optional, defaults to 1
+                chartConfig={{
+                  backgroundColor: "white",
+                  backgroundGradientFrom: "white",
+                  backgroundGradientTo: "white",
+                  decimalPlaces: 0, // optional, defaults to 2dp
+                  strokeWidth: "3",
+                  fillShadowGradientFrom: "rgb(247, 124, 97)",
+                  fillShadowGradientFromOpacity: "0.8",
+                  fillShadowGradientToOpacity: "0.3",
+                  color: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
+                  labelColor: (opacity = 1) => `rgba(247, 124, 97, ${opacity})`,
+                  propsForDots: {
+                    r: "4",
+                    strokeWidth: "2",
+                    stroke: "rgb(247, 124, 97)",
+                  },
+                }}
+              />
             </View>
           </View>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
+    // </View>
   );
 };
 
