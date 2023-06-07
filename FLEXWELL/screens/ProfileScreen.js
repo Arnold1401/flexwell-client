@@ -272,57 +272,45 @@ const ProfileScreen = () => {
               justifyContent: "space-between",
             }}
           >
-            <View
-              style={{
-                backgroundColor: biceps
-                  ? "red"
-                  : waist
-                  ? "green"
-                  : chest
-                  ? "blue"
-                  : shoulders
-                  ? "purple"
-                  : thigh
-                  ? "grey"
-                  : calf
-                  ? "pink"
-                  : "white",
-                borderWidth:
-                  !biceps &&
-                  !abs &&
-                  !waist &&
-                  !chest &&
-                  !shoulders &&
-                  !thigh &&
-                  !calf
-                    ? 0.8
-                    : 0,
-                flex: 3,
-                borderRadius: 16,
-              }}
-            ></View>
             <View style={{ flex: 1, gap: 8 }}>
-              <View style={{ gap: 2 }}>
-                <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
-                  Biceps
-                </Text>
-                <TextInput
+              <View style={{ flex: 1, justifyContent: "center" }}>
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}
+                  >
+                    Biceps
+                  </Text>
+                </View>
+                <View
                   style={{
-                    borderWidth: 0.8,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    height: 32,
-                    fontSize: 20,
-                    paddingVertical: 4,
+                    flex: 3,
+                    flexDirection: "row",
+                    justifyContent: "center",
                   }}
-                  numeric
-                  keyboardType={"numeric"}
-                  onChangeText={(value) => setvBiceps(value)}
-                  onPressIn={handleBiceps}
-                />
+                >
+                  <View style={{ flex: 1 }}>
+                    <TextInput
+                      style={{
+                        borderWidth: 0.8,
+                        borderRadius: 8,
+                        paddingHorizontal: 8,
+                        height: 32,
+                        fontSize: 20,
+                        paddingVertical: 4,
+                      }}
+                      numeric
+                      keyboardType={"numeric"}
+                      onChangeText={(value) => setvBiceps(value)}
+                      onPressIn={handleBiceps}
+                    />
+                  </View>
+                  <View style={{ alignContent: "center" }}>
+                    <Text>CM</Text>
+                  </View>
+                </View>
               </View>
 
-              <View style={{ gap: 2 }}>
+              <View style={{ flex: 1 }}>
                 <Text style={{ fontFamily: "Montserrat-Bold", marginLeft: 4 }}>
                   Waist
                 </Text>

@@ -236,25 +236,6 @@ const CustomizationStack = ({ navigation }) => {
           cardStyle: {
             backgroundColor: textPrimary,
           },
-          headerRight: () => (
-            <Pressable
-              style={{
-                marginTop: 10,
-                marginRight: 16,
-              }}
-              onPress={() => navigation.navigate("SelectedCustomExercise")}
-            >
-              <Text
-                style={{
-                  fontFamily: "Poppins",
-                  color: textPrimary,
-                  fontSize: 16,
-                }}
-              >
-                Exercise List
-              </Text>
-            </Pressable>
-          ),
         }}
       />
     </Stack.Navigator>

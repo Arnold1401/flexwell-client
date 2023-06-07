@@ -39,10 +39,14 @@ const RegisterScreen = () => {
   const register = () => {
     if (password.length < 6) {
       console.warn("Password length must be 6 or longger !");
-    } else if (password === passwordCheck) {
-      dispatch(doRegister(email, username, password));
+    } else if (password !== passwordCheck) {
+      console.warn("Password must be same!");
+    } else if (!email.includes("@")) {
+      console.warn("Must be email format");
+    } else if (!email || !password || !username || !passwordCheck) {
+      console.warn("All field must be fill!");
     } else {
-      console.warn("Password with confirm password must be same !");
+      dispatch(doRegister(email, username, password));
     }
   };
 
