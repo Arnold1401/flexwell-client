@@ -30,7 +30,7 @@ const DashboardStack = ({ navigation }) => (
             onPress={() => navigation.navigate("SettingScreen")}
           >
             <FontAwesome
-              name="gear"
+              name="user"
               size={32}
               style={{ marginRight: 16, color: textPrimary }}
             />

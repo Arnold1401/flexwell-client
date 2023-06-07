@@ -13,6 +13,7 @@ import React, { useState, useEffect } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
+import moment from "moment";
 import {
   buttonTextSize,
   primaryColor,
@@ -22,7 +23,7 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 import { useDispatch, useSelector } from "react-redux";
-import { saveProfile } from "../action/profileCreator";
+import { profileClear, saveProfile } from "../action/profileCreator";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const styles = StyleSheet.create({
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: primaryColor,
   },
   textStyle: {
     color: "white",
@@ -86,10 +87,12 @@ const SettingScreen = () => {
     if (errorMsg) {
       console.warn(errorMsg);
     }
-    if (profile) {
-      console.log(profile, "-- Profile edit Screen --");
+    if (profile.status === 201) {
+      setModalVisible(true);
+      setModalMessage("Profile Updated !");
+      dispatch(profileClear());
     }
-  }, []);
+  }, [profile]);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -101,8 +104,10 @@ const SettingScreen = () => {
 
   const handleConfirm = (date) => {
     // console.warn("A date has been picked: ", date);
-    console.log(date);
-    setTextDate(date.toDateString().split(" ").slice(1).join(" "));
+    const fixedformat = moment(date).format("YYYY-MM-DD");
+    console.log(fixedformat, "-- fixed format --");
+    setTextDate(fixedformat);
+
     hideDatePicker();
   };
 

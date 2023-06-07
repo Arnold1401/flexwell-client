@@ -2,6 +2,7 @@ import {
   PROFILE_PENDING,
   PROFILE_ERROR,
   PROFILE_SUCCESS,
+  PROFILE_CLEAR,
 } from "../action/actionType";
 
 const initalState = {
@@ -28,6 +29,13 @@ const profileReducer = (state = initalState, action) => {
         ...state,
         isLoading: false,
         errorMsg: action.payload,
+      };
+    case PROFILE_CLEAR:
+      return {
+        ...state,
+        isLoading: false,
+        errorMsg: action.payload,
+        profile: action.payload,
       };
     default:
       return state;

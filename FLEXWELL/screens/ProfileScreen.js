@@ -9,7 +9,7 @@ import {
   Modal,
   StyleSheet,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
@@ -22,7 +22,7 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 import { useDispatch, useSelector } from "react-redux";
-import { saveMeasurement } from "../action/profileCreator";
+import { profileClear, saveMeasurement } from "../action/profileCreator";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const styles = StyleSheet.create({
@@ -99,6 +99,30 @@ const ProfileScreen = () => {
   const { isLoading, profile, errorMsg } = useSelector(
     (state) => state.profileReducer
   );
+
+  const resetvaluestate = () => {
+    setvBiceps("");
+    setvChest("");
+    setvWaist("");
+    setvShoulders("");
+    setvThigh("");
+    setvCalf("");
+    setWeight("");
+  };
+
+  useEffect(() => {
+    console.log(profile, "profile screen");
+    if (profile.status === 201) {
+      setModalMessage("Measurement Saved !");
+      setModalVisible(true);
+      resetvaluestate();
+      dispatch(profileClear());
+    }
+    if (errorMsg !== "") {
+      setModalMessage(errorMsg);
+      setModalVisible(true);
+    }
+  }, [profile]);
 
   console.log(profile, "-- Measurement Screen --");
 
@@ -291,6 +315,7 @@ const ProfileScreen = () => {
                   }}
                 >
                   <TextInput
+                    value={vbiceps}
                     style={{
                       flex: 1,
                       // borderWidth: 0.8,
@@ -329,6 +354,7 @@ const ProfileScreen = () => {
                   }}
                 >
                   <TextInput
+                    value={vchest}
                     style={{
                       flex: 1,
                       // borderWidth: 0.8,
@@ -367,6 +393,7 @@ const ProfileScreen = () => {
                   }}
                 >
                   <TextInput
+                    value={vwaist}
                     style={{
                       flex: 1,
                       // borderWidth: 0.8,
@@ -378,7 +405,7 @@ const ProfileScreen = () => {
                     }}
                     numeric
                     keyboardType={"numeric"}
-                    onChangeText={(value) => setWaist(value)}
+                    onChangeText={(value) => setvWaist(value)}
                     onPressIn={handleWaist}
                   />
                   <View style={{ justifyContent: "center" }}>
@@ -405,6 +432,7 @@ const ProfileScreen = () => {
                   }}
                 >
                   <TextInput
+                    value={vshoulders}
                     style={{
                       flex: 1,
                       // borderWidth: 0.8,
@@ -443,6 +471,7 @@ const ProfileScreen = () => {
                   }}
                 >
                   <TextInput
+                    value={vthigh}
                     style={{
                       flex: 1,
                       // borderWidth: 0.8,
@@ -481,6 +510,7 @@ const ProfileScreen = () => {
                   }}
                 >
                   <TextInput
+                    value={vcalf}
                     style={{
                       flex: 1,
                       // borderWidth: 0.8,
@@ -492,8 +522,8 @@ const ProfileScreen = () => {
                     }}
                     numeric
                     keyboardType={"numeric"}
-                    onChangeText={(value) => setvShoulders(value)}
-                    onPressIn={handlShoulders}
+                    onChangeText={(value) => setvCalf(value)}
+                    onPressIn={handleCalf}
                   />
                   <View style={{ justifyContent: "center" }}>
                     <Text
@@ -529,6 +559,7 @@ const ProfileScreen = () => {
                   }}
                 >
                   <TextInput
+                    value={weight}
                     style={{
                       flex: 1,
                       // borderWidth: 0.8,
