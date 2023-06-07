@@ -32,10 +32,10 @@ const DashboardScreen = ({ route, navigation }) => {
 
   const { activity } = useSelector((state) => state.detailActivityReducer);
 
-  const mapped = activity?.exercises.map((e) => e);
+  // const mapped = activity?.exercises?.map((e) => e);
 
   console.log(activity, "ini Activity Detail");
-  console.log("ini activity detail yang baru", mapped);
+  // console.log("ini activity detail yang baru", mapped);
 
   const [marked, setMarked] = useState({});
 
@@ -65,6 +65,8 @@ const DashboardScreen = ({ route, navigation }) => {
       setMarked(currMarked);
     }
   }, [activities]);
+
+  console.log(marked, "xxxxxxxxxxxxx");
 
   const [category, setCategory] = useState("");
 
@@ -99,13 +101,18 @@ const DashboardScreen = ({ route, navigation }) => {
     return formattedDate;
   };
 
+  const [exercise, setExercise] = useState({});
+
   useEffect(() => {
-    if (markedDateArray.findIndex((arrayDate) => arrayDate === myDay) !== -1) {
-      console.log("masuk if");
-      dispatch(fetchDetailActivityMiddleware(myDay));
+    if (activity) {
+      const choosenActivity = activity.find(
+        (e) => e?.activity?.date.split("T")[0] === myDay
+      );
+      setExercise(choosenActivity);
     }
-    console.log("masuk useEffect 97");
   }, [myDay]);
+
+  console.log(exercise, "Ttttttttttttttttttttt");
 
   useEffect(() => {
     console.log(myDay, "tes");
@@ -216,7 +223,7 @@ const DashboardScreen = ({ route, navigation }) => {
                     fontSize: 24,
                   }}
                 >
-                  {activity.totalDuration}
+                  {exercise?.activity?.duration}
                 </Text>
                 <Text
                   style={{
@@ -245,7 +252,7 @@ const DashboardScreen = ({ route, navigation }) => {
                     fontSize: 14,
                   }}
                 >
-                  {activity.name}
+                  {exercise?.name}
                 </Text>
               </View>
 
@@ -259,7 +266,7 @@ const DashboardScreen = ({ route, navigation }) => {
                 }}
               />
               <View style={{ marginTop: 12, width: "100%" }}>
-                {mapped.map((e, i) => {
+                {exercise?.exercises?.map((e, i) => {
                   return (
                     <View key={i} style={{ marginTop: 12 }}>
                       <Text
