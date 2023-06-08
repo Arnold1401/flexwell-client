@@ -17,6 +17,7 @@ import fetchActivitiesReducer from "../reducer/activitiesReducer";
 import fetchDetailActivtyReducer from "../reducer/detailActivityReducer";
 import measurementReducer from "../reducer/measurementReducer";
 import weightReducer from "../reducer/weightReducer";
+import customExercerciseDetail from "../reducer/customExerciseDetail";
 
 const rootReducers = combineReducers({
   fetchChallange: challengeReducer,
@@ -31,6 +32,7 @@ const rootReducers = combineReducers({
   detailActivityReducer: fetchDetailActivtyReducer,
   bodyMeasurement: measurementReducer,
   weightMeasurement: weightReducer,
+  customerExerciseDetail: customExercerciseDetail,
 });
 
 const store = createStore(rootReducers, applyMiddleware(thunk));

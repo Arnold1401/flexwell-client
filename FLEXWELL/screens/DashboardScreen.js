@@ -19,14 +19,8 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchActivities,
-  fetchDetailActivityMiddleware,
-} from "../action/fetchActivitiesCreator";
-import { baseUrl } from "../config";
-import { getData } from "../async";
-import loading from "../assets/lottie/loading.json";
-import LottieView from "lottie-react-native";
+import { fetchActivities } from "../action/fetchActivitiesCreator";
+
 import { fetchMeasurementMiddleware } from "../action/measurementCreator";
 
 const DashboardScreen = ({ route, navigation }) => {
@@ -59,9 +53,10 @@ const DashboardScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     dispatch(fetchActivities());
-    console.log(category);
+    console.log("ini category dari useEffect", category);
+    console.log("ini myDay yang berubah", myDay);
     dispatch(fetchMeasurementMiddleware(category));
-  }, [category]);
+  }, [category, myDay]);
 
   const date = new Date().toISOString().split("T")[0];
   const markedDateArray = Object.keys(marked);
@@ -77,6 +72,8 @@ const DashboardScreen = ({ route, navigation }) => {
       setMarked(currMarked);
     }
   }, [activities]);
+
+  console.log(activities, "XXXXXXX");
 
   const [myDay, setMyDay] = useState(new Date().toISOString().split("T")[0]);
 

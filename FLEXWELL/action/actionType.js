@@ -66,3 +66,8 @@ export const DETAILACTIVITY_SUCCESS = "detailActivity/success";
 export const RECORDEXERCISE_PENDING = "recordExercise/pending";
 export const RECORDEXERCISE_ERROR = "recordExercise/error";
 export const RECORDEXERCISE_SUCCESS = "recordExercise/success";
+
+//------- EXERCISEDETAIL
+export const CUSTOMIZEEXERCISEDETAIL_PENDING = "exerciseDetail/pending";
+export const CUSTOMIZEEXERCISEDETAIL_ERROR = "exerciseDetail/error";
+export const CUSTOMIZEEXERCISEDETAIL_SUCCESS = "exerciseDetail/success";

@@ -32,11 +32,12 @@ const CustomExcScreen = ({ route, navigation }) => {
 
   const dispatch = useDispatch();
 
-  const toDetailCustom = (item) => {
-    console.log(item, "item");
-    console.log(item, "go to detail");
-    let custom = item;
-    navigation.navigate("CustomWorkoutList", { custom });
+  const toDetailCustom = (id) => {
+    console.log(id, "----");
+    // console.log(item, "item");
+    // console.log(item, "go to detail");
+
+    navigation.navigate("CustomWorkoutList", { id });
   };
 
   useEffect(() => {
@@ -62,7 +63,7 @@ const CustomExcScreen = ({ route, navigation }) => {
         borderWidth: 1.5,
         borderColor: textAccentSecondary,
       }}
-      onPress={() => toDetailCustom(item)}
+      onPress={() => toDetailCustom(item.id)}
     >
       <View
         style={{
@@ -108,7 +109,7 @@ const CustomExcScreen = ({ route, navigation }) => {
       <FlatList
         data={customization}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ListItem item={item} />}
+        renderItem={({ item }) => <ListItem key={item.id} item={item} />}
         // numColumns={2}
         contentContainerStyle={{
           marginTop: 10,

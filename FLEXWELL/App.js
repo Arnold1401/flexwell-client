@@ -42,32 +42,6 @@ const Bottomstack = ({ navigation }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="DashboardStack"
-        options={{
-          headerShown: false,
-
-          title: "Dashboard",
-          headerTitleStyle: {
-            fontFamily: "Montserrat-Bold",
-            fontSize: appBarFontSize,
-            letterSpacing: 2,
-          },
-          headerStyle: {
-            backgroundColor: primaryColor,
-          },
-          headerTintColor: textPrimary,
-          headerTitleAlign: "left",
-          cardStyle: {
-            backgroundColor: textPrimary,
-          },
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="dashboard" size={size} color={color} />
-          ),
-        }}
-        component={DashboardStack}
-      />
-
-      <Tab.Screen
         name="Library"
         options={{
           headerShown: false,
@@ -159,6 +133,31 @@ const Bottomstack = ({ navigation }) => {
           ),
         }}
         component={ProfileStack}
+      />
+      <Tab.Screen
+        name="DashboardStack"
+        options={{
+          headerShown: false,
+
+          title: "Dashboard",
+          headerTitleStyle: {
+            fontFamily: "Montserrat-Bold",
+            fontSize: appBarFontSize,
+            letterSpacing: 2,
+          },
+          headerStyle: {
+            backgroundColor: primaryColor,
+          },
+          headerTintColor: textPrimary,
+          headerTitleAlign: "left",
+          cardStyle: {
+            backgroundColor: textPrimary,
+          },
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="dashboard" size={size} color={color} />
+          ),
+        }}
+        component={DashboardStack}
       />
     </Tab.Navigator>
   );

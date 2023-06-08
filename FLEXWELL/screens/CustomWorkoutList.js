@@ -23,8 +23,9 @@ import {
   textSecondary,
 } from "../color-and-size.config";
 import { FlatList } from "react-native-web";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { recordExerciseMiddleware } from "../action/recordExerciseCreator";
+import { fetchCustomizationDetail } from "../action/customizationCreator";
 
 const lockAnimation = require("../assets/lottie/lock.json");
 const successBadge = require("../assets/lottie/success-badge.json");
@@ -45,7 +46,13 @@ const CustomWorkoutList = ({ route, navigation }) => {
 
   const dispatch = useDispatch();
 
-  let { custom } = route.params;
+  const { isLoading, custom, errorMsg } = useSelector(
+    (state) => state.customerExerciseDetail
+  );
+
+  console.log(custom, "TTTT");
+
+  let { id } = route.params;
   let timer = 0;
   {
     /* 
@@ -55,11 +62,15 @@ const CustomWorkoutList = ({ route, navigation }) => {
 */
   }
 
+  useEffect(() => {
+    dispatch(fetchCustomizationDetail(id));
+  }, []);
+
   const recordExercise = () => {
     console.log(JSON.stringify(custom), "hit recordExercise");
     dispatch(recordExerciseMiddleware(custom));
   };
-  console.log(custom, "inicustomworkoutlist");
+  // console.log(custom, "inicustomworkoutlist");
 
   const TheModal = ({ data }) => (
     <Modal
@@ -418,53 +429,66 @@ const CustomWorkoutList = ({ route, navigation }) => {
   // useEffect(() => {
   //   console.log("myTime: ", myTime);
   // }, [myTime]);
+  console.log(custom, "[--]");
 
-  return (
-    <ScrollView>
-      <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 30 }}>
-        <ScrollView>
-          {custom.exercises.map((item, index) => (
-            <ListItem item={item} style={{ flex: 1 }} />
-          ))}
-          <TouchableOpacity
-            onPress={() => {
-              recordExercise(custom);
-            }}
-            style={{
-              backgroundColor: textAccentSecondary,
-              marginHorizontal: 16,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 16,
-              marginBottom: 16,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-              shadowOpacity: 0.29,
-              shadowRadius: 4.65,
-
-              elevation: 7,
-            }}
-          >
-            <Text
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1 }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  } else {
+    return (
+      // <View style={{ flex: 1 }}>
+      //   <Text>TES</Text>
+      // </View>
+      <ScrollView>
+        <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 30 }}>
+          <ScrollView>
+            {custom?.exercises?.map((item, index) => (
+              <ListItem key={index} item={item} style={{ flex: 1 }} />
+            ))}
+            <TouchableOpacity
+              onPress={() => {
+                recordExercise(custom);
+                navigation.navigate("DashboardStack");
+              }}
               style={{
-                fontFamily: "Poppins",
-                color: textPrimary,
-                fontSize: 20,
-                paddingVertical: 8,
+                backgroundColor: textAccentSecondary,
+                marginHorizontal: 16,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 16,
+                marginBottom: 16,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 3,
+                },
+                shadowOpacity: 0.29,
+                shadowRadius: 4.65,
+
+                elevation: 7,
               }}
             >
-              Finish Exercise
-            </Text>
-          </TouchableOpacity>
-        </ScrollView>
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  color: textPrimary,
+                  fontSize: 20,
+                  paddingVertical: 8,
+                }}
+              >
+                Finish Exercise
+              </Text>
+            </TouchableOpacity>
+          </ScrollView>
 
-        {/* <FlatListWithAvatar /> */}
-      </View>
-    </ScrollView>
-  );
+          {/* <FlatListWithAvatar /> */}
+        </View>
+      </ScrollView>
+    );
+  }
 };
 
 export default CustomWorkoutList;

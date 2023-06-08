@@ -10,129 +10,6 @@ import {
 import { baseUrl } from "../config.js";
 import { storeData, getData } from "../async/index.js";
 
-const datanya = [
-  {
-    id: 31,
-    name: "Push Day",
-    exercises: [
-      {
-        id: 52,
-        name: "band alternating biceps curl",
-        bodyPartId: "0968",
-        bodyPart: "upper arms",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0968.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-      {
-        id: 53,
-        name: "band one arm single leg split squat",
-        bodyPartId: "0987",
-        bodyPart: "upper legs",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0987.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-      {
-        id: 54,
-        name: "barbell lateral lunge",
-        bodyPartId: "1410",
-        bodyPart: "upper legs",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/1410.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-      {
-        id: 55,
-        name: "lever alternate leg press",
-        bodyPartId: "2287",
-        bodyPart: "upper legs",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/2287.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-    ],
-    activity: {
-      id: 1,
-      status: "Finished",
-      date: "2023-06-22T09:11:56.637Z",
-      duration: 32,
-      exerciseId: 31,
-      userId: 1,
-    },
-    totalSet: 12,
-    totalDuration: 42,
-  },
-  {
-    id: 32,
-    name: "Pull Day",
-    exercises: [
-      {
-        id: 52,
-        name: "band alternating biceps curl",
-        bodyPartId: "0968",
-        bodyPart: "upper arms",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0968.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-      {
-        id: 53,
-        name: "band one arm single leg split squat",
-        bodyPartId: "0987",
-        bodyPart: "upper legs",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/0987.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-      {
-        id: 54,
-        name: "barbell lateral lunge",
-        bodyPartId: "1410",
-        bodyPart: "upper legs",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/1410.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-      {
-        id: 55,
-        name: "lever alternate leg press",
-        bodyPartId: "2287",
-        bodyPart: "upper legs",
-        gifUrl: "http://d205bpvrqc9yn1.cloudfront.net/2287.gif",
-        totalSet: 3,
-        repetition: 10,
-        weight: null,
-        exerciseId: 31,
-      },
-    ],
-    activity: {
-      id: 1,
-      status: null,
-      date: "2023-06-07T09:11:56.637Z",
-      duration: 32,
-      exerciseId: 31,
-      userId: 1,
-    },
-    totalSet: 12,
-    totalDuration: 42,
-  },
-];
-
 const activitiesPendingAction = () => ({
   type: ACTIVITIES_PENDING,
 });
@@ -158,7 +35,9 @@ export const fetchActivities = () => async (dispatch, getState) => {
         access_token: access_token,
       },
     });
-    // console.log(data, "ini response dari backend");
+    console.log(data, "ini response dari backend");
+
+    console.log(data[0]?.activity, "TTTT");
 
     const filteredDatanya = data.filter((exercise) => {
       return exercise.activity.status === "Finished";
@@ -167,8 +46,8 @@ export const fetchActivities = () => async (dispatch, getState) => {
     const dateArray = filteredDatanya.map((exercise) => ({
       date: exercise.activity.date.split("T")[0],
     }));
-    // console.log(filteredDatanya, "data filter");
-    // console.log(dateArray, "weyyyyyyyyyy");
+    console.log(filteredDatanya, "data filter");
+    console.log(dateArray, "weyyyyyyyyyy");
 
     dispatch(activitiesSuccessAction(dateArray));
     dispatch(detailActivitySuccessAction(filteredDatanya));

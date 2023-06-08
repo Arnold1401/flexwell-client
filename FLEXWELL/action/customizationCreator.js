@@ -3,6 +3,9 @@ import {
   CUSTOMIZATION_ERROR,
   CUSTOMIZATION_SUCCESS,
   CUSTOMIZATION_PENDING,
+  CUSTOMIZEEXERCISEDETAIL_ERROR,
+  CUSTOMIZEEXERCISEDETAIL_PENDING,
+  CUSTOMIZEEXERCISEDETAIL_SUCCESS,
 } from "./actionType.js";
 import { baseUrl } from "../config.js";
 import { getData } from "../async/index.js";
@@ -75,19 +78,68 @@ const fetchCustomization = () => async (dispatch, getState) => {
     });
 
     console.log(data, "ini response");
-    const hasil = data.map((challenge) => {
-      const exercises = challenge.exercises.map((exercise) => {
-        exercise.duration = { status: "none", duration: "" };
-        return exercise;
-      });
-      challenge.exercises = exercises;
-      return challenge;
-    });
+    // const hasil = data.map((challenge) => {
+    //   const exercises = challenge.exercises.map((exercise) => {
+    //     exercise.duration = { status: "none", duration: "" };
+    //     return exercise;
+    //   });
+    //   challenge.exercises = exercises;
+    //   return challenge;
+    // });
     // console.log(data, "ini data dari fetchCustomization");
-    dispatch(customizationSuccess(hasil));
+    dispatch(customizationSuccess(data));
   } catch (error) {
     console.log(error);
     dispatch(customizationError(error));
+  }
+};
+
+const customizationDetailPending = () => ({
+  type: CUSTOMIZEEXERCISEDETAIL_PENDING,
+});
+
+const customizationDetailSuccess = (responseJson) => ({
+  type: CUSTOMIZEEXERCISEDETAIL_SUCCESS,
+  payload: responseJson,
+});
+
+const customizationDetailError = (errorMessage) => ({
+  type: CUSTOMIZEEXERCISEDETAIL_ERROR,
+  payload: errorMessage,
+});
+
+export const fetchCustomizationDetail = (id) => async (dispatch, getState) => {
+  dispatch(customizationDetailPending());
+  try {
+    console.log("-- Customization Creator --");
+
+    const { access_token } = JSON.parse(await getData("userData"));
+
+    console.log(access_token);
+
+    const { data } = await axios.get(`${baseUrl}/pub/exercises/${id}`, {
+      headers: {
+        access_token: access_token,
+      },
+    });
+
+    console.log(data.exercises, "-()-");
+
+    const hasil = data.exercises.map((challenge) => {
+      challenge.duration = { status: "none", duration: "" };
+      return challenge;
+    });
+
+    const value = {
+      exercises: hasil,
+      id: data.id,
+    };
+
+    console.log(value, "ini data dari fetchCustomizationcre");
+    dispatch(customizationDetailSuccess(value));
+  } catch (error) {
+    console.log(error);
+    dispatch(customizationDetailError(error));
   }
 };
 export {
