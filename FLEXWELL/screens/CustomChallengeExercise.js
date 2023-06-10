@@ -40,6 +40,51 @@ const CustomChallengeExercise = ({ route, navigation }) => {
   const [resetTimer, setResetTimer] = useState(false);
   const [resetStopwatch, setResetStopwatch] = useState(false);
 
+  const TheModal = ({ data }) => (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        // Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
+      }}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Stopwatch
+            laps
+            msecs
+            start={isStopwatchStart}
+            //To start
+            reset={resetStopwatch}
+            //To reset
+            options={options}
+            //options for the styling
+            getTime={(time) => {
+              console.log(time);
+              if (!isStopwatchStart) {
+                setMyTime(time);
+                console.log("masuk karena false");
+              }
+              timer = time;
+            }}
+          />
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => {
+              stopthetimer(data);
+              setModalVisible(false);
+              setMyTime(timer);
+            }}
+          >
+            <Text style={styles.textStyle}>Ok</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+
   const options = {
     container: {
       backgroundColor: primaryColor,

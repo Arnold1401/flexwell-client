@@ -6,6 +6,7 @@ import {
 } from "./actionType.js";
 import { baseUrl } from "../config.js";
 import { storeData, getData } from "../async/index.js";
+import { fetchActivities } from "./fetchActivitiesCreator.js";
 
 const recordExercisePendingAction = () => ({
   type: RECORDEXERCISE_PENDING,
@@ -43,6 +44,8 @@ export const recordExerciseMiddleware =
             },
           }
         );
+
+        dispatch(fetchActivities());
 
         console.log(data);
       }

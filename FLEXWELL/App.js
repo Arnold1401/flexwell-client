@@ -33,7 +33,7 @@ import { Pressable, TouchableOpacity } from "react-native";
 import WelcomingTextHeader from "./components/WelcomingTextHeader";
 SplashScreen.preventAutoHideAsync();
 
-// LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

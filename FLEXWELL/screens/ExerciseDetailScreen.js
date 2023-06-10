@@ -95,18 +95,7 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
             justifyContent: "space-between",
             flex: 1,
           }}
-        >
-          <TouchableOpacity
-            onPress={() => (!favorite ? setFavorite(true) : setFavorite(false))}
-            style={{ flex: 1 }}
-          >
-            <FontAwesome
-              name={!favorite ? "star-o" : "star"}
-              size={16}
-              color={!favorite ? textAccentSecondary : primaryColor}
-            />
-          </TouchableOpacity>
-        </View>
+        ></View>
         <View
           style={{
             flex: 1,
@@ -267,7 +256,8 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
         >
           <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>Notes</Text>
           <Text style={{ textAlign: "justify" }}>
-            Jika ada note, nanti bisa ditulis di sini
+            Strength doesn't come from what you can do. It comes from overcoming
+            the things you once thought you couldn't.
           </Text>
         </View>
       </View>

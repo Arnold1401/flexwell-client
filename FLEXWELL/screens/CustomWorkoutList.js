@@ -165,6 +165,8 @@ const CustomWorkoutList = ({ route, navigation }) => {
     },
   });
 
+  const myAlert = () => alert("Congratulations!");
+
   const startthetimer = (id) => {
     setcurrid(id);
     setIsStopwatchStart(true);
@@ -451,7 +453,10 @@ const CustomWorkoutList = ({ route, navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 recordExercise(custom);
-                navigation.navigate("DashboardStack");
+                myAlert();
+                setTimeout(() => {
+                  navigation.navigate("DashboardStack");
+                }, 1500);
               }}
               style={{
                 backgroundColor: textAccentSecondary,

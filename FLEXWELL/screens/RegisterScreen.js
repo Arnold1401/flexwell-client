@@ -48,6 +48,10 @@ const RegisterScreen = () => {
       console.warn("All field must be fill!");
     } else {
       dispatch(doRegister(email, username, password));
+      myAlert();
+      setTimeout(() => {
+        navigation.navigate("Login");
+      }, 1500);
     }
   };
 
@@ -57,6 +61,8 @@ const RegisterScreen = () => {
     onChangePassword("");
     onChangePasswordCheck("");
   };
+
+  const myAlert = () => alert(`${username} has been registered!`);
 
   useEffect(() => {
     if (user.status === 201) {

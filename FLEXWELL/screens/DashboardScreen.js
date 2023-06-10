@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Pressable,
   Dimensions,
   ScrollView,
+  Alert,
 } from "react-native";
 import axios from "axios";
 import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
@@ -22,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchActivities } from "../action/fetchActivitiesCreator";
 
 import { fetchMeasurementMiddleware } from "../action/measurementCreator";
+import { useFocusEffect } from "@react-navigation/native";
 
 const DashboardScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -53,8 +55,8 @@ const DashboardScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     dispatch(fetchActivities());
-    console.log("ini category dari useEffect", category);
-    console.log("ini myDay yang berubah", myDay);
+    // console.log("ini category dari useEffect", category);
+    // console.log("ini myDay yang berubah", myDay);
     dispatch(fetchMeasurementMiddleware(category));
   }, [category, myDay]);
 
@@ -73,12 +75,12 @@ const DashboardScreen = ({ route, navigation }) => {
     }
   }, [activities]);
 
-  console.log(activities, "XXXXXXX");
+  // console.log(activities, "XXXXXXX");
 
   const [myDay, setMyDay] = useState(new Date().toISOString().split("T")[0]);
 
-  console.log(myDay, "ini myDay");
-  console.log(new Date().toLocaleString());
+  // console.log(myDay, "ini myDay");
+  // console.log(new Date().toLocaleString());
 
   const dataMuscle = [
     { key: "biceps", value: "biceps" },
@@ -112,6 +114,8 @@ const DashboardScreen = ({ route, navigation }) => {
   const [exercise, setExercise] = useState({});
 
   useEffect(() => {
+    // console.log("jalannnn");
+
     if (Object.keys(activity).length !== 0) {
       const choosenActivity = activity.find(
         (e) => e?.activity?.date.split("T")[0] === myDay
@@ -120,11 +124,50 @@ const DashboardScreen = ({ route, navigation }) => {
     }
   }, [myDay]);
 
+  // useEffect(() => {
+  //   // console.log("jalannnn");
+
+  //   if (Object.keys(activity).length !== 0) {
+  //     const choosenActivity = activity.find(
+  //       (e) => e?.activity?.date.split("T")[0] === myDay
+  //     );
+  //     setExercise(choosenActivity);
+  //   }
+  // }, [activity]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // dispatch(fetchActivities());
+
+      if (Object.keys(activity).length !== 0) {
+        const choosenActivity = activity.find(
+          (e) => e?.activity?.date.split("T")[0] === myDay
+        );
+        setExercise(choosenActivity);
+        console.log(choosenActivity, "ini exercisexxTT");
+      }
+      console.log(exercise, "ini exercisexx");
+      return () => console.log("berehenti");
+    }, [activity])
+  );
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     if (Object.keys(activity).length !== 0) {
+  //       const choosenActivity = activity.find(
+  //         (e) => e?.activity?.date.split("T")[0] === myDay
+  //       );
+  //       setExercise(choosenActivity);
+  //     }
+  //   }),
+  //   [myDay]
+  // );
+
   const [measurementData, setMeasurementData] = useState({});
 
-  useEffect(() => {
-    console.log(myDay, "tes");
-  }, [myDay]);
+  // useEffect(() => {
+  //   // console.log(myDay, "tes");
+  // }, [myDay]);
 
   if (loadingMeasurement) {
     <Text>Loading..</Text>;

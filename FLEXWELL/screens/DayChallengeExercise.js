@@ -32,8 +32,10 @@ const DayChallengeExcercise = ({ route, navigation }) => {
   const [messageModal, setModalMessage] = useState("");
   const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
+  const [modalFinish, setModalFinish] = useState(false);
 
   const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalFinish, setVisibleModalFinish] = useState(false);
 
   const [myTime, setMyTime] = useState(null);
 
@@ -95,6 +97,8 @@ const DayChallengeExcercise = ({ route, navigation }) => {
       </View>
     </Modal>
   );
+
+  const myAlert = () => alert("Congratulations!");
 
   const styles = StyleSheet.create({
     centeredView: {
@@ -327,7 +331,7 @@ const DayChallengeExcercise = ({ route, navigation }) => {
                   height: 34,
                 }}
               >
-                1
+                {item.totalSet}
               </Text>
             </View>
             <View
@@ -359,7 +363,7 @@ const DayChallengeExcercise = ({ route, navigation }) => {
                   height: 34,
                 }}
               >
-                12
+                {item.repetition}
               </Text>
             </View>
             <View></View>
@@ -419,6 +423,8 @@ const DayChallengeExcercise = ({ route, navigation }) => {
           <TouchableOpacity
             onPress={() => {
               console.log(JSON.stringify(challenge));
+              myAlert();
+              navigation.navigate("30DayChallenge");
             }}
             style={{
               backgroundColor: textAccentSecondary,

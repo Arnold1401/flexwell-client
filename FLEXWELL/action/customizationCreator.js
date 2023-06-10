@@ -111,7 +111,7 @@ const customizationDetailError = (errorMessage) => ({
 export const fetchCustomizationDetail = (id) => async (dispatch, getState) => {
   dispatch(customizationDetailPending());
   try {
-    console.log("-- Customization Creator --");
+    console.log("-- XXXXXX --");
 
     const { access_token } = JSON.parse(await getData("userData"));
 
