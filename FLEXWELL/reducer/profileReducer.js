@@ -1,44 +1,45 @@
 import {
-  USER_PENDING,
-  USER_ERROR,
-  USER_SUCCESS,
-  USER_CLEAR,
+  PROFILE_PENDING,
+  PROFILE_ERROR,
+  PROFILE_SUCCESS,
+  PROFILE_CLEAR,
 } from "../action/actionType";
 
 const initalState = {
   isLoading: true,
-  user: {},
+  profile: {},
   errorMsg: "",
 };
 
-const userReducer = (state = initalState, action) => {
+const profileReducer = (state = initalState, action) => {
   switch (action.type) {
-    case USER_SUCCESS:
+    case PROFILE_SUCCESS:
+      console.log("-- succeed update  --");
       return {
         ...state,
         isLoading: false,
-        user: action.payload,
+        profile: action.payload,
       };
-    case USER_PENDING:
+    case PROFILE_PENDING:
       return {
         ...state,
       };
-    case USER_ERROR:
+    case PROFILE_ERROR:
       return {
         ...state,
         isLoading: false,
         errorMsg: action.payload,
       };
-    case USER_CLEAR:
+    case PROFILE_CLEAR:
       return {
         ...state,
         isLoading: false,
-        errorMsg: "",
-        user: "",
+        errorMsg: action.payload,
+        profile: action.payload,
       };
     default:
       return state;
   }
 };
 
-export default userReducer;
+export default profileReducer;
